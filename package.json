@@ -1,0 +1,29 @@
+{
+  "name": "alisina-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Alisina Sarwari — engineering and product portfolio",
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "npm run check:content && next build",
+    "start": "next start --hostname 0.0.0.0",
+    "check:content": "node scripts/check-content.mjs",
+    "check:release": "node scripts/check-content.mjs --release",
+    "test": "node scripts/render-preview.mjs && node --test tests/*.test.mjs",
+    "verify": "npm run check:content && npm run test && npm run build"
+  },
+  "dependencies": {
+    "next": "16.3.5",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "maktablink", "slug": "maktablink", "title": "MaktabLink", "eyebrow": "EDUCATION / SAAS",
+    "category": "Education", "oneLiner": "Bringing school operations, learning workflows and families into one connected platform.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/maktab", "repoUrlVerified": true,
+    "featuredOrder": 1, "technologies": ["Next.js", "Expo", "Fastify", "PostgreSQL"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "education", "coverTitle": "Connected learning.\\nClearer operations."
+  },
+  {
+    "id": "futsal", "slug": "futsal", "title": "Futsal", "eyebrow": "SPORTS / BOOKINGS",
+    "category": "Sports", "oneLiner": "A futsal venue, team and competition experience built around real availability.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/futsal", "repoUrlVerified": true,
+    "featuredOrder": 2, "technologies": ["React Native", "Expo", "TypeScript", "PostgreSQL"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "sports", "coverTitle": "Play. Book.\\nCompete."
+  },
+  {
+    "id": "bazaarlink", "slug": "bazaarlink", "title": "BazaarLink", "eyebrow": "COMMERCE / MARKETPLACE",
+    "category": "Marketplace", "oneLiner": "A multilingual marketplace connecting shopping experiences with merchant operations.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/bazaar-", "repoUrlVerified": true,
+    "featuredOrder": 3, "technologies": ["Next.js", "Expo", "Fastify", "PostgreSQL"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "commerce", "coverTitle": "Local commerce.\\nBetter connected."
+  },
+  {
+    "id": "amlaklink", "slug": "amlaklink", "title": "AmlakLink", "eyebrow": "PROPERTY / DISCOVERY",
+    "category": "Marketplace", "oneLiner": "Property discovery for Afghanistan with structured listings and trust workflows.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/amlak", "repoUrlVerified": true,
+    "featuredOrder": 4, "technologies": ["Expo", "Next.js", "Fastify", "PostgreSQL"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "property", "coverTitle": "Discover places.\\nBuild trust."
+  },
+  {
+    "id": "dandanlink", "slug": "dandanlink", "title": "DandanLink", "eyebrow": "HEALTHCARE / TOOLS",
+    "category": "Healthcare", "oneLiner": "Early foundations for dental practice management and patient discovery.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/dentist", "repoUrlVerified": true,
+    "featuredOrder": 5, "technologies": ["Next.js", "Expo", "Express", "Drizzle"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "healthcare", "coverTitle": "Care meets\\nclarity."
+  },
+  {
+    "id": "kankorprep", "slug": "kankorprep", "title": "KankorPrep", "eyebrow": "EDUCATION / MOBILE",
+    "category": "Education", "oneLiner": "A focused mobile learning experience for exam practice and progress review.",
+    "developmentStatus": "in_development", "publicationStatus": "published", "contentApproval": "owner_pending",
+    "repoUrl": "https://github.com/Alisina137/kankor", "repoUrlVerified": true,
+    "featuredOrder": 6, "technologies": ["Expo", "React Native", "Fastify", "PostgreSQL"],
+    "ownerRole": "Developer and product builder — attribution pending confirmation", "sourceCheckedAt": "2026-11-14",
+    "motif": "study", "coverTitle": "Practice with\\npurpose."
+  }
+]
