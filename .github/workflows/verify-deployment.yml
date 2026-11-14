@@ -1,0 +1,32 @@
+name: Manual deployed portfolio smoke
+on:
+  workflow_dispatch:
+    inputs:
+      deployed_url:
+        description: 'Previously deployed origin, e.g. https://portfolio.example (never include secrets)'
+        required: true
+        type: string
+      mode:
+        description: 'Expected crawler state. Use preview until owner sign-off.'
+        required: true
+        default: preview
+        type: choice
+        options:
+          - preview
+          - launch
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check deployed read-only routes
+        env:
+          PORTFOLIO_DEPLOYED_URL: ${{ inputs.deployed_url }}
+          PORTFOLIO_SMOKE_MODE: ${{ inputs.mode }}
+        run: node scripts/smoke-deployed.mjs

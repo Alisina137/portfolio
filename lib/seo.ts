@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import profile from "@/content/profile.json";
+import launchApproval from "@/content/launch-approval.json";
+import { hasLaunchApproval } from "@/lib/release-audit.mjs";
 import { getPublishedProjects } from "@/lib/content";
 import { getSiteUrl, isPublicIndexingEnabled, getPageUrl } from "@/lib/site-url.mjs";
 
@@ -8,6 +10,7 @@ const brand = "Alisina Sarwari";
 /** Publication cannot be enabled by an environment variable alone. */
 export function canIndexPortfolio(): boolean {
   return isPublicIndexingEnabled()
+    && hasLaunchApproval(launchApproval)
     && profile.ownerBioApproved
     && profile.publicEmailApproved
     && Boolean(profile.publicEmail)
