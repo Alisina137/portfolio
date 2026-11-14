@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getSiteUrl, isPublicIndexingEnabled } from '../lib/site-url.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const profile = JSON.parse(fs.readFileSync(path.join(root, 'content/profile.json'), 'utf8'));
@@ -79,10 +80,11 @@ if (new Set(orders).size !== orders.length) fail('featuredOrder values must be u
 if (isRelease) {
   if (!profile.ownerBioApproved) fail('public biography needs owner sign-off');
   if (!profile.publicEmail || !profile.publicEmailApproved) fail('owner-approved reachable contact required before launch (DEC-01)');
-  fail('P03 preview cannot be publicly launched until P04–P05 quality, content, and deployment gates pass');
+  if (!getSiteUrl()?.startsWith('https://')) fail('release needs a real configured HTTPS NEXT_PUBLIC_SITE_URL');
+  if (!isPublicIndexingEnabled()) fail('release needs PORTFOLIO_LAUNCH_APPROVED=true after owner sign-off');
 }
 if (errors.length) {
   console.error(`Content validation failed (${errors.length}):\n- ${errors.join('\n- ')}`);
   process.exit(1);
 }
-console.log(`Content validation passed: ${projects.length} published records, ${caseStudies.length} case studies, ${featured.length} featured, ${reviewQueue.length} pending review.`);
+console.log(`Content validation passed: ${published.length} published records, ${caseStudies.length} case studies, ${featured.length} featured, ${reviewQueue.length} pending review.`);

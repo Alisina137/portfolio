@@ -764,3 +764,23 @@ section[id] { scroll-margin-top: 85px; }
   .case-contact-inline { padding:20px; }
   .footer-social { gap:12px; }
 }
+
+/* Phase 04 — truthful recovery pages and accessibility hardening */
+.recovery-page { min-height:max(620px, calc(100svh - 72px)); display:flex; align-items:center; }
+.recovery-layout { display:grid; grid-template-columns:minmax(160px,.7fr) minmax(0,1.3fr); align-items:center; gap:clamp(24px,6vw,110px); }
+.recovery-code { font:700 clamp(100px,17vw,250px)/1 var(--font-display); color:var(--accent); opacity:.88; letter-spacing:-.12em; }
+.recovery-copy h1 { font:700 clamp(50px,6vw,84px)/1.05 var(--font-display); letter-spacing:-.065em; margin:22px 0; }
+.recovery-copy h1 em { font-style:normal; color:var(--accent); }
+.recovery-copy p { color:var(--text-muted); font-size:16px; line-height:1.8; max-width:580px; }
+.recovery-actions { margin-top:34px; display:flex; flex-wrap:wrap; gap:14px; }
+:where(main, section)[id] { scroll-margin-top:90px; }
+:where(button, input, select, textarea, a):focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+:where(.icon-button, .menu-trigger) { min-width:44px; min-height:44px; }
+:where(.catalog-chip, .case-lightbox-footer button, .case-lightbox-close, .catalog-advanced-toggle) { min-height:44px; }
+@media(max-width:767px) {
+  .recovery-page { min-height:calc(100svh - 64px); padding-block:72px; }
+  .recovery-layout { grid-template-columns:1fr; gap:14px; }
+  .recovery-code { font-size:clamp(90px,24vw,150px); }
+  .recovery-copy h1 { font-size:clamp(46px,11vw,68px); }
+}
+@media(max-width:380px) { .recovery-actions { flex-direction:column; align-items:stretch; } }

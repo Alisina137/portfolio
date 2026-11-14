@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import "@/styles/globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";
 
 export const metadata: Metadata = {
-  title: "Alisina Sarwari — Software Engineer & Product Builder",
-  description: "Selected web and mobile product work by Alisina Sarwari, including education, marketplaces and booking systems.",
-  robots: { index: false, follow: false }, // P01 preview is NOT launch-approved; P04/P05 controls indexing.
+  ...createPageMetadata({
+    title: "Alisina Sarwari — Software Engineer & Product Builder",
+    description: "Explore source-reviewed web, mobile, education and marketplace projects by Alisina Sarwari, with engineering case studies and professional contact links.",
+    pathname: "/",
+  }),
+  applicationName: "Alisina — Portfolio",
+  category: "technology",
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0B111B" };
 

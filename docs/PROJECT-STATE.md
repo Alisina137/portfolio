@@ -14,7 +14,7 @@
 
 **Content:** Six published *preview* projects in `content/projects.json`, six studies in `content/case-studies.json`; nine other public repos held in `content/review-queue.json` pending owner sign-off. No fabricated screenshots or released-product claims. Some original published content fields still say `owner_pending`; **do not launch or index** before approvals.
 
-**Tests:** `node scripts/check-content.mjs`, `npm test` (14 Node tests), and TS transpilation syntax check passed. The layout-only catalog HTML preview showed no horizontal overflow at 320/360/768/1024/1440 px in local Chromium. Actual Next.js dependency install, production build, semantic TypeScript check, rendered app E2E, and live-device gallery testing remain unverified because the npm registry cannot be reached from this environment. Details in `docs/PHASE-02.md`.
+**Tests:** `node scripts/check-content.mjs`, `npm test` (Phase 2 baseline tests), and TS transpilation syntax check passed. The layout-only catalog HTML preview showed no horizontal overflow at 320/360/768/1024/1440 px in local Chromium. Actual Next.js dependency install, production build, semantic TypeScript check, rendered app E2E, and live-device gallery testing remain unverified because the npm registry cannot be reached from this environment. Details in `docs/PHASE-02.md`.
 
 **Release:** `robots:noindex,nofollow` retained; `npm run check:release` intentionally fails while owner approval, real contact, and P03–P05 are pending. Do not interpret pushed source or green Node tests as a public launch.
 
@@ -24,4 +24,10 @@
 
 **Evidence:** Node content checks and P01–P03 tests passed, development-only static layout checks at 320/360/768/1024/1440 show no overflow. Actual Next.js build, SSR and interactive real-browser E2E unverified (offline dependencies). Read `docs/PHASE-03.md` for detailed gates.
 
-**Next:** P04 — SEO readiness, WCAG, performance and 404/recovery; pending owner decisions DEC-01 public professional contact, DEC-02 public project status and ownership, DEC-03 education and bio, DEC-05 optional résumé, DEC-07 authentic sanitized media. Keep `noindex,nofollow` until P05 launch sign-off.
+## P04 — SEO, recovery, accessibility & performance safeguards
+
+**Status:** IMPLEMENTED — VERIFICATION PENDING. Unique SEO metadata, canonical URLs when a real origin is configured, source-driven OpenGraph cards, public-only gated sitemap and robots, branded 404/error retry screens, conservative security headers, and responsive/focus/reduced-motion improvements. Content checks, source SEO audits, 30 Node tests and 20 Chromium static-preview reflow checks pass without a Next installation; actual Next build, screen-reader testing, deployed HTTP checks, Lighthouse and live-device verification remain pending. See `docs/PHASE-04.md`.
+
+**Publication remains OFF:** `PORTFOLIO_LAUNCH_APPROVED=false` by default. Site indexing additionally depends on approved HTTPS origin, public email, biography approval and owner-approved cases. No fictional domain/contact, fabricated gallery or secret/config bypass is published.
+
+**Next:** P05 — owner content review, approved public contact, verified real assets/links, production deployment and release QA. Owner decisions DEC-01 contact, DEC-02 project approval, DEC-03 bio, DEC-05 résumé optional, DEC-07 sanitized authentic media. Keep noindex until complete approvals and real QA.

@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { getPublishedProjects } from "@/lib/content";
 import { getPublicIdentity } from "@/lib/public-identity";
+import { canIndexPortfolio } from "@/lib/seo";
+import { getPageUrl } from "@/lib/site-url.mjs";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "About — Alisina Sarwari | Software Engineer & Product Builder",
-  description: "The approach, selected technologies, and product engineering experience behind Alisina Sarwari's web and mobile projects.",
-};
+  description: "The approach, selected technologies and product engineering experience behind Alisina Sarwari’s web and mobile projects.",
+  pathname: "/about",
+});
 
 const focusAreas = [
   {
@@ -47,7 +51,17 @@ export default function AboutPage() {
   const identity = getPublicIdentity();
   const bySlug = new Map(getPublishedProjects().map(project => [project.slug, project]));
   const technologies = Array.from(new Set(getPublishedProjects().flatMap(project => project.technologies)));
+  const aboutUrl = getPageUrl("/about");
+  const personSchema = canIndexPortfolio() && aboutUrl ? {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: identity.displayName,
+    jobTitle: identity.professionalTitle,
+    url: aboutUrl,
+    ...(identity.github && { sameAs: [identity.github, ...(identity.linkedIn ? [identity.linkedIn] : [])] }),
+  } : null;
   return <main id="main" tabIndex={-1}>
+    {personSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }} />}
     <section className="identity-hero section-pad" aria-labelledby="about-title">
       <div className="container identity-hero-grid">
         <div className="identity-intro">

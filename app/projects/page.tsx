@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
 import { ProjectsExplorer } from "@/components/projects-explorer";
 import { getPublishedProjects } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Projects | Alisina Sarwari",
-  description: "Explore software projects in education, mobile, marketplaces, and operational platforms. Browse engineering case studies and source repositories.",
-};
+  description: "Explore source-reviewed software projects in education, mobile, marketplaces and operational platforms, with detailed engineering case studies.",
+  pathname: "/projects",
+});
 
 export default function ProjectsPage() {
   const projects = getPublishedProjects();

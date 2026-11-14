@@ -6,6 +6,7 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { ArrowUpRightIcon, ArrowRightIcon } from "@/components/icons";
 import { getCaseStudy, getDevelopmentLabel, getPublicProject, getPublishedProjects, getRelatedProjects } from "@/lib/content";
 import { returnToCatalog } from "@/lib/catalog";
+import { createPageMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,8 +18,8 @@ export function generateStaticParams() { return getPublishedProjects().filter(p 
 export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
   const { slug } = await params;
   const project = getPublicProject(slug);
-  if (!project || !getCaseStudy(slug)) return { title: "Project not found | Alisina Sarwari", robots: { index: false } };
-  return { title: `${project.title} — Project case study | Alisina Sarwari`, description: project.oneLiner };
+  if (!project || !getCaseStudy(slug)) return { title: "Project not found | Alisina Sarwari", robots: { index: false, follow: false } };
+  return createPageMetadata({ title: `${project.title} — Project case study | Alisina Sarwari`, description: project.oneLiner, pathname: `/projects/${project.slug}` });
 }
 
 export default async function ProjectCasePage({ params, searchParams }: Props) {

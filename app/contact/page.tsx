@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { EmailContact } from "@/components/email-contact";
 import { getPublicIdentity } from "@/lib/public-identity";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact — Alisina Sarwari | Software Engineer",
-  description: "Contact and professional profile links for software engineer and product builder Alisina Sarwari.",
-};
+  description: "Approved professional links and project contact information for software engineer and product builder Alisina Sarwari.",
+  pathname: "/contact",
+});
 
 export default function ContactPage() {
   const identity = getPublicIdentity();
