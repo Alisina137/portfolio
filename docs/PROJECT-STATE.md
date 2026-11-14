@@ -26,8 +26,10 @@
 
 ## P04 — SEO, recovery, accessibility & performance safeguards
 
-**Status:** IMPLEMENTED — VERIFICATION PENDING. Unique SEO metadata, canonical URLs when a real origin is configured, source-driven OpenGraph cards, public-only gated sitemap and robots, branded 404/error retry screens, conservative security headers, and responsive/focus/reduced-motion improvements. Content checks, source SEO audits, 30 Node tests and 20 Chromium static-preview reflow checks pass without a Next installation; actual Next build, screen-reader testing, deployed HTTP checks, Lighthouse and live-device verification remain pending. See `docs/PHASE-04.md`.
+**Status:** IMPLEMENTED — VERIFICATION PENDING. Unique SEO metadata, canonical URLs when a real origin is configured, source-driven OpenGraph cards, public-only gated sitemap and robots, branded 404/error retry screens, conservative security headers, and responsive/focus/reduced-motion improvements. Content checks, source SEO audits, 30 Node tests and 20 Chromium static-preview reflow checks pass without a Next installation; actual Next build and TypeScript passed in GitHub Actions run 43597231241; the new production HTTP smoke check, screen-reader testing, deployed HTTPS checks, Lighthouse and live-device verification remain pending. See `docs/PHASE-04.md`.
 
 **Publication remains OFF:** `PORTFOLIO_LAUNCH_APPROVED=false` by default. Site indexing additionally depends on approved HTTPS origin, public email, biography approval and owner-approved cases. No fictional domain/contact, fabricated gallery or secret/config bypass is published.
 
 **Next:** P05 — owner content review, approved public contact, verified real assets/links, production deployment and release QA. Owner decisions DEC-01 contact, DEC-02 project approval, DEC-03 bio, DEC-05 résumé optional, DEC-07 sanitized authentic media. Keep noindex until complete approvals and real QA.
+
+**CI cleanup (P04):** Fixed P01–P03 preview scripts to create their generated output folder; fixed P02 catalog TypeScript generic and P04 Person schema property access after CI feedback. This was necessary to obtain a genuinely passing Next.js production build.

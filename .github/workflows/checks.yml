@@ -20,4 +20,6 @@ jobs:
       - name: Content, SEO, tests, and Next.js build
         env:
           PORTFOLIO_LAUNCH_APPROVED: 'false'
-        run: npm run verify
+        run: |
+          npm run verify
+          npm run smoke:http

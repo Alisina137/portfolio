@@ -51,6 +51,7 @@ npm run check:seo
 npm test
 npx tsc --noEmit
 npm run build
+npm run smoke:http  # requires completed production build
 ```
 
 `npm run check:release` is an intentionally stricter prelaunch gate and fails until content/contact approval, approved HTTPS domain, and Phase 5 acceptance are finished. Configure `NEXT_PUBLIC_SITE_URL` only after a real HTTPS domain is approved. `PORTFOLIO_LAUNCH_APPROVED` remains false until Phase 5 owner sign-off; setting it true does not override content checks. Node tests exercise catalog filtering, URL behavior, content boundaries, and static source checks. `scripts/render-preview.mjs` and `scripts/render-catalog-preview.mjs` create **development-only HTML previews**, not deployment artifacts or evidence that the real Next runtime was tested.
@@ -73,4 +74,4 @@ The authorized GitHub-first workflow pushes reviewed changes to the `main` branc
 
 ## P04 pending external checks
 
-Source tests and development-only layout previews do not establish a working Next.js deploy. Run `npm install`, `npx tsc --noEmit`, `npm run build`, keyboard/screen-reader QA, Lighthouse at 320/360/768/1440 px, and inspect the real HTTP 404, OpenGraph image, robots, sitemap and headers after hosting. No deployment has been performed in Phase 4.
+GitHub Actions has passed TypeScript and Next.js production compilation, but a compiled site does not establish a deployed working site. Run `npm install`, `npx tsc --noEmit`, `npm run build`, keyboard/screen-reader QA, Lighthouse at 320/360/768/1440 px, and inspect the real HTTP 404, OpenGraph image, robots, sitemap and headers after hosting. No deployment has been performed in Phase 4.

@@ -1,12 +1,12 @@
 # P04 — Search readiness, accessibility, performance & recovery
 
-**Specification:** Portfolio v1.0, Phase P04; Workflow V5. **Status:** IMPLEMENTED — VERIFICATION PENDING (full Next build, real-page accessibility audit, Lighthouse and live HTTPS verification not yet run).
+**Specification:** Portfolio v1.0, Phase P04; Workflow V5. **Status:** IMPLEMENTED — VERIFICATION PENDING (Next.js CI production build and TypeScript succeeded at commit `cd9f01e`; HTTP route smoke, full accessibility audit, Lighthouse and live HTTPS verification are remaining gates).
 
 ## Implemented behavior and acceptance coverage
 
 | Gate | Source / user-visible behavior | Verification |
 |---|---|---|
-| P04-A01 | Distinct titles/descriptions, canonical URLs when a real origin exists, Twitter and OpenGraph metadata for Home, Projects, all case studies, About and Contact; programmatic original editorial OG images with factual project titles, not fabricated screenshots. | Source contracts and Node tests pass; actual HTML meta/OG rendering not verified until Next install. |
+| P04-A01 | Distinct titles/descriptions, canonical URLs when a real origin exists, Twitter and OpenGraph metadata for Home, Projects, all case studies, About and Contact; programmatic original editorial OG images with factual project titles, not fabricated screenshots. | Source contracts and Node tests pass; CI confirms Next.js build and OG routes are generated; actual HTTP image/metadata smoke is being added, live share preview remains pending. |
 | P04-A02 | `/robots.txt` disallows all crawlers by default. `/sitemap.xml` stays empty until fully approved; then includes exactly Home, Projects, About, Contact and published/approved case-study slugs. Draft, review, archived, unknown slugs excluded. | Unit tests and source audit pass; deployed crawler fetch pending. |
 | P04-A03 | Static content avoids fetching APIs on page load; no remote fonts, stock media, trackers, analytics, or third-party scripts. Optional images already use Next Image with sizes; cases without approved media show honest original typographic illustrations, not broken screenshot requests. | Chromium development-only HTML previews: 20/20 combinations (Home, Projects, About, Contact at 320/360/768/1024/1440px) have no horizontal overflow; real Lighthouse CWV (LCP≤2.5s, INP≤200ms, CLS≤0.1 at p75) pending deployment and browser/field evidence. |
 | P04-A04 | Skip link, semantic navigation, focus indicator, keyboard mobile menu, status announcements, reduced-motion support, minimum 44px key controls, descriptive error recovery controls, anchor scroll offset. | Source checks plus dev-preview reflow inspection; keyboard interaction of actual Next runtime pending; WCAG 2.2 AA manual screen reader and full app audit **pending**. |
@@ -37,3 +37,5 @@ npm run build
 Developer must also open 320/360/768/1440 px widths, use keyboard Tab/Shift+Tab/Escape across header and catalog, verify low-vision 200% zoom, reduced motion, aria-live announcements, and lightbox focus. In a deployed HTTPS environment, test a valid deep link and an invalid slug, see real 404 status, inspect share previews and fetch robots/sitemap. Run Lighthouse with mobile emulation, then document LCP/INP/CLS and any accessibility failures. **No full Next build, deployment, or real screen-reader verification has been claimed in this delivery.**
 
 No database, authentication, backend API, user analytics, remote image generation, or contact form was added for P04. P05 remains responsible for editorial consent, deployment, verified public contact and real release gates.
+
+**CI evidence:** GitHub Actions `Portfolio verification` run 43597231241 passed after fixing pre-existing TypeScript/preview directory issues. CI built 25 static/dynamic routes, including 6 case OG images, 404, robots and sitemap. Next emits an expected `metadataBase` warning while the owner has not supplied an approved site URL; the release gate rejects indexing/launch. Source previews are not substitutes for deployed real-device checks.

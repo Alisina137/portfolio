@@ -10,6 +10,7 @@
     "start": "next start --hostname 0.0.0.0",
     "check:content": "node scripts/check-content.mjs",
     "check:seo": "node scripts/check-seo.mjs",
+    "smoke:http": "node scripts/smoke-http.mjs",
     "check:release": "node scripts/check-content.mjs --release",
     "test": "node scripts/render-preview.mjs && node scripts/render-catalog-preview.mjs && node scripts/render-identity-preview.mjs && node --test tests/*.test.mjs",
     "verify": "npm run check:content && npm run check:seo && npm run test && npm run build"
