@@ -1,0 +1,11 @@
+[
+  { "title": "Restaurant Social", "repoUrl": "https://github.com/Alisina137/restaurant", "reason": "Verify project naming and scope before public case publication." },
+  { "title": "Fluent Path", "repoUrl": "https://github.com/Alisina137/fluent-path", "reason": "README contains scaffold text; verify implemented modules and screenshots." },
+  { "title": "Persian/Dari Calculator", "repoUrl": "https://github.com/Alisina137/calculator", "reason": "Verify public screenshots and product/store status." },
+  { "title": "Puzzle Book Generator", "repoUrl": "https://github.com/Alisina137/puzzle", "reason": "Verify authoring/export workflow and approved images." },
+  { "title": "Affiliate Platform", "repoUrl": "https://github.com/Alisina137/affiliate-website", "reason": "Verify content rights and what features are actually finished." },
+  { "title": "Ghazniwal", "repoUrl": "https://github.com/Alisina137/ghazniwal", "reason": "README is a Strapi starter, not a verified project summary." },
+  { "title": "League-First", "repoUrl": "https://github.com/Alisina137/League-First", "reason": "Clarify whether it is distinct from Futsal." },
+  { "title": "Coloring-Page", "repoUrl": "https://github.com/Alisina137/Coloring-Page", "reason": "Confirm purpose and public imagery rights." },
+  { "title": "nonfiction", "repoUrl": "https://github.com/Alisina137/nonfiction", "reason": "Confirm purpose, source permissions, and public scope." }
+]

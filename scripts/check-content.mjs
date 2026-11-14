@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const profile = JSON.parse(fs.readFileSync(path.join(root, 'content/profile.json'), 'utf8'));
 const projects = JSON.parse(fs.readFileSync(path.join(root, 'content/projects.json'), 'utf8'));
+const caseStudies = JSON.parse(fs.readFileSync(path.join(root, 'content/case-studies.json'), 'utf8'));
+const reviewQueue = JSON.parse(fs.readFileSync(path.join(root, 'content/review-queue.json'), 'utf8'));
 const isRelease = process.argv.includes('--release');
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -34,15 +36,44 @@ for (const p of projects) {
 }
 const featured = projects.filter(p => p.publicationStatus === 'published' && p.featuredOrder != null);
 if (featured.length < 4 || featured.length > 6) fail(`4–6 published featured records required; found ${featured.length}`);
+const published = projects.filter(p => p.publicationStatus === 'published');
+const publishedSlugs = new Set(published.map(p => p.slug));
+const caseSlugs = new Set();
+for (const c of caseStudies) {
+  const key = `case[${c.slug || '?'}]`;
+  if (caseSlugs.has(c.slug)) fail(`${key}: duplicate case`);
+  caseSlugs.add(c.slug);
+  if (!publishedSlugs.has(c.slug)) fail(`${key}: cannot expose an unpublished project`);
+  for (const field of ['audience','productType','currentState','sourceEvidence']) {
+    if (typeof c[field] !== 'string' || c[field].trim().length < 16) fail(`${key}: missing ${field}`);
+  }
+  for (const field of ['platforms','problem','features','technicalNotes','tradeoffs','nextSteps','media']) {
+    if (!Array.isArray(c[field])) fail(`${key}: expected ${field} array`);
+  }
+  if ((c.problem || []).length < 2 || (c.features || []).length < 3 || (c.technicalNotes || []).length < 1 || (c.tradeoffs || []).length < 1) fail(`${key}: incomplete engineering case`);
+  for (const item of [...(c.features || []), ...(c.technicalNotes || []), ...(c.tradeoffs || [])]) {
+    if (!item.title || !item.description) fail(`${key}: content block requires title and description`);
+  }
+  for (const media of c.media || []) {
+    if (media.approved !== true || !media.src?.startsWith('/media/') || !/^\/media\/[a-zA-Z0-9_-]+\.(?:png|jpg|jpeg|webp)$/.test(media.src)) fail(`${key}: only approved local media paths are permitted`);
+    if (!media.alt?.trim() || !media.caption?.trim() || !['Mobile app','Web/admin','Workflow/architecture'].includes(media.group)) fail(`${key}: media needs alt, caption and group`);
+    if (!fs.existsSync(path.join(root, 'public', media.src.replace(/^\//,'')))) fail(`${key}: missing media file ${media.src}`);
+  }
+}
+for (const p of published) if (!caseSlugs.has(p.slug)) fail(`published ${p.slug}: complete case study required by P02`);
+for (const p of projects) {
+  if (p.projectDate && (!/^\d{4}-\d{2}-\d{2}$/.test(p.projectDate) || p.contentApproval !== 'owner_approved')) fail(`${p.slug}: unapproved or invalid project date`);
+}
+for (const pending of reviewQueue) if (published.some(p => p.repoUrl === pending.repoUrl)) fail(`review queue includes an already published repo ${pending.repoUrl}`);
 const orders = featured.map(p => p.featuredOrder);
 if (new Set(orders).size !== orders.length) fail('featuredOrder values must be unique');
 if (isRelease) {
   if (!profile.ownerBioApproved) fail('public biography needs owner sign-off');
   if (!profile.publicEmail || !profile.publicEmailApproved) fail('owner-approved reachable contact required before launch (DEC-01)');
-  fail('P01 preview cannot be indexed or publicly launched until P02–P05 release gates pass');
+  fail('P02 preview cannot be publicly launched until P03–P05 release gates pass');
 }
 if (errors.length) {
   console.error(`Content validation failed (${errors.length}):\n- ${errors.join('\n- ')}`);
   process.exit(1);
 }
-console.log(`Content validation passed: ${projects.length} records, ${featured.length} published featured, no duplicate slugs.`);
+console.log(`Content validation passed: ${projects.length} published records, ${caseStudies.length} case studies, ${featured.length} featured, ${reviewQueue.length} pending review.`);

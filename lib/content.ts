@@ -1,5 +1,7 @@
-import publicProjects from "@/content/projects.json";
+import registry from "@/content/projects.json";
+import caseRecords from "@/content/case-studies.json";
 import profile from "@/content/profile.json";
+import { relatedProjects } from "@/lib/catalog";
 
 export type ProjectStatus = "concept" | "prototype" | "in_development" | "pilot" | "released" | "maintained" | "retired";
 export type PublicationStatus = "draft" | "in_review" | "published" | "archived";
@@ -13,39 +15,59 @@ export type Project = {
   developmentStatus: ProjectStatus;
   publicationStatus: PublicationStatus;
   contentApproval: "owner_pending" | "owner_approved";
-  repoUrl: string;
+  repoUrl?: string;
   repoUrlVerified: boolean;
   featuredOrder?: number;
+  projectDate?: string;
   technologies: string[];
   ownerRole: string;
   sourceCheckedAt: string;
   motif: string;
   coverTitle: string;
 };
+export type StudyBlock = { title: string; description: string };
+export type CaseMedia = {
+  src: string;
+  alt: string;
+  caption: string;
+  group: "Mobile app" | "Web/admin" | "Workflow/architecture";
+  approved: true;
+};
+export type CaseStudy = {
+  slug: string;
+  audience: string;
+  productType: string;
+  platforms: string[];
+  problem: string[];
+  features: StudyBlock[];
+  technicalNotes: StudyBlock[];
+  tradeoffs: StudyBlock[];
+  currentState: string;
+  nextSteps: string[];
+  media: CaseMedia[];
+  sourceEvidence: string;
+};
 
 export const siteProfile = profile;
 
-// Every consumer must use this projection instead of importing the raw registry.
-// Do not expose draft fields in client bundles, generated routes, or public search.
+/** Central public projection: do not pass raw editorial drafts to client components. */
+export function getPublishedProjects(): Project[] {
+  return (registry as Project[]).filter(p => p.publicationStatus === "published" && p.repoUrlVerified);
+}
 export function getFeaturedProjects(): Project[] {
-  const available = (publicProjects as Project[]).filter(
-    (project) => project.publicationStatus === "published" &&
-      project.featuredOrder != null &&
-      project.repoUrlVerified,
-  );
-  return available.sort((a, b) =>
-    (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER),
-  ).slice(0, 6);
+  return getPublishedProjects().filter(p => p.featuredOrder != null)
+    .sort((a, b) => (a.featuredOrder ?? 999) - (b.featuredOrder ?? 999) || a.title.localeCompare(b.title)).slice(0, 6);
 }
-
-export function getDevelopmentLabel(status: ProjectStatus): string {
-  switch (status) {
-    case "concept": return "Concept";
-    case "prototype": return "Prototype";
-    case "in_development": return "In development";
-    case "pilot": return "Pilot / beta";
-    case "released": return "Released";
-    case "maintained": return "Maintained";
-    case "retired": return "Retired";
-  }
+export function getPublicProject(slug: string): Project | undefined {
+  return getPublishedProjects().find(p => p.slug === slug);
 }
+export function getCaseStudy(slug: string): CaseStudy | undefined {
+  if (!getPublicProject(slug)) return undefined;
+  const record = (caseRecords as CaseStudy[]).find(c => c.slug === slug);
+  if (!record) return undefined;
+  return { ...record, media: record.media.filter(m => m.approved) };
+}
+export function getRelatedProjects(project: Project): Project[] {
+  return relatedProjects(project, getPublishedProjects());
+}
+export { getDevelopmentLabel } from "@/lib/status";

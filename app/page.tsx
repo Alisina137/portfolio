@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
@@ -27,7 +28,7 @@ export default function HomePage() {
           <p className="hero-headline">{siteProfile.headline}</p>
           <p className="hero-description">{siteProfile.intro}</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#selected-work">Explore selected work <ArrowRightIcon /></a>
+            <Link className="button button-primary" href="/projects">Explore projects <ArrowRightIcon /></Link>
             <a className="button button-outline" href={siteProfile.profileUrl} target="_blank" rel="noopener noreferrer">GitHub profile <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>
           </div>
           <div className="hero-aside"><span className="hero-aside-line" /><span>BASED IN AFGHANISTAN <span aria-hidden="true">•</span> BUILDING FOR PEOPLE</span></div>
@@ -54,7 +55,8 @@ export default function HomePage() {
       <div className="container">
         <SectionHeading number="01" kicker="SELECTED WORK" title="Built with intention." copy="A collection of products exploring education, local commerce, community and the systems that connect them." />
         <div className="projects-grid">{featured.map((project, idx) => <ProjectCard project={project} index={idx} key={project.id} />)}</div>
-        <div className="work-note"><span className="work-note-asterisk">✳</span><p>These are active development projects. Source repositories are linked for context; a public demo is not implied.</p></div>
+        <div className="work-note"><span className="work-note-asterisk">✳</span><p>These are evolving development projects; source code and case studies are evidence, not a claim of public launch.</p></div>
+        <div className="home-work-actions"><Link href="/projects" className="button button-outline">Explore all projects <ArrowRightIcon /></Link></div>
       </div>
     </section>
 
@@ -73,8 +75,8 @@ export default function HomePage() {
     <section className="closing-section section-pad" aria-labelledby="closing-title">
       <div className="container closing-inner"><span className="section-eyebrow"><span>04</span><span className="section-eyebrow-line" /> KEEP EXPLORING</span>
         <h2 id="closing-title">Good ideas deserve<br/><em>thoughtful execution.</em></h2>
-        <p>Explore the repositories behind the work, from early concepts to evolving software systems.</p>
-        <a className="button button-primary" href={siteProfile.profileUrl} target="_blank" rel="noopener noreferrer">Explore my GitHub <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>
+        <p>Explore the thinking and implementation behind each software project, from early ideas to evolving systems.</p>
+        <Link className="button button-primary" href="/projects">Browse project case studies <ArrowRightIcon /></Link>
         <span className="closing-decoration" aria-hidden="true">✳</span>
       </div>
     </section>

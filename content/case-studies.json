@@ -1,0 +1,176 @@
+[
+  {
+    "slug": "maktablink",
+    "audience": "Private-school administrators, teachers, students, and parents in Afghanistan",
+    "productType": "School management and family communication SaaS",
+    "platforms": ["Web administration", "Android-first mobile", "API"],
+    "problem": [
+      "School records, daily teaching, attendance, and parent communication involve several people with different access needs. A useful digital workflow must keep their information connected without giving every person access to every record.",
+      "MaktabLink is designed for private schools operating across Dari, Pashto, and English. The repository describes school-scoped data isolation and separate administrator, teacher, parent, and student experiences."
+    ],
+    "features": [
+      {"title": "Academic organization", "description": "Academic years, grades, classes, teacher assignments, timetables, and conflict checks provide a consistent structure for each school."},
+      {"title": "Classroom workflows", "description": "Attendance, homework, exams, and controlled result publication connect daily teaching to the right student and family views."},
+      {"title": "Family visibility", "description": "Parents can be linked to children in their school and view scoped attendance, learning information, notifications, and fee records."},
+      {"title": "Separate staff experiences", "description": "School administrators work through a web portal, while classroom and family tasks have role-specific mobile interfaces."}
+    ],
+    "technicalNotes": [
+      {"title": "Tenant boundaries", "description": "A school-scoped data model keeps academic, family, and financial records separated between schools. The README describes explicit tenant isolation."},
+      {"title": "Permission-bound publication", "description": "Homework and exams have draft/published lifecycles; teacher assignments and student-family relationships determine which records can be seen."},
+      {"title": "Shared product stack", "description": "A TypeScript monorepo combines Next.js, Expo, Fastify, PostgreSQL, and Drizzle for web, mobile, and API workflows."}
+    ],
+    "tradeoffs": [
+      {"title": "One system, several audiences", "description": "Keeping staff operations separate from student and family views makes authorization more complex, but avoids a single overloaded interface."},
+      {"title": "Verifiable launch readiness", "description": "The repository explicitly marks unrestricted production rollout NO-GO pending real-world deployment, device, backup, and operator checks."}
+    ],
+    "currentState": "The source describes extensive implemented school workflows, but its release-readiness report does not approve unrestricted production use.",
+    "nextSteps": ["Complete real-device, service, backup/restore, and operator acceptance before making launch claims."],
+    "media": [],
+    "sourceEvidence": "Repository README and release-readiness notes reviewed 14 November 2026."
+  },
+  {
+    "slug": "futsal",
+    "audience": "Futsal players, venue owners, teams, and competition organizers",
+    "productType": "Venue booking, community, and competition platform",
+    "platforms": ["Android-first mobile", "API"],
+    "problem": [
+      "Booking a futsal court and organizing a competition both depend on the same limited venue hours. Without shared availability rules, a manual booking, online reservation, and match can compete for one slot.",
+      "Futsal brings venue schedules, teams, and competition operations into a mobile-first experience designed initially for Afghanistan."
+    ],
+    "features": [
+      {"title": "Court availability and bookings", "description": "Venue owners manage playing areas and opening hours; users can see availability while online bookings and manual blocks share scheduling rules."},
+      {"title": "Venue and player community", "description": "Venue posts, follows, notifications, player profiles, and team memberships connect bookings with the people playing."},
+      {"title": "Competition engine", "description": "The source describes league, knockout, and group-to-knockout competitions, with fixtures, standings, results, and progression."},
+      {"title": "Owner operations", "description": "Venue operators can manage schedules, promotions, team applications, and competition activities from role-specific mobile views."}
+    ],
+    "technicalNotes": [
+      {"title": "Atomic slot inventory", "description": "The repository documents atomic booking and blocking: online and manual use the same occupancy model to avoid double allocation."},
+      {"title": "Competition scheduling", "description": "Competition fixtures participate in venue booking occupancy rather than sitting in an unrelated calendar."},
+      {"title": "Scoped team authority", "description": "Manager/captain permissions and invite lifecycles are tied to team membership, not broad global roles."}
+    ],
+    "tradeoffs": [
+      {"title": "Availability over surface-level speed", "description": "Booking integrity needs server-side rules even when that increases workflow complexity."},
+      {"title": "Incremental notifications", "description": "Push persistence and outbox foundations are described, but actual external push dispatch is not enabled at the documented milestone."}
+    ],
+    "currentState": "The checked README documents functionality through its competition-engine phase. Advanced live scoring, matchmaking, and external push dispatch are not claimed as released.",
+    "nextSteps": ["Verify external push delivery and live-operations readiness before claiming a public production release."],
+    "media": [],
+    "sourceEvidence": "Repository README reviewed 14 November 2026."
+  },
+  {
+    "slug": "bazaarlink",
+    "audience": "Shoppers, merchants, and platform operators in Afghanistan",
+    "productType": "Multilingual marketplace and merchant operations",
+    "platforms": ["Mobile", "Web storefront", "Web administration", "API"],
+    "problem": [
+      "A marketplace has to make everyday browsing easy while giving merchants tools for managing listings, orders, and their store presence. Those are different journeys, even though they depend on shared product and account data.",
+      "BazaarLink organizes commerce for Afghanistan with localized shopper and merchant interfaces. The checked source describes an Expo mobile app, web storefront, administration, and a shared API."
+    ],
+    "features": [
+      {"title": "Mobile shopping", "description": "A mobile customer experience centers product discovery, saved items, a cart, and shopping/order flows."},
+      {"title": "Merchant-facing tools", "description": "The project includes seller-facing experiences and store setup, distinct from ordinary browsing."},
+      {"title": "Separate operational surfaces", "description": "A public storefront, platform administration app, and customer/merchant mobile app each serve a different audience."},
+      {"title": "Language-aware structure", "description": "Shared localization and design-token packages support a multilingual presentation rather than isolated label substitutions."}
+    ],
+    "technicalNotes": [
+      {"title": "Monorepo boundaries", "description": "The source organizes Expo, Next.js, and Fastify apps beside packages for database, contracts, localization, and design tokens."},
+      {"title": "Shared data layer", "description": "PostgreSQL with Drizzle supports cross-surface records; the README describes database setup and migrations."},
+      {"title": "Mobile-to-API connectivity", "description": "A development API runner manages an HTTPS tunnel for physical-device testing instead of relying on a phone's localhost."}
+    ],
+    "tradeoffs": [
+      {"title": "Multiple experiences, one domain", "description": "Separating storefront, operator, and mobile concerns improves clarity but requires shared contracts and consistent state."},
+      {"title": "Integration verification", "description": "A repository README documents intended workflows; payment or order fulfillment cannot be treated as production-proven without service testing."}
+    ],
+    "currentState": "An evolving multilingual commerce project. A public store launch, completed payments, and merchant traction have not been independently verified.",
+    "nextSteps": ["Verify checkout and real integration behavior with realistic staging data before advertising public availability."],
+    "media": [],
+    "sourceEvidence": "Repository README and workspace layout reviewed 14 November 2026."
+  },
+  {
+    "slug": "amlaklink",
+    "audience": "People searching for property and property advertisers, agents, and agencies in Afghanistan",
+    "productType": "Real estate listings and inquiry marketplace",
+    "platforms": ["Android-first mobile", "Web administration", "API"],
+    "problem": [
+      "Property discovery is not only search. Listings, advertisers, and inquiries require accurate details, clear permissions, and trust workflows so that a person can evaluate a property responsibly.",
+      "AmlakLink begins with Kabul in an Afghanistan-wide property model. The source describes Dari-first localization with Pashto and English support, moderated listings, and staff review."
+    ],
+    "features": [
+      {"title": "Structured property records", "description": "Advertisers can prepare listings with sale/rent/gharawi pricing, images, and location details for moderated publication."},
+      {"title": "Discovery and inquiries", "description": "The repository documents search and property exploration, inquiries, and viewing-related flows."},
+      {"title": "Advertiser workflows", "description": "Agency and independent-agent applications connect the public marketplace with a separate staff review portal."},
+      {"title": "Trust and safety", "description": "Moderation, verification, reports, appeals, and safety holds support review before and after listing publication."}
+    ],
+    "technicalNotes": [
+      {"title": "Moderation lifecycle", "description": "Listings are subject to approval rather than automatic public publication, keeping submitted and published information distinct."},
+      {"title": "Separate staff access", "description": "A staff-only Next.js portal is distinct from the Android-first customer app and protected Fastify API."},
+      {"title": "Localized product model", "description": "Shared locale definitions, province data, and RTL-conscious layouts support country-specific discovery."}
+    ],
+    "tradeoffs": [
+      {"title": "Manual review for trust", "description": "Moderation introduces waiting and operator effort, but avoids assuming every listing is trustworthy at submission."},
+      {"title": "Production gates remain external", "description": "The source explicitly requires pilot, legal, and provider verification. Paid billing is disabled by default at the reviewed milestone."}
+    ],
+    "currentState": "The repository describes implemented listing, discovery, and safety foundations, while production approval and some growth features remain pending.",
+    "nextSteps": ["Complete pilot acceptance and external-provider verification before public launch or billing claims."],
+    "media": [],
+    "sourceEvidence": "Repository README reviewed 14 November 2026."
+  },
+  {
+    "slug": "dandanlink",
+    "audience": "Dental clinic owners, clinic staff, and prospective patients",
+    "productType": "Dental operations and patient-discovery ecosystem",
+    "platforms": ["Web administration", "Clinic web", "Patient mobile", "API"],
+    "problem": [
+      "A dental platform must separate clinic operations, staff permissions, and patient-facing discovery. It also needs stronger privacy boundaries than a typical content website.",
+      "DandanLink is designed as a dental practice management and patient discovery system; the checked repository describes early identity, clinic onboarding, subscription, and staff-role foundations."
+    ],
+    "features": [
+      {"title": "Clinic onboarding", "description": "Clinic registration, plan selection, document review, and staff invitations give clinics an administration entry path."},
+      {"title": "Separate administrative portals", "description": "Platform administrators and clinic operators use different Next.js workspaces with different permissions."},
+      {"title": "Patient entry experience", "description": "An Expo patient mobile application provides initial home, saved, appointment, and account screens as foundations."},
+      {"title": "Security setup", "description": "The source documents verified email sign-in, protected backend routes, and administrator MFA for sensitive roles."}
+    ],
+    "technicalNotes": [
+      {"title": "Roles and tenancy", "description": "Clinic membership and staff invitations are checked server-side rather than relying only on hidden frontend controls."},
+      {"title": "Isolated application surfaces", "description": "Separate clinic/admin web apps and a patient mobile app share a protected API and database model."},
+      {"title": "Clinical-data precautions", "description": "The repository explicitly warns against entering real patient records before production security and legal review."}
+    ],
+    "tradeoffs": [
+      {"title": "Foundation before booking", "description": "Patient-facing appointment interfaces can be designed before making real bookings available; the source notes booking is not yet launched."},
+      {"title": "Strict verification over demo claims", "description": "Clinical flows, live SMTP, and production readiness still require external verification."}
+    ],
+    "currentState": "Early clinic, admin, and patient foundations exist; patient records, appointments, and public booking are not declared released in the reviewed README.",
+    "nextSteps": ["Complete and independently verify safe patient booking and clinical-data protections before public clinical use."],
+    "media": [],
+    "sourceEvidence": "Repository README reviewed 14 November 2026."
+  },
+  {
+    "slug": "kankorprep",
+    "audience": "Students preparing for Afghanistan's Kankor exam and content administrators",
+    "productType": "Exam practice and learning progress application",
+    "platforms": ["Android-first mobile", "Web administration", "API"],
+    "problem": [
+      "Exam preparation benefits from guided question practice, timed attempts, review, and a clear record of mistakes. Students also need a reliable mobile experience when connectivity is inconsistent.",
+      "KankorPrep focuses on Afghanistan's Kankor preparation experience and includes an Expo student application, administration portal, and API."
+    ],
+    "features": [
+      {"title": "Question and curriculum content", "description": "An administration and content-quality layer supports the learning materials used by student practice."},
+      {"title": "Exam sessions", "description": "The README describes exam generation and attempt resilience, scoring, results, and answer review."},
+      {"title": "Progress feedback", "description": "Past forms, progress views, and mistake review make practice more useful than a single test score."},
+      {"title": "Release-oriented testing", "description": "The repository documents APK preview builds and update channels for testing on real Android devices."}
+    ],
+    "technicalNotes": [
+      {"title": "Mobile and admin split", "description": "An Expo/React Native student app and Next.js administration app communicate through a Fastify API."},
+      {"title": "Relational learning data", "description": "PostgreSQL/Drizzle connects question, attempt, scoring, and progress workflows."},
+      {"title": "Update channels", "description": "Preview and production update channels are separated to prevent test updates from crossing release boundaries."}
+    ],
+    "tradeoffs": [
+      {"title": "Attempt resilience", "description": "A resilient exam attempt needs explicit state handling for interruptions instead of assuming constant connectivity."},
+      {"title": "Testing versus release", "description": "Release-readiness procedures are documented, but a passed source gate does not itself confirm an app-store launch."}
+    ],
+    "currentState": "The repository describes a release-readiness phase and implemented learning flows. Public store publication is not asserted.",
+    "nextSteps": ["Validate an actual production release and any store listing separately from the source readiness checks."],
+    "media": [],
+    "sourceEvidence": "Repository README reviewed 14 November 2026."
+  }
+]

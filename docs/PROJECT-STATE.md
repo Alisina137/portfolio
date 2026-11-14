@@ -1,37 +1,21 @@
 # Portfolio project state
 
-**Product authority:** Alisina — Portfolio Website Product Specification v1.0 (14 Nov 2026).  
-**Delivery authority:** Software Development Workflow V5.  
-**Project:** New Next.js 16 App Router / React 19 / TypeScript / token-based CSS site; no database, authentication or API.
+**Source of truth:** Alisina Portfolio Product Specification v1.0 (14 Nov 2026) and Software Development Workflow V5.  
+**Repo:** https://github.com/Alisina137/portfolio (`main`); browser/pull instructions in README.  
+**Stack:** Next.js 16.3.5 App Router / React 19 / TypeScript / plain CSS design tokens. No database, auth or paid backend.
 
-## Phase P01 — Identity, design system and useful Home
+## P01 — Identity, design system & homepage
 
-**Status:** IMPLEMENTED — VERIFICATION PENDING; not publicly launchable.
+**Status:** IMPLEMENTED — VERIFICATION PENDING. Premium responsive Home, six curated project illustrations, theme preference, keyboard-accessible mobile navigation, and safe verified GitHub source links. P02 now upgrades card destinations to case studies. Owner approval is still outstanding.
 
-| Gate | Evidence or status |
-| --- | --- |
-| P01-A01 Identity and CTAs | Source implementation Home + internal anchors + verified public GitHub; preview inspection pending |
-| P01-A02 4–6 featured | 6 source-checked project records with external GitHub links; owner approval **PENDING** |
-| P01-A03 Theme | Client persistence + initial system preference / localStorage fallback; real Next runtime check pending |
-| P01-A04 Visible links | No unreleased route in header/footer; GitHub URLs from connected repository inventory, external health live check pending |
-| P01-A05 Responsive keyboard | CSS breakpoints 320–1440, focus-aware mobile menu, reduced motion; manual browser checks pending |
-| P01-A06 Draft exclusion | Published selector + content validator; real Next build/bundle inspection pending |
+## P02 — Public project catalog & case-study journeys
 
-**Delivered:** Public visitor Home and global shell, theme, mobile header, six project cards, developer-facing content records/validator. No public routes for future phases.
+**Status:** IMPLEMENTED — VERIFICATION PENDING. Scoped routes `/projects` and `/projects/[slug]`, six substantial source-reviewed public cases, responsive card grids, URL-backed search/category/status/sort/page filters and recovery states, context-aware return navigation, related cases, optional accessible gallery with zero unapproved media, and active Projects navigation.
 
-**Release blockers:** Owner-approved contact address (DEC-01); owner sign-off on role/bio and individual projects (DEC-02/03); authentic sanitized screenshots (DEC-07, recommended); pending P02–P05. `robots:noindex,nofollow` while preview.
+**Content:** Six published *preview* projects in `content/projects.json`, six studies in `content/case-studies.json`; nine other public repos held in `content/review-queue.json` pending owner sign-off. No fabricated screenshots or released-product claims. Some original published content fields still say `owner_pending`; **do not launch or index** before approvals.
 
-**Repository:** `https://github.com/Alisina137/portfolio`. P01 source published on `main` when the GitHub handoff is confirmed.
+**Tests:** `node scripts/check-content.mjs`, `npm test` (14 Node tests), and TS transpilation syntax check passed. The layout-only catalog HTML preview showed no horizontal overflow at 320/360/768/1024/1440 px in local Chromium. Actual Next.js dependency install, production build, semantic TypeScript check, rendered app E2E, and live-device gallery testing remain unverified because the npm registry cannot be reached from this environment. Details in `docs/PHASE-02.md`.
 
-**Infrastructure limitations:** Registry/DNS unavailable from packaging environment, so Next dependencies could not be installed; no true Next build, CI or server-side test could run. `scripts/render-preview.mjs` generates an ignored development-only HTML snapshot for browser QA of visual CSS and interactions, NOT a production build.
+**Release:** `robots:noindex,nofollow` retained; `npm run check:release` intentionally fails while owner approval, real contact, and P03–P05 are pending. Do not interpret pushed source or green Node tests as a public launch.
 
-**Next:** P02 — Catalog and comprehensive project journeys.
-
-## 14 November 2026 local verification evidence
-
-- `node scripts/check-content.mjs`: **PASS**, six source-backed featured records, no duplicate slugs.
-- `npm run test`: **PASS**, six Node-native content/link/route-visibility checks.
-- TypeScript `transpileModule` **syntax parser** on ten TS/TSX files: **PASS**. This is **not** equivalent to `tsc --noEmit` or a Next build.
-- Browser visual preview (separate development-only HTML snapshot, not the Next runtime): Chromium/Playwright **PASS** for no horizontal overflow and exactly one H1 / six project cards at 320, 360, 390, 768, 1024, 1280, 1440 CSS px. Dark/light theme switch, mobile focus return and Escape **PASS** after preview focus timing fix.
-- `npm run check:release`: **EXPECTED FAIL** due owner-pending project copy, bio and real contact channel; later MVP phases have not shipped.
-- Actual Next.js install, typecheck, build, SSR rendering, cross-route checks and theme persistence across reloads: **NOT RUN / BLOCKED** by unavailable npm registry in this packaging environment.
+**Next:** P03 — About, Contact, optional approved résumé. Pending decisions DEC-01 public contact, DEC-02 published projects and role attribution, DEC-03 biography, DEC-07 authentic sanitized imagery.

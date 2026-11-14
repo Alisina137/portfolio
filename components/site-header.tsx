@@ -1,21 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRightIcon, CloseIcon, MenuIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 
 const navItems = [
-  { label: "Home", href: "/", current: true },
-  { label: "Selected work", href: "#selected-work", current: false },
-  { label: "Approach", href: "#approach", current: false },
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 14);
@@ -68,13 +72,13 @@ export function SiteHeader() {
 
   return <header ref={headerRef} className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
     <div className="container header-inner">
-      <a className="brand" href="/" aria-label="Alisina — homepage" onClick={() => setOpen(false)}>
+      <Link className="brand" href="/" aria-label="Alisina — homepage" onClick={() => setOpen(false)}>
         <span className="brand-mark" aria-hidden="true"><span>AS</span></span>
         <span className="brand-wordmark">Alisina<span className="brand-dot">.</span></span>
-      </a>
+      </Link>
       <nav className="desktop-nav" aria-label="Primary navigation">
-        {navItems.map((item) => <a className={item.current ? "nav-link nav-link--active" : "nav-link"}
-          href={item.href} key={item.href} aria-current={item.current ? "page" : undefined}>{item.label}</a>)}
+        {navItems.map((item) => { const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href); return <Link className={active ? "nav-link nav-link--active" : "nav-link"}
+          href={item.href} key={item.href} aria-current={active ? "page" : undefined}>{item.label}</Link>; })}
       </nav>
       <div className="header-tools">
         <a className="header-github" href="https://github.com/Alisina137" target="_blank" rel="noopener noreferrer">
@@ -91,10 +95,10 @@ export function SiteHeader() {
     <div id="mobile-navigation" className={`mobile-navigation ${open ? "mobile-navigation--open" : ""}`}
       ref={panelRef} aria-hidden={!open} inert={!open}>
       <nav aria-label="Mobile navigation" className="container mobile-nav-list">
-        {navItems.map((item, index) => <a href={item.href} className="mobile-nav-link" onClick={close} key={item.href}>
+        {navItems.map((item, index) => <Link href={item.href} aria-current={(item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)) ? "page" : undefined} className="mobile-nav-link" onClick={close} key={item.href}>
           <span className="mobile-nav-index">0{index + 1}</span><span>{item.label}</span>
           <span aria-hidden="true" className="mobile-nav-trailing">↗</span>
-        </a>)}
+        </Link>)}
         <a href="https://github.com/Alisina137" target="_blank" rel="noopener noreferrer" className="mobile-nav-link" onClick={close}>
           <span className="mobile-nav-index">↗</span><span>GitHub profile</span><span className="mobile-nav-trailing" aria-hidden="true">↗</span>
           <span className="sr-only">(opens in a new tab)</span>
