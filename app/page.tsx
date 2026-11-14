@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
 import { getFeaturedProjects, siteProfile } from "@/lib/content";
@@ -29,7 +29,7 @@ export default function HomePage() {
           <p className="hero-description">{siteProfile.intro}</p>
           <div className="hero-actions">
             <Link className="button button-primary" href="/projects">Explore projects <ArrowRightIcon /></Link>
-            <a className="button button-outline" href={siteProfile.profileUrl} target="_blank" rel="noopener noreferrer">GitHub profile <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>
+            <Link className="button button-outline" href="/contact">Get in touch <ArrowRightIcon /></Link>
           </div>
           <div className="hero-aside"><span className="hero-aside-line" /><span>BASED IN AFGHANISTAN <span aria-hidden="true">•</span> BUILDING FOR PEOPLE</span></div>
         </div>
@@ -68,7 +68,7 @@ export default function HomePage() {
 
     <section className="about-band section-pad" aria-labelledby="about-preview-title">
       <div className="container about-band-inner"><div className="about-band-aside"><span className="section-eyebrow"><span>03</span><span className="section-eyebrow-line" /> BEHIND THE BUILDS</span><div className="about-symbol" aria-hidden="true">A<span>S</span><i>✳</i></div></div>
-        <div className="about-band-copy"><h2 id="about-preview-title">Curious by nature.<br/><span>Builder by practice.</span></h2><p>{siteProfile.shortBio}</p><div className="about-band-signoff"><span className="signature-bar" /><span>ALISINA SARWARI <i>/</i> SOFTWARE ENGINEER</span></div></div>
+        <div className="about-band-copy"><h2 id="about-preview-title">Curious by nature.<br/><span>Builder by practice.</span></h2><p>{siteProfile.shortBio}</p><Link href="/about" className="inline-direction">More about me <ArrowRightIcon width="18" height="18" /></Link><div className="about-band-signoff"><span className="signature-bar" /><span>ALISINA SARWARI <i>/</i> SOFTWARE ENGINEER</span></div></div>
       </div>
     </section>
 
@@ -76,7 +76,7 @@ export default function HomePage() {
       <div className="container closing-inner"><span className="section-eyebrow"><span>04</span><span className="section-eyebrow-line" /> KEEP EXPLORING</span>
         <h2 id="closing-title">Good ideas deserve<br/><em>thoughtful execution.</em></h2>
         <p>Explore the thinking and implementation behind each software project, from early ideas to evolving systems.</p>
-        <Link className="button button-primary" href="/projects">Browse project case studies <ArrowRightIcon /></Link>
+        <Link className="button button-primary" href="/contact">Get in touch <ArrowRightIcon /></Link>
         <span className="closing-decoration" aria-hidden="true">✳</span>
       </div>
     </section>

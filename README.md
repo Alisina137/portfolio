@@ -2,7 +2,7 @@
 
 A dark-first editorial personal portfolio built using the approved **Product Specification v1.0** and **Software Development Workflow V5**.
 
-**Current milestone:** Phase 02 — Projects catalog & case studies. **Implemented — verification pending; not approved for production launch.** The development preview deliberately remains `noindex,nofollow` until the P03–P05 launch gates and owner content approval pass.
+**Current milestone:** Phase 03 — About, Contact & conditional résumé. **Implemented — verification pending; not approved for production launch.** The development preview deliberately remains `noindex,nofollow` until the P03–P05 launch gates and owner content approval pass.
 
 ## Routes and content
 
@@ -11,7 +11,9 @@ A dark-first editorial personal portfolio built using the approved **Product Spe
 | `/` | Yes | Responsive Home, six featured projects, design system and theme |
 | `/projects` | Yes | Search/filter/sort catalog and URL-driven paging |
 | `/projects/[slug]` | Yes for six public preview cases | Detailed engineering case, context, evidence, status, related work |
-| `/about`, `/contact` | No (P03) | Intentionally hidden, not placeholder pages |
+| `/about` | Yes | Profile narrative, four evidence-linked capability clusters, project-derived skills and process |
+| `/contact` | Yes (direct email pending approval) | Professional contact context, public GitHub/project links and conditionally approved email actions |
+| `/resume.pdf` | Conditional, currently hidden | Appears only when an approved real PDF is provided |
 | `/writing` | No (optional P06) | Only after owner-approved articles exist |
 
 Six featured case studies currently cover MaktabLink, Futsal, BazaarLink, AmlakLink, DandanLink and KankorPrep. The nine additional public repos in `content/review-queue.json` require product/content review before being shown on the website. Authentic product media has not been provided; the card and case hero visuals are clearly marked **conceptual artwork, not screenshots**.
@@ -57,9 +59,9 @@ npm run build
 - `content/review-queue.json`: internal editorial checklist for projects not yet ready for the portfolio; do **not** import into client components.
 - `public/media/`: optional reviewed and sanitized local images; every gallery item requires an existing approved file, alt text, caption, and category.
 - `lib/catalog.ts`: pure URL/search/sort/pagination rules; `lib/content.ts`: published-only projection; `lib/status.ts`: client-safe status labels.
-- `docs/PHASE-02.md`: phase requirements, validation evidence and remaining blockers.
+- `docs/PHASE-02.md` and `docs/PHASE-03.md`: phase requirements, validation evidence and remaining blockers.
 
-No real patient data, school records, private contact information, tokens, or third-party media without rights should be committed. Public repository availability does not mean product launch readiness.
+DEC-01 public email approval remains a launch blocker: the site cannot claim to accept messages yet. To enable it, enter an explicitly approved public address and set `publicEmailApproved` in `content/profile.json`. For a résumé, only publish a reviewed `public/resume.pdf` and set `resumeApproved`/`resumeUrl` when the real PDF exists. No real patient data, school records, private contact information, tokens, or third-party media without rights should be committed. Public repository availability does not mean product launch readiness.
 
 ## Development & Git delivery
 

@@ -18,4 +18,10 @@
 
 **Release:** `robots:noindex,nofollow` retained; `npm run check:release` intentionally fails while owner approval, real contact, and P03–P05 are pending. Do not interpret pushed source or green Node tests as a public launch.
 
-**Next:** P03 — About, Contact, optional approved résumé. Pending decisions DEC-01 public contact, DEC-02 published projects and role attribution, DEC-03 biography, DEC-07 authentic sanitized imagery.
+## P03 — Credible About, Contact and conditional résumé
+
+**Status:** IMPLEMENTED — VERIFICATION PENDING / DEC-01 BLOCKED. Routes `/about`, `/contact` with complete styled content and navigation; project-supported capability clusters; conditionally rendered direct email with accurate clipboard success/manual selection behavior, approved social destinations and optional real PDF only. With no owner-approved email the Contact route clearly links GitHub/projects but **does not claim** visitors can directly send a message. No unapproved education, email, employer claims or résumé.
+
+**Evidence:** Node content checks and P01–P03 tests passed, development-only static layout checks at 320/360/768/1024/1440 show no overflow. Actual Next.js build, SSR and interactive real-browser E2E unverified (offline dependencies). Read `docs/PHASE-03.md` for detailed gates.
+
+**Next:** P04 — SEO readiness, WCAG, performance and 404/recovery; pending owner decisions DEC-01 public professional contact, DEC-02 public project status and ownership, DEC-03 education and bio, DEC-05 optional résumé, DEC-07 authentic sanitized media. Keep `noindex,nofollow` until P05 launch sign-off.

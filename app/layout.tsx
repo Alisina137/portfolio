@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { getPublicIdentity } from "@/lib/public-identity";
 
 export const metadata: Metadata = {
   title: "Alisina Sarwari — Software Engineer & Product Builder",
@@ -13,14 +14,15 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 const themeBootstrap = `(()=>{try{const saved=localStorage.getItem('portfolio-theme');if(saved==='light'||saved==='dark')document.documentElement.setAttribute('data-theme',saved)}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { github, linkedIn, email, resume } = getPublicIdentity();
   return <html lang="en" suppressHydrationWarning>
     <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
     <body>
       <a className="skip-link" href="#main">Skip to main content</a>
       <div id="top" />
-      <SiteHeader />
+      <SiteHeader resumeHref={resume} />
       {children}
-      <SiteFooter />
+      <SiteFooter github={github} linkedIn={linkedIn} email={email} resume={resume} />
     </body>
   </html>;
 }

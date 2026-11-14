@@ -56,6 +56,7 @@ export default async function ProjectCasePage({ params, searchParams }: Props) {
             <section className="case-links" aria-label="Project links"><div><h2>Explore the source.</h2><p>A public product demo has not been verified for this project.</p></div>{project.repoUrlVerified && project.repoUrl && <a className="button button-primary" href={project.repoUrl} target="_blank" rel="noopener noreferrer">Source code on GitHub <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>}</section>
           </div>
         </div>
+        <div className="case-contact-inline"><div><span className="page-eyebrow">HAVE A RELATED IDEA?</span><p>Interested in discussing the engineering behind this project?</p></div><Link href="/contact" className="button button-outline">Get in touch <ArrowRightIcon /></Link></div>
         <section className="case-related" aria-labelledby="related-heading"><div className="case-related-heading"><div><span className="page-eyebrow">MORE WORK</span><h2 id="related-heading">Keep exploring.</h2></div><Link href={backHref}>Back to all projects <ArrowRightIcon width="17" height="17" /></Link></div><div className="case-related-grid">{related.map(item => <Link className="case-related-card" key={item.slug} href={`/projects/${item.slug}${back ? `?back=${encodeURIComponent(back.slice(1))}` : ""}`}><span>{item.eyebrow}</span><strong>{item.title}<i>.</i></strong><p>{item.oneLiner}</p><span className="case-related-arrow">Read case study ↗</span></Link>)}</div></section>
       </div>
     </div>

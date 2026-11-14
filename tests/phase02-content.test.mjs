@@ -26,7 +26,7 @@ test('P02 source inventory holds unreviewed projects outside public search and r
   assert.ok(queue.every(item=>!cases.some(story=>story.slug===item.title)));
 });
 
-test('P02 route files contain real catalog, case page, 404 and gallery flow (but not future routes)',()=>{
+test('P02 route files retain complete catalog, case page, 404 and gallery flow',()=>{
   const catalog=read('../app/projects/page.tsx');
   const detail=read('../app/projects/[slug]/page.tsx');
   const gallery=read('../components/project-gallery.tsx');
@@ -39,5 +39,7 @@ test('P02 route files contain real catalog, case page, 404 and gallery flow (but
   assert.match(gallery,/showModal\(\)/);
   assert.match(gallery,/Escape|ArrowRight|ArrowLeft/);
   assert.match(header,/Projects.*\/projects/);
-  assert.doesNotMatch(header,/label: "About"|label: "Contact"|label: "Writing"/);
+  assert.match(header,/About.*\/about/);
+  assert.match(header,/Contact.*\/contact/);
+  assert.doesNotMatch(header,/label: "Writing"/);
 });

@@ -11,5 +11,11 @@
   "publicEmail": null,
   "publicEmailApproved": false,
   "ownerBioApproved": false,
-  "sourceCheckedAt": "2026-11-14"
+  "sourceCheckedAt": "2026-11-14",
+  "linkedInUrl": null,
+  "linkedInApproved": false,
+  "resumeUrl": null,
+  "resumeApproved": false,
+  "education": null,
+  "educationApproved": false
 }

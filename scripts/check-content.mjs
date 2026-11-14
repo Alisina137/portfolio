@@ -16,6 +16,15 @@ const seen = new Set();
 if (!profile.displayName || !profile.professionalTitle || !profile.shortBio) fail('profile identity and biography are required');
 if (!profile.profileUrlApproved || !/^https:\/\/github\.com\/[a-zA-Z0-9-]+\/?$/.test(profile.profileUrl || '')) fail('approved GitHub profile URL must be valid');
 if (profile.publicEmail && !profile.publicEmailApproved) fail('unapproved contact email must not be in public profile data');
+if (profile.publicEmailApproved && (typeof profile.publicEmail !== 'string' || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(profile.publicEmail) || profile.publicEmail.length > 254)) fail('approved email must be a syntactically valid address');
+if (profile.linkedInUrl && (!profile.linkedInApproved || !/^https:\/\/www\.linkedin\.com\//.test(profile.linkedInUrl))) fail('LinkedIn must be an explicitly approved HTTPS profile link');
+if (profile.resumeApproved || profile.resumeUrl) {
+  if (!profile.resumeApproved || profile.resumeUrl !== '/resume.pdf' || !fs.existsSync(path.join(root,'public','resume.pdf'))) fail('résumé requires owner approval, /resume.pdf path, and an actual PDF file');
+  else if (fs.readFileSync(path.join(root,'public','resume.pdf')).subarray(0,5).toString() !== '%PDF-') fail('résumé must be a real PDF, not a renamed text file');
+}
+if (profile.education && !profile.educationApproved) fail('unapproved education text must not appear in the public repository');
+if (profile.educationApproved && !(typeof profile.education === 'string' && profile.education.trim())) fail('approved education requires a human-readable verified description');
+
 for (const p of projects) {
   const pathId = `project[${p.slug || p.id || '?'}]`;
   if (!p.slug || !/^[a-z0-9-]+$/.test(p.slug)) fail(`${pathId}: safe stable slug required`);
@@ -70,7 +79,7 @@ if (new Set(orders).size !== orders.length) fail('featuredOrder values must be u
 if (isRelease) {
   if (!profile.ownerBioApproved) fail('public biography needs owner sign-off');
   if (!profile.publicEmail || !profile.publicEmailApproved) fail('owner-approved reachable contact required before launch (DEC-01)');
-  fail('P02 preview cannot be publicly launched until P03–P05 release gates pass');
+  fail('P03 preview cannot be publicly launched until P04–P05 quality, content, and deployment gates pass');
 }
 if (errors.length) {
   console.error(`Content validation failed (${errors.length}):\n- ${errors.join('\n- ')}`);

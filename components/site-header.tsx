@@ -9,9 +9,11 @@ import { ThemeToggle } from "./theme-toggle";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ resumeHref }: { resumeHref?: string | null }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -84,6 +86,7 @@ export function SiteHeader() {
         <a className="header-github" href="https://github.com/Alisina137" target="_blank" rel="noopener noreferrer">
           GitHub <ArrowUpRightIcon width="15" height="15" /><span className="sr-only">(opens in a new tab)</span>
         </a>
+        {resumeHref && <a className="header-resume" href={resumeHref} target="_blank" rel="noopener noreferrer">Résumé <ArrowUpRightIcon width="14" height="14" /><span className="sr-only">(opens PDF in a new tab)</span></a>}
         <ThemeToggle />
         <button type="button" ref={triggerRef} className="icon-button menu-trigger" aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen((value) => !value)}>
@@ -99,6 +102,7 @@ export function SiteHeader() {
           <span className="mobile-nav-index">0{index + 1}</span><span>{item.label}</span>
           <span aria-hidden="true" className="mobile-nav-trailing">↗</span>
         </Link>)}
+        {resumeHref && <a href={resumeHref} target="_blank" rel="noopener noreferrer" className="mobile-nav-link" onClick={close}><span className="mobile-nav-index">PDF</span><span>View résumé</span><span className="mobile-nav-trailing" aria-hidden="true">↗</span></a>}
         <a href="https://github.com/Alisina137" target="_blank" rel="noopener noreferrer" className="mobile-nav-link" onClick={close}>
           <span className="mobile-nav-index">↗</span><span>GitHub profile</span><span className="mobile-nav-trailing" aria-hidden="true">↗</span>
           <span className="sr-only">(opens in a new tab)</span>
