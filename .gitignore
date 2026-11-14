@@ -9,5 +9,4 @@ out/
 coverage/
 playwright-report/
 test-results/
-preview/index.html
-preview/*.png
+preview/

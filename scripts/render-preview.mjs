@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+fs.mkdirSync(path.join(root, "preview"), { recursive: true });
 const profile = JSON.parse(fs.readFileSync(path.join(root,'content/profile.json'),'utf8'));
 const data = JSON.parse(fs.readFileSync(path.join(root,'content/projects.json'),'utf8'));
 const projects = data.filter(p=>p.publicationStatus==='published').sort((a,b)=>a.featuredOrder-b.featuredOrder).slice(0,6);
