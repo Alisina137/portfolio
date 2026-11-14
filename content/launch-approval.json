@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "approvedForPublicLaunch": false,
+  "ownerApprovedAt": null,
+  "approvedOrigin": null,
+  "reviewedCommit": null,
+  "checks": {
+    "identityAndBio": false,
+    "publicContact": false,
+    "projectClaimsAndStatus": false,
+    "repositoryAndExternalLinks": false,
+    "screenshotsRightsAndPrivacy": false,
+    "mobileAndAccessibility": false,
+    "deployedHttpsJourney": false
+  }
+}

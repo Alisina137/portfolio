@@ -2,7 +2,7 @@
 
 A dark-first editorial personal portfolio built using the approved **Product Specification v1.0** and **Software Development Workflow V5**.
 
-**Current milestone:** Phase 04 — SEO, performance, accessibility & recovery. **Implemented — verification pending; not approved for production launch.** The development preview deliberately remains `noindex,nofollow` until the P05 launch gates and owner content approval pass.
+**Current milestone:** Phase 05 — content review, release safeguards and deployment handoff. **Release preparation implemented; owner approval and public deployment are blocked/pending.** The development preview deliberately remains `noindex,nofollow` until the P05 launch gates and owner content approval pass.
 
 ## Routes and content
 
@@ -52,9 +52,12 @@ npm test
 npx tsc --noEmit
 npm run build
 npm run smoke:http  # requires completed production build
+npm run check:launch  # lists missing owner approvals (preview-safe)
+npm run check:links -- --strict  # online link check; network/HTTP throttling may be inconclusive
+# After a real host is configured: npm run smoke:deployed -- --url=https://YOUR-ACTUAL-DOMAIN --mode=preview
 ```
 
-`npm run check:release` is an intentionally stricter prelaunch gate and fails until content/contact approval, approved HTTPS domain, and Phase 5 acceptance are finished. Configure `NEXT_PUBLIC_SITE_URL` only after a real HTTPS domain is approved. `PORTFOLIO_LAUNCH_APPROVED` remains false until Phase 5 owner sign-off; setting it true does not override content checks. Node tests exercise catalog filtering, URL behavior, content boundaries, and static source checks. `scripts/render-preview.mjs` and `scripts/render-catalog-preview.mjs` create **development-only HTML previews**, not deployment artifacts or evidence that the real Next runtime was tested.
+`npm run check:launch` reports outstanding owner release requirements without breaking preview CI. `npm run check:launch:strict` and `npm run check:release` are intentionally strict prelaunch gates and fail until content/contact approval, approved HTTPS origin, real owner sign-off in `content/launch-approval.json`, and live device/HTTPS acceptance are finished. Configure `NEXT_PUBLIC_SITE_URL` only after a real HTTPS domain is approved. `PORTFOLIO_LAUNCH_APPROVED` remains false until Phase 5 owner sign-off; setting it true does not override content checks. Node tests exercise catalog filtering, URL behavior, content boundaries, and static source checks. `scripts/render-preview.mjs` and `scripts/render-catalog-preview.mjs` create **development-only HTML previews**, not deployment artifacts or evidence that the real Next runtime was tested.
 
 ## Content editing and publication
 
@@ -64,13 +67,19 @@ npm run smoke:http  # requires completed production build
 - `content/review-queue.json`: internal editorial checklist for projects not yet ready for the portfolio; do **not** import into client components.
 - `public/media/`: optional reviewed and sanitized local images; every gallery item requires an existing approved file, alt text, caption, and category.
 - `lib/catalog.ts`: pure URL/search/sort/pagination rules; `lib/content.ts`: published-only projection; `lib/status.ts`: client-safe status labels.
-- `docs/PHASE-02.md`, `docs/PHASE-03.md` and `docs/PHASE-04.md`: phase requirements, validation evidence and remaining blockers.
+- `docs/PHASE-02.md`, `docs/PHASE-03.md`, `docs/PHASE-04.md`, `docs/PHASE-05.md` and `docs/OWNER-REVIEW-CHECKLIST.md`: requirements, proof and remaining release blockers.
 
 DEC-01 public email approval remains a launch blocker: the site cannot claim to accept messages yet. To enable it, enter an explicitly approved public address and set `publicEmailApproved` in `content/profile.json`. For a résumé, only publish a reviewed `public/resume.pdf` and set `resumeApproved`/`resumeUrl` when the real PDF exists. No real patient data, school records, private contact information, tokens, or third-party media without rights should be committed. Public repository availability does not mean product launch readiness.
 
 ## Development & Git delivery
 
 The authorized GitHub-first workflow pushes reviewed changes to the `main` branch before handing off a PowerShell pull command. Keep your local `.env*` files uncommitted. Do not force reset, delete source, or overwrite local work to resolve pull conflicts.
+
+## Phase 5 release approval and preview deployment
+
+Phase 5 adds `content/launch-approval.json`, deterministic launch-readiness checks, external GitHub/link checks, a read-only hosted HTTP smoke script, and a manual GitHub Actions hosted-smoke workflow. The separate owner approval record is required for search indexing even if `PORTFOLIO_LAUNCH_APPROVED=true`. It defaults to false; **do not set approval flags to true without actual owner sign-off**. The six current case studies, public contact and biography are not yet approved, and no HTTPS domain or hosting account was supplied. This is not a publicly launched website.
+
+**Release runbook and rollback:** `docs/PHASE-05.md`. **Owner decisions:** `docs/OWNER-REVIEW-CHECKLIST.md`. **Public GitHub link evidence:** `docs/GITHUB-LINK-AUDIT.md`.
 
 ## P04 pending external checks
 
