@@ -44,7 +44,7 @@ export function normalizeCatalogQuery(search: URLSearchParams, projects: Searcha
     page: /^\d{1,3}$/.test(rawPage) && Number(rawPage) >= 1 ? Number(rawPage) : 1,
   };
 }
-export function listCatalog(projects: SearchableProject[], input: CatalogQuery) {
+export function listCatalog<T extends SearchableProject>(projects: T[], input: CatalogQuery) {
   const normalizedNeedle = fold(input.q);
   const filtered = projects.filter(p => {
     if (input.category && input.category !== p.category) return false;

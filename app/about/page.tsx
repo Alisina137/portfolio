@@ -55,8 +55,8 @@ export default function AboutPage() {
   const personSchema = canIndexPortfolio() && aboutUrl ? {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: identity.displayName,
-    jobTitle: identity.professionalTitle,
+    name: identity.name,
+    jobTitle: identity.title,
     url: aboutUrl,
     ...(identity.github && { sameAs: [identity.github, ...(identity.linkedIn ? [identity.linkedIn] : [])] }),
   } : null;
