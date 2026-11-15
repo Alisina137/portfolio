@@ -25,7 +25,7 @@ export type Project = {
   motif: string;
   coverTitle: string;
 };
-export type StudyBlock = { title: string; description: string };
+export type StudyBlock = { title: string; description: string; screenshot?: { src: string; alt: string; caption: string; approved: true } };
 export type CaseMedia = {
   src: string;
   alt: string;

@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { ProjectCard } from '@/components/project-card';
 import { ProjectArtwork } from '@/components/project-artwork';
+import { FeatureShowcase } from '@/components/feature-showcase';
 import { SectionHeading } from '@/components/section-heading';
 import { ArrowRightIcon, ArrowUpRightIcon } from '@/components/icons';
 import { LocaleCatalogExplorer } from '@/components/locale-catalog-explorer';
@@ -33,7 +34,7 @@ export function LocaleHome({locale}:{locale:Locale}) {
         <div className="hero-aside"><span className="hero-aside-line"/><span>{u.heroLocation}</span></div>
       </div><div className="hero-art" role="img" aria-label={u.heroAlt}>
         <div className="hero-art-badge"><span className="tiny-cross">✳</span><span>{u.artBadge}</span></div>
-        <div className="hero-art-main"><div className="hero-art-index">ALISINA STUDIO <span>001</span></div><div className="hero-art-letter" dir="ltr">A<span>S</span><span className="hero-art-spark">✳</span></div><div className="hero-art-rail"><span>{u.artThink}</span><span>{u.artBuild}</span></div></div>
+        <div className="hero-art-main"><span className="hero-art-crystal" aria-hidden="true"/><div className="hero-art-index">ALISINA STUDIO <span>001</span></div><div className="hero-art-letter" dir="ltr">A<span>S</span><span className="hero-art-spark">✳</span></div><div className="hero-art-rail"><span>{u.artThink}</span><span>{u.artBuild}</span></div></div>
         <div className="hero-art-floating floating-one"><span>01</span><strong>{u.artIdeas}</strong><span className="floating-arrow">↗</span></div>
         <div className="hero-art-floating floating-two"><span>02</span><strong>{u.artSystems}</strong><span className="floating-dot"/></div><div className="hero-art-bottom"><span>{u.artWork}</span><span>AS / 2026</span></div>
       </div></div><div className="container hero-supplement"><span className="scroll-cue"><span aria-hidden="true">↓</span> {u.heroScroll}</span><span>PORTFOLIO / 2026</span></div>
@@ -76,7 +77,7 @@ export async function LocaleCase({ locale, slug, back }: {locale:Locale;slug:str
     <div className="case-body-layout"><aside className="case-sidebar" aria-label={u.onThisPage}><span>{u.onThisPage}</span><a href="#context">{u.overview}</a><a href="#built">{u.whatBuilt}</a><a href="#technical">{u.technical}</a>{study.media.length>0 && <a href="#gallery">{u.gallery}</a>}<a href="#tradeoffs">{u.tradeoffs}</a><a href="#status">{u.currentState}</a><Link href={backHref}>← {u.allProjectsBack}</Link></aside>
       <div className="case-story">
         <section className="case-section" id="context"><div className="case-section-label">01 / {u.contextLabel}</div><h2>{u.contextTitle}</h2>{study.problem.map((paragraph,i)=><p key={i}>{paragraph}</p>)}<div className="case-audience"><span>{u.audienceLabel}</span><p>{study.audience}</p></div></section>
-        <section className="case-section" id="built"><div className="case-section-label">02 / {u.experienceLabel}</div><h2>{u.experienceTitle}</h2><div className="case-feature-list">{study.features.map((f,i)=><article key={f.title}><span>{String(i+1).padStart(2,'0')}</span><div><h3>{f.title}</h3><p>{f.description}</p></div></article>)}</div></section>
+        <section className="case-section" id="built"><div className="case-section-label">02 / {u.experienceLabel}</div><h2>{u.experienceTitle}</h2><FeatureShowcase projectSlug={project.slug} features={study.features} locale={locale} conceptualLabel={u.notScreenshot} technicalLabel={u.technical}/></section>
         <section className="case-section" id="technical"><div className="case-section-label">03 / {u.engineeringLabel}</div><h2>{u.engineeringTitle}</h2><p className="case-section-lead">{u.engineeringLead}</p><div className="case-tech-grid">{study.technicalNotes.map(f=><article key={f.title}><span aria-hidden="true">⌁</span><h3>{f.title}</h3><p>{f.description}</p></article>)}</div></section>
         <section className="case-section" id="tradeoffs"><div className="case-section-label">05 / {u.reflectionLabel}</div><h2>{u.reflectionTitle}</h2><div className="case-tradeoffs">{study.tradeoffs.map(f=><article key={f.title}><h3>{f.title}</h3><p>{f.description}</p></article>)}</div></section>
         <section className="case-section" id="status"><div className="case-section-label">06 / {u.projectStatusLabel}</div><h2>{u.projectStatusTitle}</h2><span className="status"><span className="status-indicator"/>{label}</span><p>{study.currentState}</p><h3 className="case-next-title">{u.nextSteps}</h3><ul className="case-next-list">{study.nextSteps.map(step=><li key={step}>{step}</li>)}</ul><p className="case-review-note">{study.sourceEvidence} {u.sourceDisclaimer}</p></section>
