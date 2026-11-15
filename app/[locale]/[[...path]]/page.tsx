@@ -2,19 +2,20 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { getPublicProject, getCaseStudy } from '@/lib/content';
 import { localePubliclyVisible, translationsOwnerApproved, getTranslatedUi, getTranslatedProject } from '@/lib/i18n';
-import { localizePath } from '@/lib/i18n-core.mjs';
+import { localizePath, parseLocale } from '@/lib/i18n-core.mjs';
 import { createPageMetadata } from '@/lib/seo';
 import { LocaleHome, LocaleProjects, LocaleCase, LocaleAbout, LocaleContact } from '@/components/locale-public-pages';
 
 type Params = { locale: string; path?: string[] };
 type Props = { params: Promise<Params>; searchParams: Promise<{ back?: string | string[] }> };
 function routeData({ locale, path = [] }: Params) {
-  if (!/^(fa|ps|en)$/.test(locale)) notFound();
+  const validatedLocale = parseLocale(locale);
+  if (!validatedLocale) notFound();
   if (path.some(part => !/^[a-z0-9-]+$/.test(part))) notFound();
   const pathname = path.length ? `/${path.join('/')}` : '/';
-  if (locale === 'en') return { locale: 'en' as const, pathname };
-  if (!localePubliclyVisible(locale)) notFound();
-  return { locale: locale as 'fa'|'ps', pathname };
+  if (validatedLocale === 'en') return { locale: 'en' as const, pathname };
+  if (!localePubliclyVisible(validatedLocale)) notFound();
+  return { locale: validatedLocale, pathname };
 }
 function isAllowedPath(pathname: string) {
   return pathname === '/' || pathname === '/projects' || /^\/projects\/[a-z0-9-]+$/.test(pathname) || pathname === '/about' || pathname === '/contact';
