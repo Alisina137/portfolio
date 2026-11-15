@@ -108,3 +108,19 @@ The optional **private owner-only Studio** is accessible at `/studio/login` only
 The optional `/contact` message form is **off** until email provider, spam verification and durable rate limiter credentials are configured; do not use dummy delivery or enable without security/privacy review. No database or public admin account is exposed by default. Public Writing still requires two articles approved by the owner; SEO launch still requires Phase 05 sign-off. See `docs/PHASE-08.md` for all environment keys, configuration, tests, backup/export and current limitations.
 
 After installing dependencies: `npm run verify`; `npm run backup:content` exports a local integrity-manifest snapshot to an ignored folder; store a copy securely away from the repository.
+
+## Phase 07 — Dari and Pashto internationalization
+
+The source now includes full public-page translation drafts, six source-backed bilingual case studies, RTL presentation, `/fa` and `/ps` route families, localized filters, and guarded `hreflang` metadata. **No translations are automatically declared owner-approved.** Until content proofreading and the 320/768/1440px RTL QA pass, `/fa` and `/ps` remain unpublished and the language selector is hidden on a production build. The original English site stays unchanged. `npm run check:locales` validates content coverage and prints the English-source revision fingerprint.
+
+For a **development-only preview** set `$env:PORTFOLIO_LOCALE_PREVIEW="true"` before `npm run dev` and inspect `/fa` and `/ps`. This does not enable publication, indexing, or any unconfigured contact/admin feature. Details and exact owner-approval workflow: [`docs/PHASE-07.md`](docs/PHASE-07.md).
+
+**If `git pull --ff-only origin main` fails with `tsconfig.json` would be overwritten:** Save that *specific* tracked local change without deleting it, then pull again:
+
+```powershell
+cd C:\projects\portfolio
+git stash push -m "Backup local tsconfig before portfolio pull" -- tsconfig.json
+git pull --ff-only origin main
+```
+
+Don't blindly apply the stash after pulling. Review its saved diff if needed. Never use a destructive reset to bypass a merge conflict.

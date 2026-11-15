@@ -4,6 +4,8 @@ import launchApproval from "@/content/launch-approval.json";
 import { hasLaunchApproval } from "@/lib/release-audit.mjs";
 import { getPublishedProjects } from "@/lib/content";
 import { getSiteUrl, isPublicIndexingEnabled, getPageUrl } from "@/lib/site-url.mjs";
+import { localizePath, stripLocale, supportedPublicPath } from "@/lib/i18n-core.mjs";
+import { translationsOwnerApproved } from "@/lib/i18n";
 
 const brand = "Alisina Sarwari";
 
@@ -22,11 +24,20 @@ export function createPageMetadata({ title, description, pathname }: { title: st
   const url = getPageUrl(pathname);
   const indexable = canIndexPortfolio();
   const image = `${pathname === "/" ? "" : pathname}/opengraph-image`;
+  const sourcePath = stripLocale(pathname);
+  // Never advertise a translation whose owner approval, RTL acceptance or source revision is pending.
+  const available = supportedPublicPath(sourcePath) && !sourcePath.startsWith('/writing') ?
+    (['fa','ps'] as const).filter(translationsOwnerApproved) : [];
+  const languages = available.length && origin ? Object.fromEntries([
+    ['en', getPageUrl(sourcePath)],
+    ...available.map(locale => [locale, getPageUrl(localizePath(locale, sourcePath))]),
+    ['x-default', getPageUrl(sourcePath)],
+  ].filter((entry): entry is [string,string] => Boolean(entry[1]))) : undefined;
   return {
     title,
     description,
     ...(origin && { metadataBase: new URL(origin) }),
-    ...(url && { alternates: { canonical: url } }),
+    ...(url && { alternates: { canonical: url, ...(languages && { languages }) } }),
     robots: { index: indexable, follow: indexable, googleBot: { index: indexable, follow: indexable } },
     openGraph: {
       type: "website",

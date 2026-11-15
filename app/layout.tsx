@@ -2,10 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { createPageMetadata } from "@/lib/seo";
 import "@/styles/globals.css";
 import "@/styles/phase08.css";
+import "@/styles/locales.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";
 import { writingIsLive } from "@/lib/writing";
+import { headers } from "next/headers";
+import { LocaleDocument } from "@/components/locale-document";
+import { visibleLanguages } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   ...createPageMetadata({
@@ -20,15 +24,19 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 const themeBootstrap = `(()=>{try{const saved=localStorage.getItem('portfolio-theme');if(saved==='light'||saved==='dark')document.documentElement.setAttribute('data-theme',saved)}catch(e){}})();`;
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const currentLocale = (await headers()).get("x-portfolio-locale");
+  const locale = currentLocale === "fa" || currentLocale === "ps" ? currentLocale : "en";
+  const availableLocales = visibleLanguages();
   const { github, linkedIn, email, resume } = getPublicIdentity();
   const showWriting = writingIsLive();
-  return <html lang="en" suppressHydrationWarning>
+  return <html lang={locale} dir={locale === "en" ? "ltr" : "rtl"} suppressHydrationWarning>
     <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
     <body>
-      <a className="skip-link" href="#main">Skip to main content</a>
+      <LocaleDocument availableLocales={availableLocales} />
+      <a className="skip-link" href="#main">{locale === "fa" ? "رفتن به محتوای اصلی" : locale === "ps" ? "اصلي منځپانګې ته تلل" : "Skip to main content"}</a>
       <div id="top" />
-      <SiteHeader resumeHref={resume} showWriting={showWriting} />
+      <SiteHeader resumeHref={resume} showWriting={showWriting} availableLocales={availableLocales} />
       {children}
       <SiteFooter github={github} linkedIn={linkedIn} email={email} resume={resume} showWriting={showWriting} />
     </body>
