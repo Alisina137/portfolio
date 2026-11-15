@@ -64,6 +64,23 @@ for (const c of caseStudies) {
   for (const item of [...(c.features || []), ...(c.technicalNotes || []), ...(c.tradeoffs || [])]) {
     if (!item.title || !item.description) fail(`${key}: content block requires title and description`);
   }
+  for (const [index, feature] of (c.features || []).entries()) {
+    if (!feature.screenshot) continue;
+    const shot = feature.screenshot;
+    const prefix = `/projects/${c.slug}/`;
+    if (shot.approved !== true || typeof shot.src !== 'string' ||
+      !shot.src.startsWith(prefix) || !/^\/projects\/[a-z0-9-]+\/[a-zA-Z0-9_-]+\.(?:png|jpg|jpeg|webp|avif)$/.test(shot.src)) {
+      fail(`${key}: feature ${index + 1} screenshot needs approved local /projects/${c.slug}/ image`);
+      continue;
+    }
+    if (typeof shot.alt !== 'string' || shot.alt.trim().length < 10 ||
+        typeof shot.caption !== 'string' || shot.caption.trim().length < 8) {
+      fail(`${key}: feature ${index + 1} screenshot requires useful alt text and an authentic caption`);
+    }
+    if (!fs.existsSync(path.join(root, 'public', shot.src.slice(1)))) {
+      fail(`${key}: missing approved feature screenshot ${shot.src}`);
+    }
+  }
   for (const media of c.media || []) {
     if (media.approved !== true || !media.src?.startsWith('/media/') || !/^\/media\/[a-zA-Z0-9_-]+\.(?:png|jpg|jpeg|webp)$/.test(media.src)) fail(`${key}: only approved local media paths are permitted`);
     if (!media.alt?.trim() || !media.caption?.trim() || !['Mobile app','Web/admin','Workflow/architecture'].includes(media.group)) fail(`${key}: media needs alt, caption and group`);

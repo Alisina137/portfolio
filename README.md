@@ -124,3 +124,11 @@ git pull --ff-only origin main
 ```
 
 Don't blindly apply the stash after pulling. Review its saved diff if needed. Never use a destructive reset to bypass a merge conflict.
+
+## Premium visual refresh — project feature stories
+
+Case studies now use an alternating **feature → concept visual** story layout, inspired by an owner-provided alternating Dropbox illustration reference. The abstract glass-panel, workflow, calendar and commerce graphics are made with CSS, not third-party photographs or claimed screenshots. Every graphic includes a visible **concept visualization — not an app screenshot** caption. Site-wide typography, blue/violet/coral accents, hover states and reduced-motion-aware transitions were improved without remote fonts or paid assets.
+
+**Replace illustrations with your own images later:** add a reviewed local image in `public/projects/<slug>/` and add an optional `screenshot` on the corresponding feature record in `content/case-studies.json`, e.g. `{ "src": "/projects/maktablink/attendance.webp", "alt": "Attendance screen showing test data", "caption": "Approved test-data capture", "approved": true }`. Use sanitized test data; never publish student, patient or customer details. The approved image automatically replaces that feature's conceptual graphic **only in English** until translated alt text and screenshot-review logic are approved for Dari/Pashto. Keep the separate, approved real-image Gallery unchanged. Do not use outside stock screenshots as evidence of a built product.
+
+Verify with `npm test` and `npm run check:locales`. A real Next.js build, rendered mobile/desktop inspection and usability audit must still pass after pulling on a machine with dependencies installed.

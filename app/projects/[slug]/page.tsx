@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectArtwork } from "@/components/project-artwork";
 import { ProjectGallery } from "@/components/project-gallery";
+import { FeatureShowcase } from "@/components/feature-showcase";
 import { ArrowUpRightIcon, ArrowRightIcon } from "@/components/icons";
 import { getCaseStudy, getDevelopmentLabel, getPublicProject, getPublishedProjects, getRelatedProjects } from "@/lib/content";
 import { returnToCatalog } from "@/lib/catalog";
@@ -49,7 +50,7 @@ export default async function ProjectCasePage({ params, searchParams }: Props) {
           <aside className="case-sidebar" aria-label="On this page"><span>IN THIS CASE</span><a href="#context">Overview</a><a href="#built">What I built</a><a href="#technical">Technical approach</a>{study.media.length > 0 && <a href="#gallery">Gallery</a>}<a href="#tradeoffs">Trade-offs</a><a href="#status">Current state</a><Link href={backHref}>← All projects</Link></aside>
           <div className="case-story">
             <section className="case-section" id="context"><div className="case-section-label">01 / THE CONTEXT</div><h2>What problem<br/><em>does it address?</em></h2>{study.problem.map((paragraph, i) => <p key={i}>{paragraph}</p>)}<div className="case-audience"><span>DESIGNED FOR</span><p>{study.audience}</p></div></section>
-            <section className="case-section" id="built"><div className="case-section-label">02 / THE EXPERIENCE</div><h2>What the product<br/><em>brings together.</em></h2><div className="case-feature-list">{study.features.map((feature, i) => <article key={feature.title}><span>{String(i + 1).padStart(2, "0")}</span><div><h3>{feature.title}</h3><p>{feature.description}</p></div></article>)}</div></section>
+            <section className="case-section" id="built"><div className="case-section-label">02 / THE EXPERIENCE</div><h2>What the product<br/><em>brings together.</em></h2><FeatureShowcase projectSlug={project.slug} features={study.features} /></section>
             <section className="case-section" id="technical"><div className="case-section-label">03 / ENGINEERING</div><h2>Behind the interfaces.</h2><p className="case-section-lead">Architectural decisions and constraints described in the checked project source.</p><div className="case-tech-grid">{study.technicalNotes.map(note => <article key={note.title}><span aria-hidden="true">⌁</span><h3>{note.title}</h3><p>{note.description}</p></article>)}</div></section>
             <ProjectGallery items={study.media}/>
             <section className="case-section" id="tradeoffs"><div className="case-section-label">05 / REFLECTIONS</div><h2>Decisions &amp; trade-offs.</h2><div className="case-tradeoffs">{study.tradeoffs.map(note => <article key={note.title}><h3>{note.title}</h3><p>{note.description}</p></article>)}</div></section>

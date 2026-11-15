@@ -35,7 +35,7 @@ export default function HomePage() {
         </div>
         <div className="hero-art" aria-label="Typographic illustration describing software work, not a product screenshot" role="img">
           <div className="hero-art-badge"><span className="tiny-cross">✳</span><span>DESIGN <i>/</i> ENGINEER <i>/</i> BUILD</span></div>
-          <div className="hero-art-main"><div className="hero-art-index">ALISINA STUDIO <span>ISSUE / 001</span></div>
+          <div className="hero-art-main"><span className="hero-art-crystal" aria-hidden="true"/><div className="hero-art-index">ALISINA STUDIO <span>ISSUE / 001</span></div>
             <div className="hero-art-letter">A<span>S</span><span className="hero-art-spark">✳</span></div>
             <div className="hero-art-rail"><span>THINK IN SYSTEMS</span><span>BUILD WITH PURPOSE</span></div>
           </div>
