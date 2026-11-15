@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const availableLocales = visibleLanguages();
   const { github, linkedIn, email, resume } = getPublicIdentity();
   const showWriting = writingIsLive();
-  return <html lang={locale} dir={locale === "en" ? "ltr" : "rtl"} suppressHydrationWarning>
+  return <html lang={locale} dir={locale === "en" ? "ltr" : "rtl"} data-scroll-behavior="smooth" suppressHydrationWarning>
     <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
     <body>
       <LocaleDocument availableLocales={availableLocales} />
