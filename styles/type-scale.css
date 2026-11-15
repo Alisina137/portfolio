@@ -1,0 +1,207 @@
+/*
+ * Portfolio type-scale v2.
+ * This is the LAST imported stylesheet, so fluid semantic sizes win over
+ * early-phase per-component px values (including phone-only shrinking).
+ * 12px is reserved for peripheral artwork/microcopy; readable content is 14–16px+.
+ */
+:root {
+  --type-micro: .75rem;            /* 12px: decorative artwork only */
+  --type-label: .8125rem;          /* 13px: uppercase labels and metadata */
+  --type-small: .875rem;           /* 14px: controls, chips and footnotes */
+  --type-body: 1rem;               /* 16px: readable paragraphs */
+  --type-lead: clamp(1.125rem, 1.55vw, 1.375rem);
+  --type-card: clamp(1.4375rem, 2.1vw, 1.875rem);
+  --type-section: clamp(2rem, 3.1vw, 3rem);
+  --type-display: clamp(2.25rem, 3.9vw, 3.625rem);
+  --type-page: clamp(2.55rem, 4.5vw, 4.5rem);
+  --type-hero: clamp(2.75rem, 4.85vw, 4.625rem);
+}
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { font-size: var(--type-body); line-height: 1.75; }
+:is(h1, h2, h3) { overflow-wrap: break-word; }
+:is(button, input, textarea, select) { font-size: inherit; }
+
+/* Page titles: a single hierarchy instead of 54–112px competing headlines. */
+.hero h1 {
+  font-size: var(--type-hero);
+  line-height: 1.09;
+  letter-spacing: -.052em;
+}
+:is(.projects-intro h1, .case-hero h1, .identity-intro h1, .contact-hero h1,
+    .writing-intro h1, .writing-story-head h1, .recovery-copy h1, .studio-shell h1) {
+  font-size: var(--type-page);
+  line-height: 1.12;
+  letter-spacing: -.048em;
+}
+:is(.closing-inner h2, .about-band-copy h2) {
+  font-size: var(--type-display);
+  line-height: 1.18;
+  letter-spacing: -.04em;
+}
+:is(.section-title-row h2, .case-section h2, .case-related-heading h2,
+    .about-section-heading h2, .about-tech h2, .about-close h2,
+    .contact-method-header h2, .contact-bottom h2, .studio-panel-head h2) {
+  font-size: var(--type-section);
+  line-height: 1.2;
+  letter-spacing: -.038em;
+}
+:is(.hero-headline, .identity-lead, .case-hero-summary, .writing-story-deck) {
+  font-size: var(--type-lead);
+  line-height: 1.55;
+  letter-spacing: -.012em;
+}
+
+/* Card and feature titles stay distinct from the H1/H2 scale. */
+:is(.project-info h3, .project-card--catalog .project-info h3,
+    .feature-row-copy h3, .focus-card h3, .contact-pending-card h3,
+    .contact-email-card h2, .contact-network h3, .case-feature-list h3,
+    .case-tradeoffs h3, .case-related-card strong) {
+  font-size: var(--type-card);
+  line-height: 1.3;
+  letter-spacing: -.032em;
+}
+:is(.method-card h3, .about-process-list h3, .case-links h2,
+    .case-tech-grid h3, .case-next-title, .writing-prose h3, .writing-end h2) {
+  font-size: clamp(1.3rem, 1.75vw, 1.625rem);
+  line-height: 1.35;
+  letter-spacing: -.02em;
+}
+:is(.writing-list-item h2, .writing-prose h2, .catalog-empty h2, .contact-form-card>h3) {
+  font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+  line-height: 1.27;
+  letter-spacing: -.032em;
+}
+
+/* The body and descriptive subcopy should never collapse to 10–13px on mobile. */
+:is(.hero-description, .section-title-row>p, .projects-intro p,
+    .project-summary, .project-card--catalog .project-summary,
+    .capability div>span, .method-card p, .work-note p,
+    .about-band-copy>p, .closing-inner>p, .identity-supporting,
+    .about-section-heading>p, .focus-card-summary, .focus-card-detail,
+    .about-tech p, .about-process-list p, .about-close p,
+    .case-section>p, .case-audience p, .case-feature-list p,
+    .case-tech-grid p, .case-tradeoffs p, .case-next-list,
+    .case-related-card p, .case-links p, .feature-row-copy p,
+    .contact-pending-card>p, .contact-email-card>p:not(.contact-copy-state),
+    .contact-network>p, .contact-bottom p, .catalog-empty p,
+    .writing-list-item p, .writing-prose, .recovery-copy p) {
+  font-size: var(--type-body);
+  line-height: 1.8;
+}
+:is(.contact-intro, .writing-intro p) {
+  font-size: var(--type-lead);
+  line-height: 1.7;
+}
+.writing-prose { font-size: clamp(1rem, 1.25vw, 1.0625rem); line-height: 1.92; }
+:is(.case-review-note, .contact-pending-note) { font-size: var(--type-label) !important; }
+.contact-copy-state { font-size: var(--type-label) !important; }
+
+/* Small but readable UI labels, taxonomy, metadata and statuses. */
+:is(.hero-eyebrow, .section-eyebrow, .page-eyebrow, .case-section-label,
+    .project-metadata, .case-facts span, .case-sidebar>span,
+    .case-related-card>span:first-child, .focus-card-top,
+    .contact-card-eyebrow, .catalog-search label, .catalog-filter-label,
+    .catalog-select-group label, .writing-toc>div) {
+  font-size: var(--type-label);
+  letter-spacing: .075em;
+  line-height: 1.55;
+}
+:is(.status, .project-tags>span, .case-hero-status>span:last-child,
+    .case-hero-caption, .case-related-arrow, .case-thumb figcaption,
+    .case-lightbox-toolbar, .case-lightbox-footer p,
+    .catalog-results-bar p, .catalog-end p, .catalog-load p,
+    .writing-article-meta, .writing-tags span, .writing-byline,
+    .writing-toc, .writing-code-toolbar, .writing-code-toolbar button,
+    .writing-code-feedback, .contact-privacy, .contact-network small,
+    .contact-context, .footer-links a, .footer-social a,
+    .footer-identity div>span, .footer-bottom,
+    .about-band-signoff, .focus-card-links a, .case-facts strong) {
+  font-size: var(--type-small);
+  line-height: 1.6;
+}
+:is(.nav-link, .header-github, .header-resume, .button,
+    .project-link, .project-card-source, .inline-direction,
+    .case-related-heading>a, .feature-row-link, .catalog-chip,
+    .catalog-end a, .text-action, .catalog-advanced-toggle,
+    .writing-filter a, .case-lightbox button, .case-expand,
+    .catalog-search-row input, .catalog-select-group select,
+    .studio-tab, .studio-field) {
+  font-size: var(--type-small);
+  line-height: 1.55;
+}
+.catalog-search-row input { min-height: 44px; }
+:is(.button, .catalog-chip, .writing-filter a) { min-height: 44px; }
+
+/* Numerical navigation: section numbers, process steps and feature counts. */
+:is(.capability-number, .method-top, .about-process-list article>span,
+    .case-feature-list article>span, .feature-row-index,
+    .writing-list-index, .mobile-nav-index) {
+  font-size: var(--type-body);
+  line-height: 1.5;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+}
+:is(.catalog-end>span, .case-sidebar, .projects-intro-aside span,
+    .hero-art-floating>span:first-child) {
+  font-size: var(--type-label);
+  letter-spacing: .06em;
+}
+:is(.mobile-nav-link, .hero-art-floating strong) { font-size: var(--type-body); }
+.projects-intro-aside strong { font-size: clamp(3.5rem, 7vw, 6.25rem); }
+
+/* Concept artwork can be expressive, but its captions must stay legible. */
+:is(.project-art-top, .project-art-bottom, .hero-art-badge,
+    .hero-art-index, .hero-art-rail, .hero-art-bottom,
+    .hero-supplement, .hero-aside, .feature-row-figure figcaption) {
+  font-size: var(--type-micro);
+  line-height: 1.55;
+  letter-spacing: .055em;
+}
+.hero-art-index, .hero-art-rail, .hero-art-bottom, .hero-supplement {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+.project-art-top, .project-art-bottom { letter-spacing: .07em; }
+.project-art-caption { font-size: clamp(1.625rem, 2.5vw, 2.25rem); }
+.project-card--lead .project-art-caption { font-size: clamp(2rem, 3.3vw, 2.875rem); }
+.project-card--catalog .project-art-caption { font-size: clamp(1.625rem, 2.4vw, 2rem); }
+.project-art--large .project-art-caption { font-size: clamp(2rem, 3.3vw, 3rem); }
+.feature-scene-windowbar { font-size: clamp(.5rem, .72vw, .625rem); }
+.feature-scene-pill { font-size: .6875rem; }
+.feature-scene-number { font-size: 1.375rem; color: rgba(218,232,255,.5); }
+
+/* Narrow devices use the same named scale, rather than many unrelated px overrides. */
+@media (max-width: 767px) {
+  :root {
+    --type-hero: clamp(2.55rem, 9vw, 3.75rem);
+    --type-page: clamp(2.375rem, 8vw, 3.5rem);
+    --type-section: clamp(1.875rem, 6vw, 2.625rem);
+    --type-display: clamp(2rem, 7vw, 3rem);
+  }
+  .section-title-row h2 { margin-bottom: 14px; }
+  .hero-headline { max-width: 36rem; }
+  .mobile-nav-index { width: 26px; flex-shrink: 0; }
+  .project-art-top, .project-art-bottom { font-size: var(--type-micro); }
+  .footer-bottom { flex-wrap: wrap; }
+}
+@media (max-width: 380px) {
+  .hero-aside, .hero-supplement { letter-spacing: .025em; }
+  .hero-art-floating strong { font-size: var(--type-small); }
+  .section-title-row>p { max-width: 100%; }
+}
+
+/* Arabic shaping remains natural; fluid hierarchy applies in both RTL locales. */
+html[dir="rtl"] :is(.hero h1, .projects-intro h1, .case-hero h1,
+    .identity-intro h1, .contact-hero h1, .section-title-row h2,
+    .case-section h2, .feature-row-copy h3, .project-info h3,
+    .closing-inner h2, .about-band-copy h2) {
+  line-height: 1.38;
+  letter-spacing: 0;
+}
+html[dir="rtl"] :is(.hero-eyebrow, .section-eyebrow, .page-eyebrow,
+    .project-metadata, .case-facts span, .feature-row-index,
+    .hero-description, .section-title-row>p, .feature-row-copy p) {
+  letter-spacing: 0;
+  line-height: 1.85;
+}
