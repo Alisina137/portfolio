@@ -99,3 +99,12 @@ npm run smoke:http
 ```
 
 Source documentation and draft content are present now. Live-browser accessibility and published-mode checks must still run after final approval.
+
+
+## Phase 08 — owner content Studio and guarded contact form
+
+The optional **private owner-only Studio** is accessible at `/studio/login` only after real GitHub OAuth credentials, owner GitHub numeric ID, a 32+ character session secret, an intentionally repo-scoped GitHub write token, and `PORTFOLIO_STUDIO_ENABLED=true` are configured. It provides forms for the public biography, verified project metadata, case-study narratives, the two draft technical articles, and sanitized project screenshots. **Every change goes through a GitHub draft PR**, never directly to `main`; after review and merge, redeploy to publish the approved content.
+
+The optional `/contact` message form is **off** until email provider, spam verification and durable rate limiter credentials are configured; do not use dummy delivery or enable without security/privacy review. No database or public admin account is exposed by default. Public Writing still requires two articles approved by the owner; SEO launch still requires Phase 05 sign-off. See `docs/PHASE-08.md` for all environment keys, configuration, tests, backup/export and current limitations.
+
+After installing dependencies: `npm run verify`; `npm run backup:content` exports a local integrity-manifest snapshot to an ignored folder; store a copy securely away from the repository.

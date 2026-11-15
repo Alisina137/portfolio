@@ -1,0 +1,42 @@
+/* Phase 08: secure, private editorial workspace and gated contact messaging. */
+.studio-shell{padding-block:100px 130px;min-height:65vh}
+.studio-shell h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.08;margin:14px 0 22px;letter-spacing:-.05em}
+.studio-shell h1 em,.studio-login h1 em{color:var(--accent);font-style:normal}
+.studio-login{margin:60px auto;max-width:680px;padding:clamp(25px,5vw,60px);background:var(--surface);border:1px solid var(--border);border-radius:24px;display:grid;gap:18px}
+.studio-login>p{color:var(--text-muted)}
+.studio-login .button{width:fit-content}
+.studio-topline{display:flex;gap:30px;align-items:flex-start;justify-content:space-between;margin-bottom:48px}
+.studio-topline>div>p{color:var(--text-muted);max-width:680px}
+.studio-topline form{margin-top:32px}
+.studio-board{display:grid;grid-template-columns:minmax(160px,210px) minmax(0,1fr);gap:24px;align-items:start}
+.studio-tabs{display:flex;flex-direction:column;gap:8px;position:sticky;top:92px}
+.studio-tab{text-align:left;border:1px solid transparent;background:transparent;color:var(--text-muted);border-radius:12px;padding:13px 16px;min-height:44px;cursor:pointer}
+.studio-tab:hover,.studio-tab--active{background:var(--accent-soft);color:var(--text);border-color:var(--border)}
+.studio-tab--active{box-shadow:inset 3px 0 0 var(--accent)}
+.studio-panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(22px,4vw,42px);min-width:0}
+.studio-panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.studio-panel-head h2{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.18;margin:10px 0 0}
+.studio-panel-head .button{white-space:normal}
+.studio-form{display:grid;gap:20px;max-width:760px}
+.studio-field,.contact-message-form label:not(.sr-only){display:grid;gap:8px;color:var(--text);font-size:.94rem;font-weight:600}
+.studio-field input:not([type=file]),.studio-field textarea,.studio-field select,.contact-message-form input:not([type=hidden]),.contact-message-form textarea{width:100%;padding:12px 14px;min-height:45px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font:inherit;font-weight:400;line-height:1.5}
+.studio-field textarea,.contact-message-form textarea{resize:vertical;min-height:130px}
+.studio-field input[type=file]{border:1px dashed var(--border);border-radius:10px;padding:15px;max-width:100%}
+.studio-field :is(input,textarea,select):focus-visible,.contact-message-form :is(input,textarea):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.studio-check{display:flex;gap:12px;align-items:flex-start;color:var(--text);font-size:.93rem;line-height:1.55;cursor:pointer}
+.studio-check input{accent-color:var(--accent);width:20px;height:20px;flex:none;margin-top:2px}
+.studio-hint,.contact-form-note{color:var(--text-muted);font-size:.89rem;line-height:1.7}
+.studio-alert{background:rgba(180,35,49,.12);border:1px solid var(--danger);border-radius:10px;color:var(--text);padding:14px}
+.studio-success{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:20px;max-width:760px;margin-bottom:24px}
+.studio-success p{margin:5px 0 8px}.studio-success a{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.studio-picker{margin-bottom:26px;max-width:760px}.studio-form>.button{justify-self:start}
+.studio-prs{display:grid;gap:12px}.studio-prs a{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--bg);border:1px solid var(--border);padding:16px;border-radius:12px}.studio-prs a:hover{border-color:var(--accent)}
+.contact-form-card{padding:clamp(22px,4vw,42px);background:var(--surface);border:1px solid var(--border);border-radius:20px;min-width:0}
+.contact-form-card>h3{font-size:clamp(1.7rem,3vw,2.5rem);margin:12px 0}
+.contact-form-card>p{color:var(--text-muted)}
+.contact-message-form{display:grid;gap:18px;margin-top:24px}
+.contact-message-form>button{justify-self:start}
+.contact-form-note{margin:0}
+@media(max-width:800px){.studio-board{grid-template-columns:minmax(0,1fr)}.studio-tabs{position:static;flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:8px}.studio-tab{white-space:nowrap;flex:none}.studio-topline{flex-wrap:wrap}.studio-topline form{margin-top:0}}
+@media(max-width:480px){.studio-shell{padding-block:54px 80px}.studio-panel{padding:20px}.studio-panel-head>.button{width:100%}.studio-login .button{width:100%}.studio-form>.button,.contact-message-form>button{width:100%}}
+@media(prefers-reduced-motion:reduce){.studio-tab{transition:none}}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { EmailContact } from "@/components/email-contact";
 import { getPublicIdentity } from "@/lib/public-identity";
+import { contactConfig } from "@/lib/phase08-core.mjs";
+import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact — Alisina Sarwari | Software Engineer",
@@ -11,8 +13,10 @@ export const metadata: Metadata = createPageMetadata({
   pathname: "/contact",
 });
 
+export const dynamic = "force-dynamic";
 export default function ContactPage() {
   const identity = getPublicIdentity();
+  const contact = contactConfig();
   return <main id="main" tabIndex={-1}>
     <section className="contact-hero section-pad" aria-labelledby="contact-title"><div className="container contact-hero-grid">
       <div><div className="page-eyebrow"><span>03 /</span> LET'S CONNECT</div><h1 id="contact-title">Have a project or<br/><em>opportunity in mind?</em></h1><p className="contact-intro">Engineering roles, practical product ideas, technical collaboration—or a thoughtful question about the work. I'd be glad to hear what you're building.</p>
@@ -24,7 +28,7 @@ export default function ContactPage() {
     <section className="contact-methods section-pad" aria-labelledby="contact-methods-title"><div className="container">
       <div className="contact-method-header"><span className="page-eyebrow"><span>01 /</span> THE NEXT STEP</span><h2 id="contact-methods-title">Let's find a way<br/><em>to connect.</em></h2></div>
       <div className="contact-method-grid">
-        {identity.email ? <EmailContact email={identity.email}/> : <section className="contact-pending-card" aria-labelledby="contact-pending-title">
+        {contact.enabled ? <ContactForm siteKey={contact.siteKey}/> : identity.email ? <EmailContact email={identity.email}/> : <section className="contact-pending-card" aria-labelledby="contact-pending-title">
           <div className="contact-card-icon" aria-hidden="true">↗</div>
           <span className="contact-card-eyebrow">PUBLIC PROFILE</span>
           <h3 id="contact-pending-title">Start with my work.</h3>
@@ -40,7 +44,7 @@ export default function ContactPage() {
           {identity.resume && <a href={identity.resume} target="_blank" rel="noopener noreferrer"><span className="network-symbol" aria-hidden="true">PDF</span><span><strong>View résumé (PDF)</strong><small>Approved professional background</small></span><ArrowUpRightIcon width="18" height="18"/><span className="sr-only">(opens in a new tab)</span></a>}
         </div>
       </div>
-      <p className="contact-privacy">No personal contact information is collected by this website unless you choose to contact me through an external service or email.</p>
+      <p className="contact-privacy">{contact.enabled ? "Contact form submissions pass through spam verification, rate limiting and an email provider. No message history is saved on this site; do not send sensitive records." : "No personal contact information is collected by this website unless you choose to contact me through an external service or email."}</p>
     </div></section>
     <section className="contact-bottom section-pad"><div className="container contact-bottom-inner"><span className="page-eyebrow"><span>02 /</span> EXPLORE FIRST</span><h2>A closer look at<br/><em>the work.</em></h2><p>See the products, challenges and technical decisions behind the ideas.</p><Link href="/projects" className="button button-outline">Browse projects <ArrowRightIcon /></Link></div></section>
   </main>;

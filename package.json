@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Alisina Sarwari — engineering and product portfolio",
+  "description": "Alisina Sarwari \u2014 engineering and product portfolio",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "npm run check:content && npm run check:writing && next build",
@@ -18,12 +18,15 @@
     "check:launch:strict": "node scripts/check-launch.mjs --strict",
     "check:links": "node scripts/verify-public-links.mjs",
     "smoke:deployed": "node scripts/smoke-deployed.mjs",
-    "check:writing": "node scripts/check-writing.mjs"
+    "check:writing": "node scripts/check-writing.mjs",
+    "check:phase08": "node --test tests/phase08-security.test.mjs",
+    "backup:content": "node scripts/export-content-backup.mjs"
   },
   "dependencies": {
     "next": "16.3.5",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

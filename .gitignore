@@ -9,4 +9,4 @@ out/
 coverage/
 playwright-report/
 test-results/
-preview/
+.portfolio-backups/

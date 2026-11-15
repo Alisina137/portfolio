@@ -48,3 +48,8 @@
 ## P06 — Technical writing and content publication gate
 
 **Status:** IMPLEMENTED — OWNER APPROVAL / LIVE VERIFICATION PENDING. `lib/writing-core.mjs` provides shared validation, Markdown parsing, safe links and an explicit minimum-two-approved-articles public gate. `/writing` and `/writing/[slug]` are built with metadata, contextual navigation, responsive reading, code copy and related project links, but intentionally return 404 while the gate is unmet. Mobile/desktop Writing navigation and sitemap entries stay absent. Two substantial technical article **drafts** exist under `content/writing/`; they are **not owner-approved or published** and have no invented publication dates. See `docs/PHASE-06.md` for the review flow and acceptance matrix. No launch approval or SEO indexing was changed. Next: owner-review both drafts (P06-A01), then real Next.js build/HTTP/browser QA; P07 localization is a separate later release.
+
+
+## P08 — Owner Studio and optional contact form (approved to start 2026-11-15)
+
+**Status:** IMPLEMENTED — VERIFICATION PENDING / EXTERNAL ENABLEMENT BLOCKED. Implemented private GitHub-OAuth owner sign-in and HMAC session, source-controlled content editing with draft PR review/audit, optional sanitized image submissions, secure offsite-backup export path, and optional public contact form with Turnstile, durable Upstash Redis rate limiting, and Resend delivery. **Both are disabled until all secure environment variables/providers are configured and tested**. Phase 05 launch/content approvals and Phase 06 article review remain pending. Phase 07 language translation was intentionally skipped (no navigation/control shown). See `docs/PHASE-08.md` and `.env.example` for exact setup, acceptance evidence, and risks.
