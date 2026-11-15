@@ -14,6 +14,7 @@ for (const file of required) if (!fs.existsSync(path.join(root, file))) errors.p
 for (const file of ['app/layout.tsx', 'app/about/page.tsx', 'app/contact/page.tsx', 'app/projects/page.tsx', 'app/projects/[slug]/page.tsx']) {
   if (!read(file).includes('createPageMetadata(')) errors.push(`Page metadata missing: ${file}`);
 }
+if (!read('app/sitemap.ts').includes('writingIsLive()') || !read('app/layout.tsx').includes('writingIsLive()')) errors.push('Writing routes and navigation must share the owner approval guard.');
 if (!read('app/sitemap.ts').includes('getPublishedProjects()') || !read('app/sitemap.ts').includes('getCaseStudy(p.slug)')) errors.push('Sitemap must derive routes only from published cases.');
 if (!read('app/robots.ts').includes('canIndexPortfolio()')) errors.push('Robots must fail closed before approval.');
 if (!read('app/projects/[slug]/page.tsx').includes('notFound()')) errors.push('Unknown or unpublished projects need a true 404.');

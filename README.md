@@ -84,3 +84,18 @@ Phase 5 adds `content/launch-approval.json`, deterministic launch-readiness chec
 ## P04 pending external checks
 
 GitHub Actions has passed TypeScript and Next.js production compilation, but a compiled site does not establish a deployed working site. Run `npm install`, `npx tsc --noEmit`, `npm run build`, keyboard/screen-reader QA, Lighthouse at 320/360/768/1440 px, and inspect the real HTTP 404, OpenGraph image, robots, sitemap and headers after hosting. No deployment has been performed in Phase 4.
+
+## Phase 06 — Writing / technical articles (owner approval required)
+
+Phase 06 adds a full editorial Writing experience, but it **is not public yet**. The Product Specification requires two genuinely owner-approved articles before the Writing navigation and routes ship; the repository currently contains two complete **review drafts** with `ownerApproval: "owner_pending"` and no publication dates. `/writing` intentionally returns 404 until that requirement is met.
+
+Review articles and the safe publication steps in `docs/PHASE-06.md`. The site uses source-controlled markdown without a CMS, authentication, a database or paid content tools. When the gate is satisfied, `/writing`, individual articles, responsive code samples with copy feedback, related projects, metadata, OG images, and sitemap entries activate as one coherent feature. Do **not** change the public-site launch approval flag merely to show Writing.
+
+```powershell
+npm run check:writing
+npm test
+npm run build
+npm run smoke:http
+```
+
+Source documentation and draft content are present now. Live-browser accessibility and published-mode checks must still run after final approval.

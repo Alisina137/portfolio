@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { isWritingEnabled } from '../lib/writing-core.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const nextBin = path.join(root, 'node_modules', 'next', 'dist', 'bin', 'next');
@@ -41,9 +42,18 @@ try {
     check(`${pathname} HTML and noindex`, html.includes('<main') && /name="robots"[^>]*noindex/i.test(html));
     check(`${pathname} security response headers`, response.headers.get('x-content-type-options') === 'nosniff' && response.headers.get('x-frame-options') === 'DENY');
   }
-  for (const pathname of ['/projects/not-an-existing-project', '/unknown-path']) {
+  const writingRecords = JSON.parse(fs.readFileSync(path.join(root, 'content', 'writing', 'articles.json'), 'utf8'));
+  const writingLive = isWritingEnabled(writingRecords);
+  for (const pathname of ['/projects/not-an-existing-project', '/unknown-path', '/writing/never-published-article']) {
     const response = await fetch(`${origin}${pathname}`);
     check(`${pathname} real 404`, response.status === 404);
+  }
+  const homeHtml = await (await fetch(origin)).text();
+  check('Writing nav respects owner approval', /href="\/writing"/.test(homeHtml) === writingLive);
+  for (const pathname of ['/writing', ...writingRecords.map(a => `/writing/${a.slug}`)]) {
+    const response = await fetch(`${origin}${pathname}`);
+    const isPublishedSlug = pathname === '/writing' || writingRecords.some(a => a.slug === pathname.slice('/writing/'.length) && a.publicationStatus === 'published' && a.ownerApproval === 'owner_approved');
+    check(`${pathname} route matches approval state`, response.status === (writingLive && isPublishedSlug ? 200 : 404));
   }
   const robotsResponse = await fetch(`${origin}/robots.txt`);
   const robots = await robotsResponse.text();

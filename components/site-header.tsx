@@ -6,14 +6,15 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRightIcon, CloseIcon, MenuIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 
-const navItems = [
+const mainNavItems = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-export function SiteHeader({ resumeHref }: { resumeHref?: string | null }) {
+export function SiteHeader({ resumeHref, showWriting = false }: { resumeHref?: string | null; showWriting?: boolean }) {
+  const navItems = showWriting ? [...mainNavItems.slice(0, 2), { label: 'Writing', href: '/writing' }, ...mainNavItems.slice(2)] : mainNavItems;
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);

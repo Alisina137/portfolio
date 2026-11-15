@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "publishing-content-without-leaking-drafts",
+    "title": "Keeping Draft Content Out of a Public Website",
+    "excerpt": "A practical look at publication states, centralized visibility rules, build-time checks, and why hiding a navigation link is not enough to keep draft content private.",
+    "category": "Web architecture",
+    "tags": ["Next.js", "Content modeling", "Security"],
+    "relatedProjects": ["maktablink", "amlaklink"],
+    "publicationStatus": "draft",
+    "ownerApproval": "owner_pending",
+    "publishedAt": null,
+    "updatedAt": null
+  },
+  {
+    "slug": "booking-calendars-and-shared-availability",
+    "title": "Designing Booking Calendars Around Shared Availability",
+    "excerpt": "How online reservations, owner blocks, and competition fixtures can agree on the same court-time inventory—and what the database must protect when requests overlap.",
+    "category": "Product engineering",
+    "tags": ["Scheduling", "PostgreSQL", "Concurrency"],
+    "relatedProjects": ["futsal"],
+    "publicationStatus": "draft",
+    "ownerApproval": "owner_pending",
+    "publishedAt": null,
+    "updatedAt": null
+  }
+]
