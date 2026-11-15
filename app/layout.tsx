@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";
+import { writingIsLive } from "@/lib/writing";
 
 export const metadata: Metadata = {
   ...createPageMetadata({
@@ -20,14 +21,15 @@ const themeBootstrap = `(()=>{try{const saved=localStorage.getItem('portfolio-th
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { github, linkedIn, email, resume } = getPublicIdentity();
+  const showWriting = writingIsLive();
   return <html lang="en" suppressHydrationWarning>
     <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
     <body>
       <a className="skip-link" href="#main">Skip to main content</a>
       <div id="top" />
-      <SiteHeader resumeHref={resume} />
+      <SiteHeader resumeHref={resume} showWriting={showWriting} />
       {children}
-      <SiteFooter github={github} linkedIn={linkedIn} email={email} resume={resume} />
+      <SiteFooter github={github} linkedIn={linkedIn} email={email} resume={resume} showWriting={showWriting} />
     </body>
   </html>;
 }
