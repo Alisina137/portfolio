@@ -1,4 +1,7 @@
 import type { Metadata, Viewport } from "next";
+// Versioned, self-hosted variable fonts: no runtime connection to a font CDN.
+import "@fontsource-variable/manrope/wght.css";
+import "@fontsource-variable/vazirmatn/wght.css";
 import { createPageMetadata } from "@/lib/seo";
 import "@/styles/globals.css";
 import "@/styles/phase08.css";

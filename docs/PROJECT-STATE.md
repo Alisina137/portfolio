@@ -65,3 +65,7 @@
 ## Design refinement — typography, color and project feature visualization (15 November 2026)
 
 **IMPLEMENTED — VISUAL / RUNTIME VERIFICATION PENDING.** Owner requested a stronger editorial type system, refined cobalt/indigo/coral tokens in dark/light modes, CSS-generated holographic/3D-inspired illustrations and accessible transitions. Added a complete alternating feature-story section per published case study, with source-backed feature descriptions, mobile stack, RTL mirror and visible placeholder labels. No unapproved third-party screenshots or fictional product metrics added. Owner can later replace concepts using approved local screenshots. Content and localization approval gates remain unchanged. Test source contracts and existing source checks; actual Next.js CI build, keyboard/RTL real-browser and device testing remain follow-up verification.
+
+## Typography refinement — 15 Nov 2026
+
+Replaced inconsistent platform-only English font fallbacks with self-hosted **Manrope Variable** and Arabic-script fallback stacks with self-hosted **Vazirmatn Variable**. Updated heading weights and letter spacing to be softer and more legible; public/Studio components share the same tokens. Added `tests/typography.test.mjs` and `docs/TYPOGRAPHY.md`. These changes require `npm install` after pulling. GitHub CI/build results and real-device visual acceptance must be checked separately; this is not a public launch approval.
