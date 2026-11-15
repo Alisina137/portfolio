@@ -8,14 +8,14 @@ import { LocaleHome, LocaleProjects, LocaleCase, LocaleAbout, LocaleContact } fr
 
 type Params = { locale: string; path?: string[] };
 type Props = { params: Promise<Params>; searchParams: Promise<{ back?: string | string[] }> };
-function routeData({ locale, path = [] }: Params) {
-  const validatedLocale = parseLocale(locale);
-  if (!validatedLocale) notFound();
+function routeData({ locale: rawLocale, path = [] }: Params) {
+  const locale = parseLocale(rawLocale);
+  if (!locale) notFound();
   if (path.some(part => !/^[a-z0-9-]+$/.test(part))) notFound();
   const pathname = path.length ? `/${path.join('/')}` : '/';
-  if (validatedLocale === 'en') return { locale: 'en' as const, pathname };
-  if (!localePubliclyVisible(validatedLocale)) notFound();
-  return { locale: validatedLocale, pathname };
+  if (locale === 'en') return { locale: 'en' as const, pathname };
+  if (!localePubliclyVisible(locale)) notFound();
+  return { locale, pathname };
 }
 function isAllowedPath(pathname: string) {
   return pathname === '/' || pathname === '/projects' || /^\/projects\/[a-z0-9-]+$/.test(pathname) || pathname === '/about' || pathname === '/contact';
