@@ -1,0 +1,11 @@
+export type Locale = 'en' | 'fa' | 'ps';
+export const LOCALES: Locale[];
+export const RTL_LOCALES: Locale[];
+export function parseLocale(value: string): Locale | null;
+export function localeFromPath(pathname: string): Locale;
+export function stripLocale(pathname: string): string;
+export function localizePath(locale: Locale, pathname: string): string;
+export function supportedPublicPath(path: string): boolean;
+export function localeApproved(locale: Locale, approvals: Record<string, { ownerApproved: boolean; rtlQaPassed: boolean; sourceFingerprint: string }>, fingerprint: string, writingLive?: boolean, translatedWritingComplete?: boolean): boolean;
+export function localeVisible(locale: Locale, approvals: Record<string, { ownerApproved: boolean; rtlQaPassed: boolean; sourceFingerprint: string }>, fingerprint: string, options?: { dev?: boolean; preview?: boolean; writingLive?: boolean; translatedWritingComplete?: boolean }): boolean;
+export function localeSwitchHref(pathname: string, locale: Locale, search?: string): string;

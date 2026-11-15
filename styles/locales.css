@@ -1,0 +1,32 @@
+/* Phase 07 — language-aware public portfolio. Logical spacing and strong Arabic shaping. */
+.locale-selector{display:flex;align-items:center;min-height:38px}
+.locale-selector select{min-width:84px;max-width:118px;border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:.83rem;font-weight:600;line-height:1.5;cursor:pointer}
+.locale-selector select:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+html[dir="rtl"] body{font-family:Tahoma,"Noto Naskh Arabic","Noto Sans Arabic",sans-serif;line-height:1.8}
+html[dir="rtl"] :is(h1,h2,h3,h4,h5){line-height:1.35;letter-spacing:0}
+html[dir="rtl"] :is(.hero-headline,.hero-description,.identity-lead,.contact-intro){line-height:1.9;letter-spacing:0}
+html[dir="rtl"] :is(.project-summary,.case-story p,.case-next-list,.contact-network p,.catalog-empty p,.about-close p){line-height:1.95}
+html[dir="rtl"] :is(.page-eyebrow,.section-eyebrow,.hero-eyebrow,.case-section-label,.case-facts>div>span){letter-spacing:0;line-height:1.7}
+html[dir="rtl"] :is(.hero-content,.section-heading,.about-band-copy,.projects-intro,.identity-intro,.contact-hero,.case-hero-copy,.case-story,.case-sidebar,.contact-methods,.catalog-shell,.focus-card,.method-card,.case-related,.contact-bottom,.footer-identity){text-align:start}
+html[dir="rtl"] :is(.desktop-nav,.footer-links,.header-tools,.hero-actions,.identity-actions,.about-close-actions,.case-contact-inline,.contact-method-grid){direction:rtl}
+html[dir="rtl"] :is(.project-tags,.case-facts strong,.about-tech-pills,.project-card-title-link){unicode-bidi:plaintext}
+html[dir="rtl"] :is(.project-card-source,.contact-address){direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] :is(.catalog-panel,.catalog-search input,.catalog-advanced select,.contact-message-form input,.contact-message-form textarea){text-align:start}
+html[dir="rtl"] .case-sidebar{border-inline-start:1px solid var(--border);border-inline-end:0}
+html[dir="rtl"] :is(.case-story,.case-feature-list,.case-tech-grid,.focus-card,.method-card){min-width:0;overflow-wrap:anywhere}
+html[dir="rtl"] .project-art-caption{font-size:clamp(1.1rem,2vw,2.25rem);line-height:1.4}
+html[dir="rtl"] .project-art-top,html[dir="rtl"] .project-art-bottom{letter-spacing:0}
+html[dir="rtl"] .hero-art-letter,html[dir="rtl"] .brand-mark,html[dir="rtl"] .identity-portrait-mark{font-family:Inter,Arial,sans-serif}
+html[dir="rtl"] :is(.hero-art-floating,.hero-art-badge,.hero-art-rail,.hero-art-bottom){font-size:clamp(.62rem,.9vw,.83rem);line-height:1.6;letter-spacing:0}
+html[dir="rtl"] :is(.hero-aside,.hero-supplement,.hero-art-top,.hero-art-index){letter-spacing:0}
+html[dir="rtl"] :is(.case-breadcrumb,.case-status,.project-metadata,.catalog-chips){min-width:0;overflow-wrap:anywhere}
+html[dir="rtl"] :is(.hero-actions,.identity-actions,.about-close-actions,.case-contact-inline,.case-related-heading,.footer-social){flex-wrap:wrap}
+html[dir="rtl"] :is(.catalog-select-group select,.locale-selector select){padding-inline:12px 28px}
+html[dir="rtl"] :is(.button svg,.inline-direction svg,.project-link svg){transform:scaleX(-1)}
+html[dir="rtl"] :is(.case-facts strong,.project-tags span,.about-tech-pills span){unicode-bidi:isolate}
+html[dir="rtl"] :is(.contact-network a,.case-related-card){text-align:start}
+html[dir="rtl"] :is(.hero-headline,.hero-description,.contact-intro,.case-hero-summary,.projects-intro p){max-width:62ch}
+html[dir="rtl"] :is(.container,.projects-grid,.case-body-layout,.case-story,.catalog-grid,.about-band-inner){min-width:0}
+@media(max-width:850px){.locale-selector select{min-width:72px;max-width:90px;padding:7px 8px}}
+@media(max-width:390px){.locale-selector select{min-width:63px;max-width:72px;padding:6px 3px;font-size:.75rem}.header-tools{gap:4px}html[dir="rtl"] .hero-art-floating{max-width:75%;white-space:normal}}
+@media(prefers-reduced-motion:reduce){.locale-selector select{transition:none}}

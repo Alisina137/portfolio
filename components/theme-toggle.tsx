@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "./icons";
+import { usePathname } from "next/navigation";
+import { getUi, localeFromPath } from "@/lib/i18n-client";
 
 type Theme = "light" | "dark";
 
@@ -12,6 +14,8 @@ function getCurrentTheme(): Theme {
 }
 
 export function ThemeToggle() {
+  const locale=localeFromPath(usePathname());
+  const ui=locale==='en'?null:getUi(locale);
   const [theme, setTheme] = useState<Theme | null>(null);
   useEffect(() => {
     const sync = () => setTheme(getCurrentTheme());
@@ -29,8 +33,8 @@ export function ThemeToggle() {
   };
 
   return <button type="button" className="icon-button theme-toggle" onClick={switchTheme}
-    aria-label={theme ? `Switch to ${theme === "dark" ? "light" : "dark"} theme` : "Toggle light and dark theme"}
-    title="Change color theme">
+    aria-label={ui ? `${ui.theme}: ${theme === "dark" ? (locale === "fa" ? "روشن" : "روښانه") : (locale === "fa" ? "تاریک" : "تیاره")}` : (theme ? `Switch to ${theme === "dark" ? "light" : "dark"} theme` : "Toggle light and dark theme")}
+    title={ui?.theme ?? "Change color theme"}>
     <span className="theme-icon-sun"><SunIcon /></span>
     <span className="theme-icon-moon"><MoonIcon /></span>
   </button>;
