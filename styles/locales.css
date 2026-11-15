@@ -2,7 +2,9 @@
 .locale-selector{display:flex;align-items:center;min-height:38px}
 .locale-selector select{min-width:84px;max-width:118px;border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:.83rem;font-weight:600;line-height:1.5;cursor:pointer}
 .locale-selector select:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-html[dir="rtl"] body{font-family:Tahoma,"Noto Naskh Arabic","Noto Sans Arabic",sans-serif;line-height:1.8}
+html[dir="rtl"]{--font-text:"Vazirmatn Variable",Tahoma,"Noto Sans Arabic",sans-serif;--font-display:"Vazirmatn Variable",Tahoma,"Noto Sans Arabic",sans-serif;}
+html[dir="rtl"] body{font-family:var(--font-text);line-height:1.85;letter-spacing:0;}
+html[dir="rtl"] :is(button,input,select,textarea){font-family:var(--font-text)}
 html[dir="rtl"] :is(h1,h2,h3,h4,h5){line-height:1.35;letter-spacing:0}
 html[dir="rtl"] :is(.hero-headline,.hero-description,.identity-lead,.contact-intro){line-height:1.9;letter-spacing:0}
 html[dir="rtl"] :is(.project-summary,.case-story p,.case-next-list,.contact-network p,.catalog-empty p,.about-close p){line-height:1.95}
@@ -16,7 +18,7 @@ html[dir="rtl"] .case-sidebar{border-inline-start:1px solid var(--border);border
 html[dir="rtl"] :is(.case-story,.case-feature-list,.case-tech-grid,.focus-card,.method-card){min-width:0;overflow-wrap:anywhere}
 html[dir="rtl"] .project-art-caption{font-size:clamp(1.1rem,2vw,2.25rem);line-height:1.4}
 html[dir="rtl"] .project-art-top,html[dir="rtl"] .project-art-bottom{letter-spacing:0}
-html[dir="rtl"] .hero-art-letter,html[dir="rtl"] .brand-mark,html[dir="rtl"] .identity-portrait-mark{font-family:Inter,Arial,sans-serif}
+html[dir="rtl"] .hero-art-letter,html[dir="rtl"] .brand-mark,html[dir="rtl"] .identity-portrait-mark{font-family:'Manrope Variable',Arial,sans-serif}
 html[dir="rtl"] :is(.hero-art-floating,.hero-art-badge,.hero-art-rail,.hero-art-bottom){font-size:clamp(.62rem,.9vw,.83rem);line-height:1.6;letter-spacing:0}
 html[dir="rtl"] :is(.hero-aside,.hero-supplement,.hero-art-top,.hero-art-index){letter-spacing:0}
 html[dir="rtl"] :is(.case-breadcrumb,.case-status,.project-metadata,.catalog-chips){min-width:0;overflow-wrap:anywhere}
