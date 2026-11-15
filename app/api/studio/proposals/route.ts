@@ -1,0 +1,48 @@
+import { NextRequest } from 'next/server';
+import { getStudioSession } from '@/lib/studio-auth';
+import { createEditorialPr,readRepoContent,GitHubStudioError } from '@/lib/github-studio';
+import { studioConfig,validSameOrigin,validateStudioChange } from '@/lib/phase08-core.mjs';
+import { readLimitedJson } from '@/lib/request-json';
+import { validateWritingManifest,parseArticle } from '@/lib/writing-core.mjs';
+
+export const runtime='nodejs';
+const paths={profile:'content/profile.json',project:'content/projects.json',case:'content/case-studies.json',article:'content/writing/articles.json'};
+export async function POST(req:NextRequest){
+  const cfg=studioConfig();if(!cfg.enabled)return new Response('Not found',{status:404});
+  if(!await getStudioSession())return Response.json({error:'Sign in required'},{status:401});
+  if(!validSameOrigin(req,cfg.origin))return Response.json({error:'Cross-site requests are blocked'},{status:403});
+  const len=Number(req.headers.get('content-length')||0);if(len>90000)return Response.json({error:'Request too large'},{status:413});
+  try{
+    const request=await readLimitedJson(req,90000) as Record<string,any>;
+    const {kind,slug,fields,expectedHead}=request||{};
+    if(!Object.hasOwn(paths,kind) || typeof expectedHead!=='string'||!/^[a-f0-9]{40}$/.test(expectedHead)||!fields||typeof fields!=='object')return Response.json({error:'Invalid change request'},{status:400});
+    const path=paths[kind as keyof typeof paths];
+    const source=await readRepoContent(path);const parsed=JSON.parse(source.content);
+    const original=kind==='profile'?parsed:(Array.isArray(parsed)?parsed.find((v:any)=>v.slug===slug):undefined);
+    if(!original)return Response.json({error:'Content record not found'},{status:404});
+    const change=validateStudioChange({kind,slug,fields},original);
+    if(!change)return Response.json({error:'Invalid content values'},{status:422});
+    const files:{path:string;content:string}[]=[];
+    if(kind==='article'){
+      const result=change as {record:Record<string,any>;body:string|null};
+      const next=parsed.map((v:any)=>v.slug===slug?result.record:v);
+      if(result.body!==null){
+        parseArticle(result.body);
+        files.push({path:`content/writing/${slug}.md`,content:result.body.endsWith('\n')?result.body:result.body+'\n'});
+      }
+      const slugs=(await readRepoContent('content/projects.json'));
+      const projects=JSON.parse(slugs.content).filter((v:any)=>v.publicationStatus==='published').map((v:any)=>v.slug);
+      if(validateWritingManifest(next,projects).length)return Response.json({error:'Article does not meet publication requirements'},{status:422});
+      files.push({path,content:JSON.stringify(next,null,2)+'\n'});
+    }else{
+      const next=kind==='profile'?change:parsed.map((v:any)=>v.slug===slug?change:v);
+      files.push({path,content:JSON.stringify(next,null,2)+'\n'});
+    }
+    const name=kind==='profile'?'profile':`${kind} ${slug}`;
+    const result=await createEditorialPr(files,`review ${name}`,expectedHead);
+    return Response.json({ok:true,...result},{status:201,headers:{'Cache-Control':'no-store'}});
+  }catch(e){
+    if(e instanceof GitHubStudioError)return Response.json({error:e.message},{status:e.code});
+    return Response.json({error:'Could not create a review proposal. Check article formatting and try again.'},{status:422});
+  }
+}
