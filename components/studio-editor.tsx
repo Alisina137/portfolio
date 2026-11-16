@@ -1,14 +1,15 @@
 'use client';
 import { useEffect,useState,FormEvent } from 'react';
 import { StudioWritingPreview } from '@/components/studio-writing-preview';
+import type { AvailabilityInput, EmploymentType, WorkMode, WorkRegion, FocusArea } from '@/lib/availability-core.mjs';
 
 type Project={slug:string;title:string;oneLiner:string;ownerRole:string;developmentStatus:string;contentApproval:string};
 type Case={slug:string;audience:string;productType:string;currentState:string;sourceEvidence:string;problem:string[]};
 type Article={slug:string;title:string;excerpt:string;category:string;tags:string[];relatedProjects:string[];publicationStatus:string;ownerApproval:string;publishedAt:string|null;updatedAt:string|null};
 type Profile={professionalTitle:string;headline:string;intro:string;shortBio:string;locationText:string;publicEmail:string|null;publicEmailApproved:boolean;ownerBioApproved:boolean};
-type Data={head:string;projects:Project[];cases:Case[];writing:Article[];profile:Profile;testimonials:{entries:{id:string;name:string;relationship:string}[]};prs:{url:string;title:string;number:number;draft:boolean}[]};
-type Kind='profile'|'project'|'case'|'article'|'media'|'testimonial'|'reviews';
-const tabs:{id:Kind;label:string}[]=[{id:'profile',label:'Profile'},{id:'project',label:'Projects'},{id:'case',label:'Case studies'},{id:'article',label:'Writing'},{id:'media',label:'Media'},{id:'testimonial',label:'Recommendations'},{id:'reviews',label:'Review queue'}];
+type Data={head:string;projects:Project[];cases:Case[];writing:Article[];profile:Profile;testimonials:{entries:{id:string;name:string;relationship:string}[]};availability:AvailabilityInput;prs:{url:string;title:string;number:number;draft:boolean}[]};
+type Kind='profile'|'project'|'case'|'article'|'media'|'testimonial'|'availability'|'reviews';
+const tabs:{id:Kind;label:string}[]=[{id:'profile',label:'Profile'},{id:'project',label:'Projects'},{id:'case',label:'Case studies'},{id:'article',label:'Writing'},{id:'media',label:'Media'},{id:'testimonial',label:'Recommendations'},{id:'availability',label:'Availability'},{id:'reviews',label:'Review queue'}];
 
 function Field({label,value,onChange,multiline=false,rows=4,maxLength=1200}:{label:string;value:string;onChange:(s:string)=>void;multiline?:boolean;rows?:number;maxLength?:number}){
   return <label className="studio-field"><span>{label}</span>{multiline?<textarea rows={rows} maxLength={maxLength} value={value} onChange={e=>onChange(e.target.value)}/>:<input maxLength={maxLength} value={value} onChange={e=>onChange(e.target.value)}/>}</label>;
@@ -169,6 +170,77 @@ function TestimonialForm({head,projects,current,onResult}:{head:string;projects:
   </div>;
 }
 
+/**
+ * Phase 20: owner-only, review-PR availability editor. Published statuses expire
+ * automatically and are never inferred from résumé context or project activity.
+ */
+function AvailabilityForm({head,original,onResult}:{head:string;original:AvailabilityInput;onResult:(url:string)=>void}){
+  const [state,setState]=useState({
+    status:original.status,
+    employmentTypes:[...original.employmentTypes],
+    workModes:[...original.workModes],
+    regions:[...original.regions],
+    focus:[...original.focus],
+    reviewedAt:original.reviewedAt||"",
+    validUntil:original.validUntil||"",
+    note:original.note||""
+  });
+  const [approval,setApproval]=useState(false);
+  const [busy,setBusy]=useState(false);
+  const [error,setError]=useState("");
+  const update=(key:string,value:any)=>setState(old=>({...old,[key]:value}));
+  function toggle<T extends string>(key:"employmentTypes"|"workModes"|"regions"|"focus",value:T){
+    setState(old=>{
+      const current=old[key] as T[];
+      return {...old,[key]:current.includes(value)?current.filter(x=>x!==value):[...current,value]};
+    });
+  }
+  const choices={
+    employmentTypes:[["full_time","Full-time"],["part_time","Part-time"],["contract","Contract / freelance"],["internship","Internship"]] as const,
+    workModes:[["remote","Remote"],["hybrid","Hybrid"],["on_site","On-site"]] as const,
+    regions:[["afghanistan","Across Afghanistan"],["international_remote","International remote"]] as const,
+    focus:[["web","Web"],["mobile","Mobile"],["backend","Backend"],["data","Database"],["fullstack","Full-stack"],["improvements","UI and workflow refinement"]] as const
+  };
+  async function submit(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();setError("");setBusy(true);
+    try{
+      const fields:AvailabilityInput={
+        schemaVersion:1,ownerApproval:approval?"owner_approved":"owner_pending",
+        status:state.status,employmentTypes:state.employmentTypes as EmploymentType[],
+        workModes:state.workModes as WorkMode[],regions:state.regions as WorkRegion[],
+        focus:state.focus as FocusArea[],note:state.note.trim()||null,
+        reviewedAt:approval?(state.reviewedAt||null):null,validUntil:approval?(state.validUntil||null):null
+      };
+      const res=await fetch("/api/studio/proposals",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({kind:"availability",fields,expectedHead:head})});
+      const result=await res.json();
+      if(!res.ok)throw new Error(result.error||"Availability change could not be proposed");
+      onResult(result.url);
+    }catch(e){setError(e instanceof Error?e.message:"Unexpected submission error");}
+    finally{setBusy(false);}
+  }
+  return <form className="studio-form availability-studio" onSubmit={submit}>
+    <p className="studio-hint">Public job availability is a personal statement, not something inferred from repo work or older conversations. Choose current, accurate preferences, review the public wording, and then create a draft GitHub pull request. Until an owner-approved record is merged, visitors see “not publicly confirmed.”</p>
+    <p className="studio-hint">Current source approval: {original.ownerApproval.replaceAll("_"," ")}. Approved dates expire after at most 90 days and are hidden automatically once stale.</p>
+    <Choice label="Current status to display after approval" value={state.status} onChange={v=>update("status",v as AvailabilityInput["status"])}
+      options={["not_shared","open","selective","unavailable"]}/>
+    {(["employmentTypes","workModes","regions","focus"] as const).map(group=><fieldset className="availability-studio-choices" key={group}>
+      <legend>{({employmentTypes:"Employment types",workModes:"Work arrangements",regions:"Location scope",focus:"Technical focus"})[group]}</legend>
+      <div>{choices[group].map(([value,label])=><Checkbox key={value} label={label} checked={state[group].includes(value as never)}
+        onChange={()=>toggle(group,value)}/>)}</div>
+    </fieldset>)}
+    <Field label="Optional public clarification (20–260 characters, no contact details)" value={state.note} onChange={v=>update("note",v)} multiline rows={3} maxLength={260}/>
+    <Checkbox label="I personally reviewed these preferences, confirm they are accurate now and authorize them to be publicly visible after the reviewed pull request merges." checked={approval} onChange={setApproval}/>
+    {approval&&<>
+      <label className="studio-field"><span>Actual review date</span><input type="date" required value={state.reviewedAt} onChange={e=>update("reviewedAt",e.target.value)}/></label>
+      <label className="studio-field"><span>Valid through date (within 90 days of review)</span><input type="date" required value={state.validUntil} onChange={e=>update("validUntil",e.target.value)}/></label>
+    </>}
+    <p className="studio-hint">Open/selective availability needs at least one actual employment type, work mode and technical focus. International remote requires Remote. An unavailable status may omit preferences. Never add a personal address, salary requirement or private phone number. This form does not promise meetings or response times.</p>
+    {error&&<p className="studio-alert" role="alert">{error}</p>}
+    <button className="button button-primary" type="submit" disabled={busy}>{busy?"Preparing review…":"Create draft review pull request →"}</button>
+  </form>;
+}
+
 export function StudioEditor(){
   const [data,setData]=useState<Data|null>(null);const [status,setStatus]=useState('Loading latest content from GitHub…');const [tab,setTab]=useState<Kind>('profile');const [slug,setSlug]=useState('');const [lastProposal,setLastProposal]=useState('');
   async function refresh(){setStatus('Loading latest content…');try{const r=await fetch('/api/studio/content',{cache:'no-store'});const json=await r.json();if(!r.ok)throw new Error(json.error||'Access denied');setData(json);setSlug(json.projects?.[0]?.slug||'');setStatus('');}catch(e){setStatus(e instanceof Error?e.message:'Could not load content');}}
@@ -186,6 +258,7 @@ export function StudioEditor(){
       {data&&tab==='reviews'&&<div className="studio-prs">{data.prs.length===0?<p>No open Studio pull requests. Create a proposal from the editor to start a review.</p>:data.prs.map(p=><a key={p.number} target="_blank" rel="noopener noreferrer" href={p.url}>#{p.number} — {p.title} <span>{p.draft?'Draft':'Open'}</span> ↗</a>)}<p className="studio-hint">GitHub is the review and audit history. Publishing requires a merge and a successful deployment; this workspace cannot bypass approval checks.</p></div>}
       {data&&tab==='media'&&<MediaForm head={data.head} projects={projects} onResult={setLastProposal}/>}
       {data&&tab==='testimonial'&&<TestimonialForm head={data.head} projects={projects} current={data.testimonials?.entries||[]} onResult={setLastProposal}/>}
+      {data&&tab==='availability'&&<AvailabilityForm head={data.head} original={data.availability} onResult={setLastProposal}/>}
       {data&&tab==='profile'&&<ContentForm key="profile" kind="profile" original={data.profile} head={data.head} onResult={setLastProposal}/>}
       {data&&(['project','case','article'] as Kind[]).includes(tab)&&<>
         <label className="studio-field studio-picker"><span>Select {tab==='article'?'article':'project'}</span><select value={currentSlug} onChange={e=>{setSlug(e.target.value);setLastProposal('');}}>{items.map(v=><option key={v.slug} value={v.slug}>{'title'in v?v.title:v.slug}</option>)}</select></label>

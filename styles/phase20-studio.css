@@ -1,0 +1,9 @@
+/* Phase 20: owner-only editorial controls; private record never reaches the public UI. */
+.availability-studio-choices{border:1px solid var(--border);border-radius:16px;margin:0;padding:17px 20px;background:var(--surface)}
+.availability-studio-choices legend{padding:0 8px;font-weight:750;font-size:var(--type-small)}
+.availability-studio-choices>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px;padding-top:8px}
+.availability-studio-choices .studio-check{margin:0;min-width:0}
+.contact-availability-link{margin-top:18px;font-size:var(--type-small)}
+.contact-availability-link a,.contact-availability-link{display:inline-flex;align-items:center;gap:9px;color:var(--accent);font-weight:720;text-decoration:underline;text-underline-offset:5px}
+.contact-availability-link:focus-visible,.contact-availability-link a:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+@media(max-width:640px){.availability-studio-choices>div{grid-template-columns:1fr}}
