@@ -7,6 +7,7 @@ import { getPublicIdentity } from "@/lib/public-identity";
 import { canIndexPortfolio } from "@/lib/seo";
 import { getPageUrl } from "@/lib/site-url.mjs";
 import { SkillsSection } from "@/components/skills-section";
+import { ExperienceTimeline } from "@/components/experience-timeline";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About — Alisina Sarwari | Software Engineer & Product Builder",
@@ -96,14 +97,16 @@ export default function AboutPage() {
 
     <SkillsSection locale="en" variant="about" />
 
+    <ExperienceTimeline locale="en" variant="about" />
+
     <section className="about-process section-pad" aria-labelledby="process-title"><div className="container">
-      <div className="about-section-heading"><span className="page-eyebrow"><span>03 /</span> HOW I WORK</span><h2 id="process-title">From a question<br/><em>to a working system.</em></h2><p>A practical approach to exploring complex product ideas, not an invented employment timeline.</p></div>
+      <div className="about-section-heading"><span className="page-eyebrow"><span>04 /</span> HOW I WORK</span><h2 id="process-title">From a question<br/><em>to a working system.</em></h2><p>A practical approach to exploring complex product ideas and reviewing each project with care.</p></div>
       <div className="about-process-list">{approach.map(item => <article key={item.marker}><span>{item.marker}</span><h3>{item.title}</h3><p>{item.copy}</p></article>)}</div>
       {identity.education && <div className="about-education"><span className="page-eyebrow">EDUCATION</span><p>{identity.education}</p></div>}
     </div></section>
 
     <section className="about-close section-pad"><div className="container about-close-inner">
-      <span className="page-eyebrow"><span>04 /</span> KEEP THE CONVERSATION GOING</span>
+      <span className="page-eyebrow"><span>05 /</span> KEEP THE CONVERSATION GOING</span>
       <h2>Let's build something<br/><em>useful.</em></h2>
       <p>Interested in engineering work, a product idea, or exploring one of these projects? Here's where to find me.</p>
       <div className="about-close-actions"><Link href="/contact" className="button button-primary">Contact <ArrowRightIcon /></Link>{identity.resume && <a href={identity.resume} className="button button-outline" target="_blank" rel="noopener noreferrer">View résumé (PDF) <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>}{identity.github && <a href={identity.github} className="button button-outline" target="_blank" rel="noopener noreferrer">GitHub profile <ArrowUpRightIcon /><span className="sr-only">(opens in a new tab)</span></a>}</div>

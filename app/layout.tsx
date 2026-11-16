@@ -9,6 +9,7 @@ import "@/styles/locales.css";
 import "@/styles/premium.css";
 import "@/styles/type-scale.css";
 import "@/styles/phase09.css";
+import "@/styles/phase10.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";

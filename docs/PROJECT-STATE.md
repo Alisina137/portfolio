@@ -73,3 +73,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 09 — Skills and technologies (16 November 2026)
 
 **IMPLEMENTED IN SOURCE; HOSTED AND DEVICE QA PENDING.** Evidence-linked six-category card grid introduced on Home and About with responsive theming, inline SVGs, accessible links, typography and RTL support. Categories derive from published project records, while GitHub/Netlify are explicitly labeled the current portfolio delivery path. Added navigation anchor and draft Dari/Pashto copy; no automatic owner approval for locales, identity, or public indexing. See docs/PHASE-09.md for scope and acceptance checks.
+
+## Phase 10 — experience portfolio timeline (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / CI AND LIVE VISUAL QA FOLLOW-UP.** Homepage three-project experience preview; About full six-project independent-work timeline with accessible expandable case-study scope, technical notes, repository-backed technologies and working project links. All are explicitly labeled *independent projects*, not employment; no fictional employer, date, compensation, accomplishment or role attribution is presented. Schema in `content/experience.json` has zero formal roles and server projection only permits actual owner-approved validated formal records. Header/footer anchors, responsive tablet nav, draft Dari/Pashto copy, locale review fingerprint and regression tests included. See `docs/PHASE-10.md`.

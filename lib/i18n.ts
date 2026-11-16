@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import englishProfile from '@/content/profile.json';
 import englishProjects from '@/content/projects.json';
 import englishCases from '@/content/case-studies.json';
+import englishExperience from '@/content/experience.json';
 import writing from '@/content/writing/articles.json';
 import faUi from '@/content/locales/fa-ui.json';
 import psUi from '@/content/locales/ps-ui.json';
@@ -34,7 +35,7 @@ export function getTranslatedCase(locale: 'fa' | 'ps', study: CaseStudy): CaseSt
   return { ...study, ...record, slug: study.slug, media: [] };
 }
 export function localeContentFingerprint() {
-  return createHash('sha256').update(JSON.stringify([englishProfile, englishProjects, englishCases, writing])).digest('hex');
+  return createHash('sha256').update(JSON.stringify([englishProfile, englishProjects, englishCases, writing, englishExperience])).digest('hex');
 }
 export function translationsOwnerApproved(locale: 'fa' | 'ps') {
   return localeApproved(locale, approval, localeContentFingerprint(), writingIsLive(), false);
