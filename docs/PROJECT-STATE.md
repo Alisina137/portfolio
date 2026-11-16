@@ -97,3 +97,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 15 — Project media / visual tours (16 November 2026)
 
 **IMPLEMENTED IN SOURCE / LIVE VISUAL QA PENDING.** Every case study now includes an interactive, clearly labeled conceptual device-carousel at `#gallery` (English and draft-gated Dari/Pashto). No actual screenshots or video files have been supplied, so **zero authentic captures are currently shown**. Secure owner-approved, per-project media paths, responsive image/video gallery, captioned native video controls, category filters, keyboard-accessible lightbox, privacy and build checks are ready for authentic assets. See `docs/PHASE-15.md` for evidence review and submission instructions. Existing SEO/locale gates remain closed.
+
+## Phase 16 — Engineering achievements & impact (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / LIVE DEVICE QA PENDING.** New Home evidence summary and /impact route with three **derived documentation counts** (6 case studies, 6 public project source links, 4 product categories), four case-source-backed engineering and workflow themes, disclosure cards, functional filters, appropriate light/dark/RTL styling and truthful outcome empty state. Verified measured results remain intentionally EMPTY until reviewed evidence/owner permission. Header/footer/about navigation, SEO/sitemap and gated Dari/Pashto included. See `docs/PHASE-16.md`.

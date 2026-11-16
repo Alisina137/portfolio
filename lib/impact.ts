@@ -32,12 +32,13 @@ export function getImpactHighlights(locale:ImpactLocale="en",variant:"preview"|"
    const examples=row.evidence.flatMap(ref=>{
      const project=byProject.get(ref.slug),study=getCaseStudy(ref.slug);
      if(!project || !project.repoUrl || !project.repoUrlVerified || !study)return [];
-     const records=study[ref.source] as CaseStudy["features"]|CaseStudy["technicalNotes"];
+     const key=ref.source as "features"|"technicalNotes";
+     const records=study[key] as CaseStudy["features"]|CaseStudy["technicalNotes"];
      const matched=records.find(item=>item.title===ref.note);
      if(!matched)return [];
      const localizedProject=locale==="en"?project:getTranslatedProject(locale,project);
      const localizedStudy=locale==="en"?study:getTranslatedCase(locale,study);
-     const localizedRecords=localizedStudy[ref.source] as CaseStudy["features"]|CaseStudy["technicalNotes"];
+     const localizedRecords=localizedStudy[key] as CaseStudy["features"]|CaseStudy["technicalNotes"];
      const idx=records.findIndex(item=>item.title===ref.note);
      return [{
        slug:ref.slug,title:localizedProject.title,

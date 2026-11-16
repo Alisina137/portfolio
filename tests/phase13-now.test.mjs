@@ -76,7 +76,7 @@ test("Now UI is responsive, accessible and follows the existing typography and c
   assert.ok(read("app/layout.tsx").includes("styles/phase13.css"));
   for(const token of ["--type-page","--type-section","--type-body","--type-small","--type-card","--border"])assert.ok(css.includes(token),token);
   for(const marker of ["@media(max-width:1100px)","@media(max-width:800px)","@media(max-width:680px)","@media(prefers-reduced-motion:reduce)",'html[dir="rtl"]',":focus-visible"])assert.ok(css.includes(marker),marker);
-  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1601"));
+  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1721"));
   assert.ok(read("styles/phase12.css").includes("@media(min-width:1051px) and (max-width:1500px)"));
   assert.ok(!css.includes("https://"));
 });

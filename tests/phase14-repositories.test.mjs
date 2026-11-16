@@ -80,7 +80,7 @@ test("Repository cards are responsive, readable, keyboard-operable and reduced-m
   assert.ok(css.includes('html[dir="rtl"]'));
   assert.ok(css.includes("overscroll-behavior:contain"));
   assert.ok(css.includes(":focus-visible"));
-  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1601"));
+  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1721"));
 });
 
 test("Repository content checker enforces full evidence coverage",()=>{

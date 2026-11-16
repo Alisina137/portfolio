@@ -11,7 +11,7 @@ const approvals=read('content/locales/approval.json');
 const english=read('content/case-studies.json');
 const projects=read('content/projects.json').filter(p=>p.publicationStatus==='published');
 const fingerprint=createHash('sha256').update(JSON.stringify([
-  read('content/profile.json'), read('content/projects.json'), read('content/case-studies.json'), read('content/writing/articles.json'), read('content/experience.json'), read('content/qualifications.json'), read('content/services.json'), read('content/now.json'), read('content/repositories.json'),
+  read('content/profile.json'), read('content/projects.json'), read('content/case-studies.json'), read('content/writing/articles.json'), read('content/experience.json'), read('content/qualifications.json'), read('content/services.json'), read('content/now.json'), read('content/repositories.json'), read('content/impact.json'),
 ])).digest('hex');
 const errors=[];
 const requiredCaseFields=['audience','productType','platforms','problem','features','technicalNotes','tradeoffs','currentState','nextSteps','sourceEvidence','eyebrow','oneLiner','ownerRole','coverTitle'];
