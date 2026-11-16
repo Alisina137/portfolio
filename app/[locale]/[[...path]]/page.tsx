@@ -5,6 +5,7 @@ import { localePubliclyVisible, translationsOwnerApproved, getTranslatedUi, getT
 import { localizePath, parseLocale } from '@/lib/i18n-core.mjs';
 import { createPageMetadata } from '@/lib/seo';
 import { LocaleHome, LocaleProjects, LocaleCase, LocaleAbout, LocaleContact } from '@/components/locale-public-pages';
+import { ServicesPageView } from '@/components/services-section';
 
 type Params = { locale: string; path?: string[] };
 type Props = { params: Promise<Params>; searchParams: Promise<{ back?: string | string[] }> };
@@ -18,7 +19,7 @@ function routeData({ locale: rawLocale, path = [] }: Params) {
   return { locale, pathname };
 }
 function isAllowedPath(pathname: string) {
-  return pathname === '/' || pathname === '/projects' || /^\/projects\/[a-z0-9-]+$/.test(pathname) || pathname === '/about' || pathname === '/contact';
+  return pathname === '/' || pathname === '/projects' || /^\/projects\/[a-z0-9-]+$/.test(pathname) || pathname === '/about' || pathname === '/contact' || pathname === '/services';
 }
 export async function generateMetadata({ params }: Pick<Props,'params'>): Promise<Metadata> {
   const { locale, pathname } = routeData(await params);
@@ -26,8 +27,8 @@ export async function generateMetadata({ params }: Pick<Props,'params'>): Promis
   const u = getTranslatedUi(locale);
   const project = pathname.startsWith('/projects/') ? getPublicProject(pathname.split('/')[2]) : null;
   if ((pathname.startsWith('/projects/') && (!project || !getCaseStudy(project.slug)))) return { title: 'Page not found', robots:{index:false,follow:false} };
-  const title = project ? `${project.title} — ${u.caseEyebrow} | Alisina Sarwari` : ({'/':`Alisina Sarwari — ${u.heroEyebrow}`,'/projects':`${u.projects} | Alisina Sarwari`,'/about':`${u.about} | Alisina Sarwari`,'/contact':`${u.contact} | Alisina Sarwari`}[pathname] || 'Alisina Sarwari');
-  const description = project ? getTranslatedProject(locale,project).oneLiner : ({'/':u.heroIntro,'/projects':u.catalogIntro,'/about':u.aboutBio,'/contact':u.contactIntro}[pathname] || u.heroIntro);
+  const title = project ? `${project.title} — ${u.caseEyebrow} | Alisina Sarwari` : ({'/':`Alisina Sarwari — ${u.heroEyebrow}`,'/projects':`${u.projects} | Alisina Sarwari`,'/about':`${u.about} | Alisina Sarwari`,'/contact':`${u.contact} | Alisina Sarwari`,'/services':`${u.services} | Alisina Sarwari`}[pathname] || 'Alisina Sarwari');
+  const description = project ? getTranslatedProject(locale,project).oneLiner : ({'/':u.heroIntro,'/projects':u.catalogIntro,'/about':u.aboutBio,'/contact':u.contactIntro,'/services':u.serviceHeroIntro}[pathname] || u.heroIntro);
   const metadata = createPageMetadata({ title, description, pathname: localizePath(locale,pathname) });
   // A complete verified translation requires its own canonical and hreflang; drafts never advertise locales.
   return {
@@ -44,6 +45,7 @@ export default async function LocalizedPublicRoute({params,searchParams}:Props) 
   }
   if (pathname === '/') return <LocaleHome locale={locale}/>;
   if (pathname === '/projects') return <LocaleProjects locale={locale}/>;
+  if (pathname === '/services') return <ServicesPageView locale={locale}/>;
   if (pathname === '/about') return <LocaleAbout locale={locale}/>;
   if (pathname === '/contact') return <LocaleContact locale={locale}/>;
   if (/^\/projects\/[a-z0-9-]+$/.test(pathname)) {
