@@ -11,6 +11,7 @@ import "@/styles/type-scale.css";
 import "@/styles/phase09.css";
 import "@/styles/phase10.css";
 import "@/styles/phase11.css";
+import "@/styles/phase12.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";

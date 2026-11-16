@@ -6,14 +6,14 @@
   "description": "Alisina Sarwari — engineering and product portfolio",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
-    "build": "npm run check:content && npm run check:credentials && npm run check:writing && npm run check:locales && next build",
+    "build": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:writing && npm run check:locales && next build",
     "start": "next start --hostname 0.0.0.0",
     "check:content": "node scripts/check-content.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "smoke:http": "node scripts/smoke-http.mjs",
     "check:release": "node scripts/check-launch.mjs --strict && node scripts/check-content.mjs --release",
     "test": "node scripts/render-preview.mjs && node scripts/render-catalog-preview.mjs && node scripts/render-identity-preview.mjs && node --test tests/*.test.mjs",
-    "verify": "npm run check:content && npm run check:credentials && npm run check:seo && npm run check:writing && npm run check:locales && npm run check:launch && npm run test && npm run build",
+    "verify": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:seo && npm run check:writing && npm run check:locales && npm run check:launch && npm run test && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
     "check:launch:strict": "node scripts/check-launch.mjs --strict",
     "check:links": "node scripts/verify-public-links.mjs",
@@ -22,7 +22,8 @@
     "check:phase08": "node --test tests/phase08-security.test.mjs",
     "backup:content": "node scripts/export-content-backup.mjs",
     "check:locales": "node scripts/check-locales.mjs",
-    "check:credentials": "node scripts/check-qualifications.mjs"
+    "check:credentials": "node scripts/check-qualifications.mjs",
+    "check:services": "node scripts/check-services.mjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "5.3.0",

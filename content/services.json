@@ -1,0 +1,124 @@
+[
+  {
+    "id": "web",
+    "category": "web",
+    "featured": true,
+    "title": "Web applications",
+    "summary": "Structured, responsive web experiences for real product workflows, from public pages to operational tools.",
+    "capabilities": [
+      "Responsive interfaces and navigation",
+      "Administrative dashboards and forms",
+      "Clear states for complex workflows"
+    ],
+    "technologies": [
+      "Next.js",
+      "Fastify"
+    ],
+    "projects": [
+      "maktablink",
+      "bazaarlink"
+    ]
+  },
+  {
+    "id": "mobile",
+    "category": "mobile",
+    "featured": true,
+    "title": "Mobile applications",
+    "summary": "Touch-first app journeys for everyday actions, role-aware screens, and useful experiences on the move.",
+    "capabilities": [
+      "Onboarding and account flows",
+      "Mobile navigation and task journeys",
+      "User-centered empty and error states"
+    ],
+    "technologies": [
+      "React Native",
+      "Expo"
+    ],
+    "projects": [
+      "futsal",
+      "kankorprep"
+    ]
+  },
+  {
+    "id": "backend",
+    "category": "backend",
+    "featured": true,
+    "title": "Backend APIs",
+    "summary": "The service layer connecting interfaces, permissions and business rules across a product.",
+    "capabilities": [
+      "API endpoints and request validation",
+      "Role-aware access and permissions",
+      "Lifecycle and status transitions"
+    ],
+    "technologies": [
+      "Fastify",
+      "Express"
+    ],
+    "projects": [
+      "maktablink",
+      "dandanlink"
+    ]
+  },
+  {
+    "id": "data",
+    "category": "data",
+    "featured": false,
+    "title": "Database design & management",
+    "summary": "Organizing relational data and access boundaries so connected app flows share consistent information.",
+    "capabilities": [
+      "Relational data structures",
+      "Scoped records and access boundaries",
+      "Data modeling for operational flows"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "Drizzle"
+    ],
+    "projects": [
+      "maktablink",
+      "dandanlink"
+    ]
+  },
+  {
+    "id": "fullstack",
+    "category": "fullstack",
+    "featured": false,
+    "title": "Full-stack product systems",
+    "summary": "Connecting web, mobile, backend and data decisions across one product experience.",
+    "capabilities": [
+      "End-to-end user and admin journeys",
+      "Connected interfaces and APIs",
+      "Cross-feature system structure"
+    ],
+    "technologies": [
+      "Next.js",
+      "Expo",
+      "PostgreSQL"
+    ],
+    "projects": [
+      "maktablink",
+      "amlaklink"
+    ]
+  },
+  {
+    "id": "improvements",
+    "category": "improvements",
+    "featured": false,
+    "title": "Application UI & workflow improvements",
+    "summary": "Refining the details that make a product clearer to use: layout, navigation, forms and recovery paths.",
+    "capabilities": [
+      "Interface and component consistency",
+      "Navigation and form flow refinement",
+      "Responsive presentation and usability"
+    ],
+    "technologies": [
+      "Next.js",
+      "Expo",
+      "TypeScript"
+    ],
+    "projects": [
+      "futsal",
+      "bazaarlink"
+    ]
+  }
+]

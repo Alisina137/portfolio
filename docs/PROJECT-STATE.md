@@ -81,3 +81,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 11 — Education and certifications (16 November 2026)
 
 **IMPLEMENTED IN SOURCE / ACTUAL QUALIFICATION DETAILS AWAIT REVIEW.** Education, certification, training cards and independently evidenced project learning added to English and gated Dari/Pashto Home and About. Public credential data is empty until evidence is reviewed and owner-approved. Pure validators refuse incomplete or unapproved degree/certification claims and unsafe credential URLs; no private diploma scans or fabricated dates. Responsive visual styling, published-project linking, content checks and tests included. Review process in `docs/PHASE-11.md`.
+
+## Phase 12 — Services / What I Can Do (16 November 2026)
+
+**IMPLEMENTED IN SOURCE; CI AND LIVE DEVICE/NETLIFY QA PENDING.** Homepage preview and full six-capability `/services` route with original SVGs, responsive cards, source-backed technology and case-study links, and collaboration CTA. Header, footer and About-page navigation link to the real route. The expanded tablet menu scrolls correctly. RTL language drafts remain review-gated, metadata and sitemap retain noindex launch protections. No invented clients, commercial guarantees, or launch approvals. See `docs/PHASE-12.md`.
