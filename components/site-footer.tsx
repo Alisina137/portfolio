@@ -15,7 +15,7 @@ export function SiteFooter({ github, linkedIn, email, resume, showWriting = fals
         <div><strong>Alisina Sarwari</strong><span>{ui?.footerTag ?? "Building with clarity and intention."}</span></div>
       </div>
       <nav className="footer-links" aria-label={ui?.footerNav ?? "Footer navigation"}>
-        <Link href={path("/")}>{ui?.home ?? "Home"}</Link><Link href={path("/projects")}>{ui?.projects ?? "Projects"}</Link><Link href={path("/#skills")}>{ui?.skills ?? "Skills"}</Link>{showWriting && locale === "en" && <Link href={path("/writing")}>{ui?.writing ?? "Writing"}</Link>}<Link href={path("/about")}>{ui?.about ?? "About"}</Link><Link href={path("/contact")}>{ui?.contact ?? "Contact"}</Link>
+        <Link href={path("/")}>{ui?.home ?? "Home"}</Link><Link href={path("/projects")}>{ui?.projects ?? "Projects"}</Link><Link href={path("/#skills")}>{ui?.skills ?? "Skills"}</Link><Link href={path("/#experience")}>{ui?.experience ?? "Experience"}</Link>{showWriting && locale === "en" && <Link href={path("/writing")}>{ui?.writing ?? "Writing"}</Link>}<Link href={path("/about")}>{ui?.about ?? "About"}</Link><Link href={path("/contact")}>{ui?.contact ?? "Contact"}</Link>
         {resume && <a href={resume} target="_blank" rel="noopener noreferrer">{ui?.resume ?? "Résumé (PDF)"} <ArrowUpRightIcon width="14" height="14"/><span className="sr-only">({ui?.newTab ?? "opens in a new tab"})</span></a>}
       </nav>
       <div className="footer-social" aria-label="Public profile links">
