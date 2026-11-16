@@ -1,0 +1,50 @@
+/* Phase 11 — Education, verified credentials, and independent learning. */
+.qualification-section { position:relative; overflow:hidden; background:radial-gradient(ellipse at 90% 0%,color-mix(in srgb,var(--premium-violet) 9%,transparent),transparent 44%),var(--bg); border-block:1px solid color-mix(in srgb,var(--border) 70%,transparent); }
+.qualification-heading { margin-bottom:clamp(27px,4vw,48px); }
+.qualification-heading-grid { margin-top:22px; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.82fr); align-items:end; gap:clamp(18px,4vw,72px); }
+.qualification-heading h2 { font-size:var(--type-section); line-height:1.2; font-weight:750; letter-spacing:-.038em; text-wrap:balance; margin:0; }
+.qualification-heading-grid>p { color:var(--text-muted); font-size:var(--type-body); line-height:1.8; max-width:55ch; margin:0; }
+.qualification-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.qualification-card { min-width:0; padding:clamp(20px,2.5vw,30px); border:1px solid var(--border); border-radius:22px; background:linear-gradient(155deg,color-mix(in srgb,var(--surface-raised) 47%,var(--surface)),var(--surface) 68%); box-shadow:0 13px 38px rgba(3,15,36,.05); position:relative; overflow:hidden; }
+.qualification-card:before { content:""; position:absolute; inset-inline:20px; top:0; height:2px; background:linear-gradient(90deg,transparent,var(--credential-accent),transparent); }
+.qualification-card--education { --credential-accent:var(--premium-sky); }
+.qualification-card--certs { --credential-accent:var(--premium-violet); }
+.qualification-card--training { --credential-accent:var(--premium-coral); }
+.qualification-card-header { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:23px; }
+.qualification-glyph { border:1px solid color-mix(in srgb,var(--credential-accent) 30%,transparent); background:color-mix(in srgb,var(--credential-accent) 12%,var(--surface)); color:var(--credential-accent); display:grid; place-items:center; font-size:1.625rem; width:55px; height:55px; border-radius:17px; }
+.qualification-card-index { font-size:var(--type-label); letter-spacing:.05em; font-weight:700; font-variant-numeric:tabular-nums; color:var(--text-muted); }
+.qualification-card h3 { font-size:var(--type-card); line-height:1.32; letter-spacing:-.027em; margin:0 0 15px; }
+.qualification-records { list-style:none; margin:0; padding:0; display:grid; gap:21px; }
+.qualification-record { padding-inline-start:14px; border-inline-start:2px solid color-mix(in srgb,var(--credential-accent) 56%,var(--border)); }
+.qualification-record h4 { font-size:clamp(1.1rem,1.5vw,1.3rem); line-height:1.35; margin:6px 0; }
+.qualification-institution { color:var(--text); font-size:var(--type-body); font-weight:600; }
+.qualification-record p { font-size:var(--type-small); color:var(--text-muted); line-height:1.65; margin:6px 0; }
+.qualification-reviewed { display:inline-flex; border:1px solid color-mix(in srgb,var(--credential-accent) 40%,var(--border)); color:var(--text); padding:4px 8px; border-radius:100px; background:var(--surface-raised); font-size:var(--type-label); line-height:1.4; font-weight:700; }
+.qualification-dates { font-variant-numeric:tabular-nums; }
+.qualification-empty { font-size:var(--type-body); line-height:1.8; color:var(--text-muted); max-width:38ch; margin:0; }
+.qualification-record-summary { font-size:var(--type-body); line-height:1.75; margin:0; color:var(--text); }
+.qualification-links { display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:16px; }
+.qualification-links>span { font-size:var(--type-label); color:var(--text-muted); }
+.qualification-links a,.qualification-credential-link { display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-size:var(--type-small); font-weight:700; min-height:34px; text-decoration:none; }
+.qualification-links a:hover,.qualification-credential-link:hover { text-decoration:underline; text-underline-offset:4px; }
+.qualification-practice { margin-top:clamp(24px,3vw,39px); border:1px solid var(--border); border-radius:22px; background:color-mix(in srgb,var(--surface) 91%,var(--bg)); padding:clamp(22px,3vw,34px); display:grid; grid-template-columns:minmax(0,.65fr) minmax(0,1.1fr); gap:clamp(22px,3.5vw,48px); align-items:start; }
+.qualification-practice-heading .qualification-label { display:block; font-size:clamp(1.35rem,2vw,1.75rem); font-weight:750; line-height:1.3; letter-spacing:-.025em; }
+.qualification-practice-heading p { margin:13px 0 0; font-size:var(--type-body); line-height:1.8; color:var(--text-muted); }
+.qualification-examples { display:grid; gap:12px; }
+.qualification-project { min-width:0; display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px 15px; padding:17px; border:1px solid var(--border); border-radius:14px; background:var(--bg); color:var(--text); transition:border-color .2s ease,transform .2s ease; }
+.qualification-project:hover,.qualification-project:focus-visible { border-color:var(--accent); transform:translateY(-2px); }
+.qualification-project-mark { color:var(--accent); font-size:1.25rem; }
+.qualification-project-copy { min-width:0; display:grid; gap:7px; }
+.qualification-project-copy strong { font-size:clamp(1rem,1.3vw,1.125rem); line-height:1.4; }
+.qualification-project-copy small { font-size:var(--type-small); line-height:1.65; color:var(--text-muted); }
+.qualification-project-action { grid-column:2; display:inline-flex; gap:7px; align-items:center; font-weight:700; font-size:var(--type-small); color:var(--accent); }
+.qualification-more { margin-top:24px; }
+.qualification-disclaimer { color:var(--text-muted); font-size:var(--type-small); line-height:1.75; margin:22px 0 0; max-width:80ch; }
+#education,#education-preview { scroll-margin-top:90px; }
+html[dir="rtl"] :is(.qualification-heading h2,.qualification-card h3,.qualification-record h4,.qualification-label) { letter-spacing:0; line-height:1.5; }
+html[dir="rtl"] .qualification-card-index { letter-spacing:0; }
+html[dir="rtl"] .qualification-project-action svg,html[dir="rtl"] .qualification-more svg { transform:scaleX(-1); }
+@media(max-width:1080px) { .qualification-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .qualification-practice { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:720px) { .qualification-heading-grid,.qualification-grid { grid-template-columns:minmax(0,1fr); } .qualification-heading-grid { gap:14px; } .qualification-card { padding:23px; } .qualification-practice { padding:20px; } }
+@media(max-width:390px) { .qualification-card { padding:18px; } .qualification-project { padding:13px; } .qualification-practice { padding:16px; } }
+@media(prefers-reduced-motion:reduce) { .qualification-project { transition:none; } .qualification-project:hover,.qualification-project:focus-visible { transform:none; } }

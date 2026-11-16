@@ -77,3 +77,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 10 — experience portfolio timeline (16 November 2026)
 
 **IMPLEMENTED IN SOURCE / CI AND LIVE VISUAL QA FOLLOW-UP.** Homepage three-project experience preview; About full six-project independent-work timeline with accessible expandable case-study scope, technical notes, repository-backed technologies and working project links. All are explicitly labeled *independent projects*, not employment; no fictional employer, date, compensation, accomplishment or role attribution is presented. Schema in `content/experience.json` has zero formal roles and server projection only permits actual owner-approved validated formal records. Header/footer anchors, responsive tablet nav, draft Dari/Pashto copy, locale review fingerprint and regression tests included. See `docs/PHASE-10.md`.
+
+## Phase 11 — Education and certifications (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / ACTUAL QUALIFICATION DETAILS AWAIT REVIEW.** Education, certification, training cards and independently evidenced project learning added to English and gated Dari/Pashto Home and About. Public credential data is empty until evidence is reviewed and owner-approved. Pure validators refuse incomplete or unapproved degree/certification claims and unsafe credential URLs; no private diploma scans or fabricated dates. Responsive visual styling, published-project linking, content checks and tests included. Review process in `docs/PHASE-11.md`.
