@@ -34,7 +34,6 @@ export default async function WritingArticlePage({params}:Props){
   return <main id="main" tabIndex={-1}>
     {structuredData&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/>}
     <article className="writing-story section-pad">
-      <WritingReaderTools headings={headings.filter(h=>h.level===2)} />
       <div className="container">
         <nav className="case-breadcrumb" aria-label="Breadcrumb"><Link href="/writing">Writing</Link>
           <span aria-hidden="true">/</span><span aria-current="page">{article.title}</span></nav>

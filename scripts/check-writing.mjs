@@ -28,7 +28,7 @@ for (const item of articles) {
 const approved = getApprovedArticles(articles);
 const live = isWritingEnabled(articles);
 if (live && approved.length < 2) errors.push('Writing cannot be public with fewer than two complete, approved articles');
-for (const file of ['app/writing/page.tsx','app/writing/[slug]/page.tsx','app/writing/opengraph-image.tsx','app/writing/[slug]/opengraph-image.tsx','components/writing-body.tsx','components/writing-code.tsx']) {
+for (const file of ['app/writing/page.tsx','app/writing/[slug]/page.tsx','app/writing/opengraph-image.tsx','app/writing/[slug]/opengraph-image.tsx','components/writing-body.tsx','components/writing-code.tsx','components/writing-reader-tools.tsx','components/writing-preview.tsx','components/studio-writing-preview.tsx','lib/writing-catalog.mjs','styles/phase18.css']) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing required route/component: ${file}`);
 }
 if (errors.length) { console.error(`Writing validation failed (${errors.length}):\n- ${errors.join('\n- ')}`); process.exit(1); }

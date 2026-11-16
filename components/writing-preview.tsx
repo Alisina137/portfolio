@@ -7,7 +7,7 @@ export function WritingPreview(){
   const articles=getPublicWriting();
   if(articles.length<2)return null;
   return <section className="writing-home section-pad" id="writing" aria-labelledby="writing-home-title"><div className="container">
-    <div className="writing-home-heading"><span className="section-eyebrow"><span>10</span><span className="section-eyebrow-line"/> ENGINEERING NOTES</span>
+    <div className="writing-home-heading"><span className="section-eyebrow"><span className="section-eyebrow-line"/> ENGINEERING NOTES</span>
       <div><h2 id="writing-home-title">Ideas tested in practice.</h2><p>Technical articles grounded in product architecture, practical constraints and lessons worth documenting.</p></div>
     </div>
     <div className="writing-home-grid">{articles.slice(0,2).map((article,index)=><article className="writing-home-card" key={article.slug}>

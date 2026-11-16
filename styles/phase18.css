@@ -15,6 +15,7 @@
 .writing-list-item--featured{background:linear-gradient(118deg,color-mix(in srgb,var(--premium-violet) 10%,var(--surface)),var(--surface) 75%)}
 .writing-list-item--featured h2{font-size:clamp(1.8rem,2.8vw,2.65rem)}
 .writing-list-item .writing-tags{margin-top:14px}.writing-tags span{font-size:var(--type-label)}
+.writing-story-head .writing-tags{margin:16px 0 0}.writing-story-head .writing-tags a{display:inline-flex;padding:7px 12px;min-height:35px;color:var(--accent);border:1px solid var(--border);border-radius:99px;font-size:var(--type-small)}.writing-story-head .writing-tags a:hover{border-color:var(--accent);background:var(--accent-soft)}
 .writing-list-index{font-size:var(--type-small)}.writing-article-meta{font-size:var(--type-small);line-height:1.6}
 .writing-card-bottom{margin-top:17px;display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap;align-items:center}
 .writing-card-bottom>a{color:var(--accent);font-weight:750;text-decoration:underline;text-underline-offset:4px}
