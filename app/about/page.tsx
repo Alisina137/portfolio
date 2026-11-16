@@ -93,7 +93,7 @@ export default function AboutPage() {
             <div className="focus-card-links" aria-label={`Relevant ${area.label.toLowerCase()} examples`}>{links.map(project => <Link key={project.slug} href={`/projects/${project.slug}`}>{project.title}<span aria-hidden="true">↗</span></Link>)}</div>
           </article>;
         })}</div>
-        <div className="services-about-link"><Link className="button button-outline" href="/services">Explore services and practical capabilities <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/now">See current project snapshot <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/repositories">Explore verified code repositories <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/impact">Review documented achievements & impact <ArrowRightIcon width="17" height="17" /></Link></div>
+        <div className="services-about-link"><Link className="button button-outline" href="/services">Explore services and practical capabilities <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/now">See current project snapshot <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/repositories">Explore verified code repositories <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/impact">Review documented achievements & impact <ArrowRightIcon width="17" height="17" /></Link><Link className="button button-outline" href="/testimonials">Recommendations and references <ArrowRightIcon width="17" height="17" /></Link></div>
       </div>
     </section>
 

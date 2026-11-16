@@ -4,9 +4,10 @@ import { createEditorialPr,readRepoContent,GitHubStudioError } from '@/lib/githu
 import { studioConfig,validSameOrigin,validateStudioChange } from '@/lib/phase08-core.mjs';
 import { readLimitedJson } from '@/lib/request-json';
 import { validateWritingManifest,parseArticle } from '@/lib/writing-core.mjs';
+import { isApprovedTestimonial } from '@/lib/testimonials-core.mjs';
 
 export const runtime='nodejs';
-const paths={profile:'content/profile.json',project:'content/projects.json',case:'content/case-studies.json',article:'content/writing/articles.json'};
+const paths={profile:'content/profile.json',project:'content/projects.json',case:'content/case-studies.json',article:'content/writing/articles.json',testimonial:'content/testimonials.json'};
 export async function POST(req:NextRequest){
   const cfg=studioConfig();if(!cfg.enabled)return new Response('Not found',{status:404});
   if(!await getStudioSession())return Response.json({error:'Sign in required'},{status:401});
@@ -18,12 +19,26 @@ export async function POST(req:NextRequest){
     if(!Object.hasOwn(paths,kind) || typeof expectedHead!=='string'||!/^[a-f0-9]{40}$/.test(expectedHead)||!fields||typeof fields!=='object')return Response.json({error:'Invalid change request'},{status:400});
     const path=paths[kind as keyof typeof paths];
     const source=await readRepoContent(path);const parsed=JSON.parse(source.content);
-    const original=kind==='profile'?parsed:(Array.isArray(parsed)?parsed.find((v:any)=>v.slug===slug):undefined);
+    const original=kind==='profile'||kind==='testimonial'?parsed:(Array.isArray(parsed)?parsed.find((v:any)=>v.slug===slug):undefined);
     if(!original)return Response.json({error:'Content record not found'},{status:404});
-    const change=validateStudioChange({kind,slug,fields},original);
-    if(!change)return Response.json({error:'Invalid content values'},{status:422});
+    const change=kind==='testimonial'?null:validateStudioChange({kind,slug,fields},original);
+    if(kind!=='testimonial' && !change)return Response.json({error:'Invalid content values'},{status:422});
     const files:{path:string;content:string}[]=[];
-    if(kind==='article'){
+    if(kind==='testimonial'){
+      // Owner-authenticated, source-controlled PR only; no anonymous testimonial endpoint.
+      const permitted=new Set(['id','name','role','organization','relationship','quote','context','projectSlug','profileUrl','language','published','ownerApproved','identityVerified','evidenceReviewed','consentToPublish','consentedAt','reviewedAt']);
+      if(!Array.isArray(parsed.entries) || Object.keys(fields).some(key=>!permitted.has(key)) || !isApprovedTestimonial(fields))
+        return Response.json({error:'Recommendation needs genuine identity, original quote, written permission and completed review'},{status:422});
+      if(parsed.entries.some((row:{id:string})=>row.id===fields.id))
+        return Response.json({error:'Recommendation ID already exists'},{status:409});
+      if(fields.projectSlug){
+        const projects=JSON.parse((await readRepoContent('content/projects.json')).content);
+        if(!projects.some((project:{slug:string;publicationStatus:string;repoUrlVerified:boolean})=>
+           project.slug===fields.projectSlug && project.publicationStatus==='published' && project.repoUrlVerified))
+          return Response.json({error:'The linked project is not published'},{status:422});
+      }
+      files.push({path,content:JSON.stringify({...parsed,entries:[...parsed.entries,fields]},null,2)+'\n'});
+    }else if(kind==='article'){
       const result=change as {record:Record<string,any>;body:string|null};
       const next=parsed.map((v:any)=>v.slug===slug?result.record:v);
       if(result.body!==null){
@@ -38,7 +53,7 @@ export async function POST(req:NextRequest){
       const next=kind==='profile'?change:parsed.map((v:any)=>v.slug===slug?change:v);
       files.push({path,content:JSON.stringify(next,null,2)+'\n'});
     }
-    const name=kind==='profile'?'profile':`${kind} ${slug}`;
+    const name=kind==='profile'?'profile':kind==='testimonial'?`recommendation ${fields.id}`:`${kind} ${slug}`;
     const result=await createEditorialPr(files,`review ${name}`,expectedHead);
     return Response.json({ok:true,...result},{status:201,headers:{'Cache-Control':'no-store'}});
   }catch(e){
