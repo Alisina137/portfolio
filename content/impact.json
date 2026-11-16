@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "framing": "repository_and_case_study_evidence_not_business_outcomes",
+  "highlights": [
+    {
+      "id": "architecture",
+      "category": "engineering",
+      "title": "Permission-aware architecture",
+      "summary": "Documented role and tenant boundaries across organization-facing applications.",
+      "evidence": [
+        {
+          "slug": "maktablink",
+          "note": "Tenant boundaries",
+          "source": "technicalNotes"
+        },
+        {
+          "slug": "dandanlink",
+          "note": "Roles and tenancy",
+          "source": "technicalNotes"
+        }
+      ]
+    },
+    {
+      "id": "workflows",
+      "category": "product",
+      "title": "Connected operational workflows",
+      "summary": "Product scopes combining booking decisions, classroom coordination and day-to-day operations.",
+      "evidence": [
+        {
+          "slug": "futsal",
+          "note": "Court availability and bookings",
+          "source": "features"
+        },
+        {
+          "slug": "maktablink",
+          "note": "Classroom workflows",
+          "source": "features"
+        }
+      ]
+    },
+    {
+      "id": "marketplaces",
+      "category": "engineering",
+      "title": "Marketplace data and API structure",
+      "summary": "Architectural exploration of marketplace operations, API connectivity and moderation lifecycles.",
+      "evidence": [
+        {
+          "slug": "bazaarlink",
+          "note": "Mobile-to-API connectivity",
+          "source": "technicalNotes"
+        },
+        {
+          "slug": "amlaklink",
+          "note": "Moderation lifecycle",
+          "source": "technicalNotes"
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "category": "product",
+      "title": "Education-focused systems",
+      "summary": "Case studies examining academic organization, question content and exam-session experiences.",
+      "evidence": [
+        {
+          "slug": "maktablink",
+          "note": "Academic organization",
+          "source": "features"
+        },
+        {
+          "slug": "kankorprep",
+          "note": "Exam sessions",
+          "source": "features"
+        }
+      ]
+    }
+  ],
+  "measuredOutcomes": []
+}
