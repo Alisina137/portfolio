@@ -37,7 +37,7 @@ export function ExperienceTimeline({ locale = "en", variant = "about" }: Props) 
   return <section className={"experience-section experience-section--" + variant + " section-pad"} id={id} aria-labelledby={id + "-title"}>
     <div className="container">
       <div className="experience-heading">
-        <span className="section-eyebrow"><span>{variant === "home" ? "03" : "03"}</span><span className="section-eyebrow-line" />{t.experienceEyebrow}</span>
+        <span className="section-eyebrow"><span>03</span><span className="section-eyebrow-line" />{t.experienceEyebrow}</span>
         <div className="experience-heading-grid">
           <h2 id={id + "-title"}>{t.experienceHeading}</h2>
           <p>{t.experienceIntro}</p>
@@ -63,7 +63,7 @@ export function ExperienceTimeline({ locale = "en", variant = "about" }: Props) 
           <div className="experience-track" aria-hidden="true"><span className="experience-dot"/><span className="experience-sequence">{number}</span></div>
           <article className="experience-card">
             <div className="experience-card-header">
-              <div><span className="experience-card-kicker">{t.experienceBadge} <span aria-hidden="true">/</span> {project.category}</span>
+              <div><span className="experience-card-kicker">{t.experienceBadge} <span aria-hidden="true">/</span> {locale === "en" ? project.category : getTranslatedUi(locale)[project.category as "Education" | "Sports" | "Marketplace" | "Healthcare"] ?? project.category}</span>
                 <h3>{project.title}</h3></div>
               <span className="experience-card-status">{locale === "en" ? getDevelopmentLabel(project.developmentStatus) : getTranslatedUi(locale)[project.developmentStatus]}</span>
             </div>
