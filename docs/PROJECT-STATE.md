@@ -89,3 +89,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 13 — Currently working on / Now (16 November 2026)
 
 **IMPLEMENTED IN SOURCE / HOSTED VALIDATION PENDING.** A new interactive /now page displays source-reviewed ongoing portfolio projects and next verification steps from case studies; search and domain filters are functional and respond to empty results. Home preview highlights three evidence-linked projects; About includes a Now CTA; header/footer navigation and page metadata/OG/sitemap are wired. Three technical threads are tied to published project technology records; unapproved personal learning goals are not displayed. Draft RTL translations, styling and release gates remain owner-pending. See `docs/PHASE-13.md` and `npm run check:now`.
+
+## Phase 14 — Featured GitHub Repositories (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / LIVE BROWSER QA PENDING.** Home features three code repositories, new `/repositories` directory shows seven GitHub-public sources (six documented project repos + portfolio site), URL/date and branch/language metadata verified against GitHub on 16 November. Interactive search/filter/sort; source-review date is NOT latest commit or real-time activity. No fictional stars, forks, metrics or employer claims. Complete case links, 9-item nav breakpoint, owner-gated locales, SEO, metadata, responsive styles and regression checks included. See `docs/PHASE-14.md`.
