@@ -79,7 +79,7 @@ test("Experience design is responsive, keyboard accessible and preserves reduced
   assert.ok(css.includes("@media (prefers-reduced-motion:reduce)"));
   assert.ok(css.includes("@media (min-width:768px) and (max-width:1050px)"));
   // Phase 13 adds a Now nav entry, so compact-menu threshold moves to 1501px.
-  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1601"));
+  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1721"));
   assert.ok(read("styles/phase12.css").includes("@media(min-width:1051px) and (max-width:1500px)"));
   assert.doesNotMatch(css, /https?:\/\//);
 });
