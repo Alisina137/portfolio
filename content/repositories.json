@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "context": "verified_public_repository_links",
+  "verifiedOn": "2026-11-16",
+  "featured": [
+    "maktablink",
+    "futsal",
+    "dandanlink"
+  ],
+  "repositories": [
+    {
+      "slug": "maktablink",
+      "repository": "Alisina137/maktab",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "futsal",
+      "repository": "Alisina137/futsal",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "bazaarlink",
+      "repository": "Alisina137/bazaar-",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "amlaklink",
+      "repository": "Alisina137/amlak",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "dandanlink",
+      "repository": "Alisina137/dentist",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "kankorprep",
+      "repository": "Alisina137/kankor",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    },
+    {
+      "slug": "portfolio",
+      "repository": "Alisina137/portfolio",
+      "defaultBranch": "main",
+      "language": "TypeScript"
+    }
+  ]
+}
