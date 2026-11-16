@@ -93,3 +93,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 14 — Featured GitHub Repositories (16 November 2026)
 
 **IMPLEMENTED IN SOURCE / LIVE BROWSER QA PENDING.** Home features three code repositories, new `/repositories` directory shows seven GitHub-public sources (six documented project repos + portfolio site), URL/date and branch/language metadata verified against GitHub on 16 November. Interactive search/filter/sort; source-review date is NOT latest commit or real-time activity. No fictional stars, forks, metrics or employer claims. Complete case links, 9-item nav breakpoint, owner-gated locales, SEO, metadata, responsive styles and regression checks included. See `docs/PHASE-14.md`.
+
+## Phase 15 — Project media / visual tours (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / LIVE VISUAL QA PENDING.** Every case study now includes an interactive, clearly labeled conceptual device-carousel at `#gallery` (English and draft-gated Dari/Pashto). No actual screenshots or video files have been supplied, so **zero authentic captures are currently shown**. Secure owner-approved, per-project media paths, responsive image/video gallery, captioned native video controls, category filters, keyboard-accessible lightbox, privacy and build checks are ready for authentic assets. See `docs/PHASE-15.md` for evidence review and submission instructions. Existing SEO/locale gates remain closed.

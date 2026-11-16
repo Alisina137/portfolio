@@ -2,6 +2,7 @@ import registry from "@/content/projects.json";
 import caseRecords from "@/content/case-studies.json";
 import profile from "@/content/profile.json";
 import { relatedProjects } from "@/lib/catalog";
+import { isApprovedCaseMedia } from "@/lib/media-core.mjs";
 
 export type ProjectStatus = "concept" | "prototype" | "in_development" | "pilot" | "released" | "maintained" | "retired";
 export type PublicationStatus = "draft" | "in_review" | "published" | "archived";
@@ -26,13 +27,11 @@ export type Project = {
   coverTitle: string;
 };
 export type StudyBlock = { title: string; description: string; screenshot?: { src: string; alt: string; caption: string; approved: true } };
-export type CaseMedia = {
-  src: string;
-  alt: string;
-  caption: string;
-  group: "Mobile app" | "Web/admin" | "Workflow/architecture";
-  approved: true;
-};
+export type MediaGroup = "Mobile app" | "Web/admin" | "Workflow/architecture";
+export type MediaDevice = "mobile" | "desktop" | "tablet";
+export type CaseMedia =
+  | { kind?: "image"; src: string; alt: string; caption: string; group: MediaGroup; device?: MediaDevice; approved: true }
+  | { kind: "video"; src: string; poster: string; captions: string; alt: string; caption: string; group: MediaGroup; device?: MediaDevice; approved: true };
 export type CaseStudy = {
   slug: string;
   audience: string;
@@ -65,7 +64,7 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
   if (!getPublicProject(slug)) return undefined;
   const record = (caseRecords as CaseStudy[]).find(c => c.slug === slug);
   if (!record) return undefined;
-  return { ...record, media: record.media.filter(m => m.approved) };
+  return { ...record, media: record.media.filter(m => isApprovedCaseMedia(m, slug)) };
 }
 export function getRelatedProjects(project: Project): Project[] {
   return relatedProjects(project, getPublishedProjects());

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getSiteUrl, isPublicIndexingEnabled } from '../lib/site-url.mjs';
+import { isApprovedCaseMedia, mediaFiles } from '../lib/media-core.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const profile = JSON.parse(fs.readFileSync(path.join(root, 'content/profile.json'), 'utf8'));
@@ -81,10 +82,24 @@ for (const c of caseStudies) {
       fail(`${key}: missing approved feature screenshot ${shot.src}`);
     }
   }
-  for (const media of c.media || []) {
-    if (media.approved !== true || !media.src?.startsWith('/media/') || !/^\/media\/[a-zA-Z0-9_-]+\.(?:png|jpg|jpeg|webp)$/.test(media.src)) fail(`${key}: only approved local media paths are permitted`);
-    if (!media.alt?.trim() || !media.caption?.trim() || !['Mobile app','Web/admin','Workflow/architecture'].includes(media.group)) fail(`${key}: media needs alt, caption and group`);
-    if (!fs.existsSync(path.join(root, 'public', media.src.replace(/^\//,'')))) fail(`${key}: missing media file ${media.src}`);
+  for (const [index, media] of (c.media || []).entries()) {
+    if (!isApprovedCaseMedia(media, c.slug)) {
+      fail(`${key}: media ${index + 1} must be owner-approved, descriptive, of allowed image/video type, and stored under /media/${c.slug}/`);
+      continue;
+    }
+    // Self-hosted media must physically exist before it can be published. Protect
+    // Netlify bundle weight and require accessible captions for any demo video.
+    for (const src of mediaFiles(media)) {
+      const absolute = path.join(root, 'public', src.slice(1));
+      if (!fs.existsSync(absolute) || !fs.statSync(absolute).isFile()) {
+        fail(`${key}: missing approved gallery asset ${src}`);
+        continue;
+      }
+      const bytes = fs.statSync(absolute).size;
+      const max = /\.(?:mp4|webm)$/i.test(src) ? 30*1024*1024 : /\.vtt$/i.test(src) ? 128*1024 : 5*1024*1024;
+      if (bytes===0 || bytes>max) fail(`${key}: empty/oversized media asset ${src}`);
+      if (/\.vtt$/i.test(src) && !fs.readFileSync(absolute,'utf8').trimStart().startsWith('WEBVTT')) fail(`${key}: invalid WEBVTT captions ${src}`);
+    }
   }
 }
 for (const p of published) if (!caseSlugs.has(p.slug)) fail(`published ${p.slug}: complete case study required by P02`);
