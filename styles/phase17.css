@@ -57,5 +57,5 @@ html[dir="rtl"] .testimonial-hero-symbol{transform:translate(-50%,-50%) scaleX(-
 @media(max-width:750px){.testimonial-grid{grid-template-columns:1fr}.testimonial-empty{grid-template-columns:1fr}.testimonial-empty-symbol{min-height:130px}.testimonial-heading-row{gap:14px}.testimonial-card{gap:15px}}
 @media(max-width:540px){.testimonial-hero-art{min-height:215px}.testimonial-preview-actions .button{width:100%}.testimonial-hero-art-tag{inset-inline-start:19px}.testimonial-empty{padding:19px}.testimonial-empty-symbol{min-height:110px}}
 @media(prefers-reduced-motion:reduce){.testimonial-filter{transition:none}}
-/* Eleven destinations: compact the true desktop header and retain the mobile drawer. */
-@media(min-width:1721px){.desktop-nav{gap:clamp(7px,.72vw,13px)}.desktop-nav .nav-link{font-size:clamp(10px,.72vw,12px)}.header-tools{gap:8px}}
+/* Eleven destinations: widen the header's own container on large screens instead of shrinking readable navigation text. */
+@media(min-width:1721px){.site-header .container{width:min(100% - 72px,1560px)}.header-inner{gap:20px}.desktop-nav{gap:clamp(11px,.85vw,17px)}.desktop-nav .nav-link{font-size:var(--type-small)}.header-tools{gap:10px}}
