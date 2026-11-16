@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "presentation": "curated_project_sequence_not_chronological",
+  "independentWork": {
+    "featured": [
+      "maktablink",
+      "futsal",
+      "dandanlink"
+    ],
+    "selected": [
+      "maktablink",
+      "futsal",
+      "dandanlink",
+      "bazaarlink",
+      "amlaklink",
+      "kankorprep"
+    ]
+  },
+  "formalRoles": []
+}
