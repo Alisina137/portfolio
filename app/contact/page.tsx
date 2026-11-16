@@ -6,6 +6,7 @@ import { EmailContact } from "@/components/email-contact";
 import { getPublicIdentity } from "@/lib/public-identity";
 import { contactConfig } from "@/lib/phase08-core.mjs";
 import { ContactForm } from "@/components/contact-form";
+import { CollaborationSection } from "@/components/collaboration-section";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact — Alisina Sarwari | Software Engineer",
@@ -25,7 +26,9 @@ export default function ContactPage() {
       <div className="contact-orbit" aria-hidden="true"><span className="contact-orbit-large">✳</span><span className="contact-orbit-line" /><span className="contact-orbit-tag">IDEAS → CONVERSATIONS</span></div>
     </div></section>
 
-    <section className="contact-methods section-pad" aria-labelledby="contact-methods-title"><div className="container">
+    <CollaborationSection />
+
+    <section className="contact-methods section-pad" id="contact-methods" aria-labelledby="contact-methods-title"><div className="container">
       <div className="contact-method-header"><span className="page-eyebrow"><span>01 /</span> THE NEXT STEP</span><h2 id="contact-methods-title">Let's find a way<br/><em>to connect.</em></h2></div>
       <div className="contact-method-grid">
         {contact.enabled ? <ContactForm siteKey={contact.siteKey}/> : identity.email ? <EmailContact email={identity.email}/> : <section className="contact-pending-card" aria-labelledby="contact-pending-title">

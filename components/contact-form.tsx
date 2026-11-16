@@ -1,10 +1,30 @@
 'use client';
-import { useRef,useState,FormEvent } from 'react';
+import { useRef,useState,useEffect,FormEvent } from 'react';
 import Script from 'next/script';
 import { getUi } from '@/lib/i18n-client';
 export function ContactForm({siteKey,locale='en'}:{siteKey:string;locale?:'en'|'fa'|'ps'}){
   const ui=locale==='en'?null:getUi(locale);
   const formRef=useRef<HTMLFormElement>(null);const [busy,setBusy]=useState(false);const [success,setSuccess]=useState(false);const [message,setMessage]=useState('');
+  // The inquiry planner only copies a client-side draft into this existing,
+  // server-verified form. Never auto-send messages on the user's behalf.
+  useEffect(()=>{
+    function receiveDraft(event:Event){
+      const values=(event as CustomEvent<{subject?:unknown;body?:unknown}>).detail;
+      if(!values || typeof values.subject!=="string" || typeof values.body!=="string" ||
+        values.subject.length<5 || values.subject.length>140 ||
+        values.body.length<20 || values.body.length>4000)return;
+      const subject=formRef.current?.elements.namedItem("subject");
+      const messageField=formRef.current?.elements.namedItem("message");
+      if(!(subject instanceof HTMLInputElement) || !(messageField instanceof HTMLTextAreaElement))return;
+      subject.value=values.subject;messageField.value=values.body;
+      setSuccess(false);
+      setMessage(ui?.inquiryFormReady||"Draft added to the contact form. Review the fields and send explicitly.");
+      formRef.current?.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"center"});
+      subject.focus({preventScroll:true});
+    }
+    window.addEventListener("portfolio:inquiry-draft",receiveDraft);
+    return ()=>window.removeEventListener("portfolio:inquiry-draft",receiveDraft);
+  },[ui?.inquiryFormReady]);
   async function submit(event:FormEvent<HTMLFormElement>){
     event.preventDefault();if(busy)return;
     setBusy(true);setMessage('');setSuccess(false);

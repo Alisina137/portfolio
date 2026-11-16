@@ -18,6 +18,7 @@ import "@/styles/phase15.css";
 import "@/styles/phase16.css";
 import "@/styles/phase17.css";
 import "@/styles/phase18.css";
+import "@/styles/phase19.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublicIdentity } from "@/lib/public-identity";
