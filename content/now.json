@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "context": "source_reviewed_portfolio_snapshot",
+  "featuredProjects": [
+    "maktablink",
+    "futsal",
+    "dandanlink"
+  ],
+  "focusAreas": [
+    {
+      "id": "interfaces",
+      "title": "Interfaces and role-aware workflows",
+      "description": "How distinct user roles move through clear administrative and mobile experiences.",
+      "technologies": [
+        "Next.js",
+        "Expo"
+      ],
+      "projectSlugs": [
+        "maktablink",
+        "dandanlink"
+      ]
+    },
+    {
+      "id": "mobile",
+      "title": "Mobile-first product journeys",
+      "description": "Navigation, availability and everyday decisions across mobile-focused products.",
+      "technologies": [
+        "React Native",
+        "Expo"
+      ],
+      "projectSlugs": [
+        "futsal",
+        "kankorprep"
+      ]
+    },
+    {
+      "id": "systems",
+      "title": "Connected data and application logic",
+      "description": "Relational data and APIs behind multi-step product workflows.",
+      "technologies": [
+        "PostgreSQL",
+        "Fastify"
+      ],
+      "projectSlugs": [
+        "bazaarlink",
+        "amlaklink"
+      ]
+    }
+  ],
+  "learningGoals": []
+}
