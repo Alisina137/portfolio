@@ -15,6 +15,7 @@ const mainNavItems = [
   { label: "Services", href: "/services" },
   { label: "Now", href: "/now" },
   { label: "Repositories", href: "/repositories" },
+  { label: "Impact", href: "/impact" },
   { label: "Skills", href: "/#skills" },
   { label: "Experience", href: "/#experience" },
   { label: "About", href: "/about" },
@@ -27,7 +28,7 @@ export function SiteHeader({ resumeHref, showWriting = false, availableLocales =
   const ui = locale === 'en' ? null : getUi(locale);
   const showLocaleWriting = showWriting && locale === "en";
   const navItems = (showLocaleWriting ? [...mainNavItems.slice(0, 2), { label: 'Writing', href: '/writing' }, ...mainNavItems.slice(2)] : mainNavItems)
-    .map(item => ({ ...item, label: ui ? ui[item.label.toLowerCase() as 'home'|'projects'|'services'|'now'|'repositories'|'skills'|'experience'|'about'|'contact'|'writing'] : item.label, href: localizePath(locale, item.href) }));
+    .map(item => ({ ...item, label: ui ? ui[item.label.toLowerCase() as 'home'|'projects'|'services'|'now'|'repositories'|'impact'|'skills'|'experience'|'about'|'contact'|'writing'] : item.label, href: localizePath(locale, item.href) }));
   function selectLocale(next: Locale) {
     if (next === locale) return;
     if (next === 'en') document.cookie = 'portfolio-language=en; path=/; SameSite=Lax; max-age=31536000';
@@ -73,7 +74,7 @@ export function SiteHeader({ resumeHref, showWriting = false, availableLocales =
         triggerRef.current?.focus();
       }
     }
-    function onResize() { if (window.innerWidth >= 1601) setOpen(false); }
+    function onResize() { if (window.innerWidth >= 1721) setOpen(false); }
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("resize", onResize);
