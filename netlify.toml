@@ -1,0 +1,9 @@
+# Netlify automatically uses OpenNext for Next.js App Router and API routes.
+# Deploy production from the GitHub main branch using the Netlify dashboard.
+# Never set PORTFOLIO_LAUNCH_APPROVED=true before explicit owner sign-off.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
