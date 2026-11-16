@@ -1,5 +1,6 @@
 'use client';
 import { useEffect,useState,FormEvent } from 'react';
+import { StudioWritingPreview } from '@/components/studio-writing-preview';
 
 type Project={slug:string;title:string;oneLiner:string;ownerRole:string;developmentStatus:string;contentApproval:string};
 type Case={slug:string;audience:string;productType:string;currentState:string;sourceEvidence:string;problem:string[]};
@@ -80,6 +81,7 @@ function ContentForm({kind,original,slug,head,onResult}:{kind:'profile'|'project
       <Field label="Tags (comma separated)" value={form.tags} onChange={field('tags')}/>
       <Field label="Related project slugs (comma separated)" value={form.relatedProjects} onChange={field('relatedProjects')}/>
       <Field label="Markdown article body" value={body} onChange={setBody} multiline rows={20} maxLength={60000}/>
+      <StudioWritingPreview title={form.title} excerpt={form.excerpt} body={body}/>
       <Choice label="Publication status" value={form.publicationStatus} onChange={field('publicationStatus')} options={['draft','published','archived']}/>
       <Choice label="Owner approval" value={form.ownerApproval} onChange={field('ownerApproval')} options={['owner_pending','owner_approved']}/>
       {form.publicationStatus==='published'&&<>

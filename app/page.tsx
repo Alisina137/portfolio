@@ -10,6 +10,7 @@ import { NowPreview } from "@/components/now-section";
 import { RepositoriesPreview } from "@/components/repositories-section";
 import { ImpactPreview } from "@/components/impact-section";
 import { TestimonialsPreview } from "@/components/testimonials-section";
+import { WritingPreview } from "@/components/writing-preview";
 import { getFeaturedProjects, siteProfile } from "@/lib/content";
 
 const capabilities = [
@@ -83,6 +84,8 @@ export default function HomePage() {
     <ImpactPreview />
 
     <TestimonialsPreview />
+
+    <WritingPreview />
 
     <section className="approach-section section-pad" id="approach">
       <div className="container"><SectionHeading number="10" kicker="MY APPROACH" title="From problem to product." copy="The most useful technology starts with a clear understanding of the problem." />
