@@ -12,6 +12,7 @@ import type { Locale } from "@/lib/i18n-core.mjs";
 const mainNavItems = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
+  { label: "Skills", href: "/#skills" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -22,7 +23,7 @@ export function SiteHeader({ resumeHref, showWriting = false, availableLocales =
   const ui = locale === 'en' ? null : getUi(locale);
   const showLocaleWriting = showWriting && locale === "en";
   const navItems = (showLocaleWriting ? [...mainNavItems.slice(0, 2), { label: 'Writing', href: '/writing' }, ...mainNavItems.slice(2)] : mainNavItems)
-    .map(item => ({ ...item, label: ui ? ui[item.label.toLowerCase() as 'home'|'projects'|'about'|'contact'|'writing'] : item.label, href: localizePath(locale, item.href) }));
+    .map(item => ({ ...item, label: ui ? ui[item.label.toLowerCase() as 'home'|'projects'|'skills'|'about'|'contact'|'writing'] : item.label, href: localizePath(locale, item.href) }));
   function selectLocale(next: Locale) {
     if (next === locale) return;
     if (next === 'en') document.cookie = 'portfolio-language=en; path=/; SameSite=Lax; max-age=31536000';

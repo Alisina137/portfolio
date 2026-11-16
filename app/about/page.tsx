@@ -6,6 +6,7 @@ import { getPublishedProjects } from "@/lib/content";
 import { getPublicIdentity } from "@/lib/public-identity";
 import { canIndexPortfolio } from "@/lib/seo";
 import { getPageUrl } from "@/lib/site-url.mjs";
+import { SkillsSection } from "@/components/skills-section";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About — Alisina Sarwari | Software Engineer & Product Builder",
@@ -50,7 +51,6 @@ const approach = [
 export default function AboutPage() {
   const identity = getPublicIdentity();
   const bySlug = new Map(getPublishedProjects().map(project => [project.slug, project]));
-  const technologies = Array.from(new Set(getPublishedProjects().flatMap(project => project.technologies)));
   const aboutUrl = getPageUrl("/about");
   const personSchema = canIndexPortfolio() && aboutUrl ? {
     "@context": "https://schema.org",
@@ -94,10 +94,7 @@ export default function AboutPage() {
       </div>
     </section>
 
-    <section className="about-tech section-pad" aria-labelledby="tech-title"><div className="container about-tech-grid">
-      <div><span className="page-eyebrow"><span>02 /</span> TOOLS IN CONTEXT</span><h2 id="tech-title">The stack serves<br/><em>the product.</em></h2><p>These are technologies documented in the public project records. They're tools I work with—not a percentage score or a claim of mastery.</p><Link href="/projects" className="inline-direction">See the evidence in projects <ArrowRightIcon width="18" height="18" /></Link></div>
-      <div className="about-tech-pills" aria-label="Technologies used in published project case studies">{technologies.map(tech => <span key={tech}>{tech}</span>)}</div>
-    </div></section>
+    <SkillsSection locale="en" variant="about" />
 
     <section className="about-process section-pad" aria-labelledby="process-title"><div className="container">
       <div className="about-section-heading"><span className="page-eyebrow"><span>03 /</span> HOW I WORK</span><h2 id="process-title">From a question<br/><em>to a working system.</em></h2><p>A practical approach to exploring complex product ideas, not an invented employment timeline.</p></div>
