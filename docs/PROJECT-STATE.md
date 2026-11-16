@@ -85,3 +85,7 @@ Replaced inconsistent platform-only English font fallbacks with self-hosted **Ma
 ## Phase 12 — Services / What I Can Do (16 November 2026)
 
 **IMPLEMENTED IN SOURCE; CI AND LIVE DEVICE/NETLIFY QA PENDING.** Homepage preview and full six-capability `/services` route with original SVGs, responsive cards, source-backed technology and case-study links, and collaboration CTA. Header, footer and About-page navigation link to the real route. The expanded tablet menu scrolls correctly. RTL language drafts remain review-gated, metadata and sitemap retain noindex launch protections. No invented clients, commercial guarantees, or launch approvals. See `docs/PHASE-12.md`.
+
+## Phase 13 — Currently working on / Now (16 November 2026)
+
+**IMPLEMENTED IN SOURCE / HOSTED VALIDATION PENDING.** A new interactive /now page displays source-reviewed ongoing portfolio projects and next verification steps from case studies; search and domain filters are functional and respond to empty results. Home preview highlights three evidence-linked projects; About includes a Now CTA; header/footer navigation and page metadata/OG/sitemap are wired. Three technical threads are tied to published project technology records; unapproved personal learning goals are not displayed. Draft RTL translations, styling and release gates remain owner-pending. See `docs/PHASE-13.md` and `npm run check:now`.
