@@ -5,9 +5,9 @@ type Project={slug:string;title:string;oneLiner:string;ownerRole:string;developm
 type Case={slug:string;audience:string;productType:string;currentState:string;sourceEvidence:string;problem:string[]};
 type Article={slug:string;title:string;excerpt:string;category:string;tags:string[];relatedProjects:string[];publicationStatus:string;ownerApproval:string;publishedAt:string|null;updatedAt:string|null};
 type Profile={professionalTitle:string;headline:string;intro:string;shortBio:string;locationText:string;publicEmail:string|null;publicEmailApproved:boolean;ownerBioApproved:boolean};
-type Data={head:string;projects:Project[];cases:Case[];writing:Article[];profile:Profile;prs:{url:string;title:string;number:number;draft:boolean}[]};
-type Kind='profile'|'project'|'case'|'article'|'media'|'reviews';
-const tabs:{id:Kind;label:string}[]=[{id:'profile',label:'Profile'},{id:'project',label:'Projects'},{id:'case',label:'Case studies'},{id:'article',label:'Writing'},{id:'media',label:'Media'},{id:'reviews',label:'Review queue'}];
+type Data={head:string;projects:Project[];cases:Case[];writing:Article[];profile:Profile;testimonials:{entries:{id:string;name:string;relationship:string}[]};prs:{url:string;title:string;number:number;draft:boolean}[]};
+type Kind='profile'|'project'|'case'|'article'|'media'|'testimonial'|'reviews';
+const tabs:{id:Kind;label:string}[]=[{id:'profile',label:'Profile'},{id:'project',label:'Projects'},{id:'case',label:'Case studies'},{id:'article',label:'Writing'},{id:'media',label:'Media'},{id:'testimonial',label:'Recommendations'},{id:'reviews',label:'Review queue'}];
 
 function Field({label,value,onChange,multiline=false,rows=4,maxLength=1200}:{label:string;value:string;onChange:(s:string)=>void;multiline?:boolean;rows?:number;maxLength?:number}){
   return <label className="studio-field"><span>{label}</span>{multiline?<textarea rows={rows} maxLength={maxLength} value={value} onChange={e=>onChange(e.target.value)}/>:<input maxLength={maxLength} value={value} onChange={e=>onChange(e.target.value)}/>}</label>;
@@ -111,6 +111,62 @@ function MediaForm({projects,head,onResult}:{projects:Project[];head:string;onRe
     <button type="submit" disabled={busy||!confirm} className="button button-primary">{busy?'Sanitizing image…':'Submit media for review →'}</button>
   </form>;
 }
+/** Genuine endorsements are proposed as review PRs, never published by pressing Submit. */
+function TestimonialForm({head,projects,current,onResult}:{head:string;projects:Project[];current:{id:string;name:string;relationship:string}[];onResult:(url:string)=>void}){
+  const [form,setForm]=useState({id:'',name:'',role:'',organization:'',relationship:'collaborator',
+    quote:'',context:'',projectSlug:'',profileUrl:'',language:'en',consentedAt:'',reviewedAt:''});
+  const [checks,setChecks]=useState({identityVerified:false,evidenceReviewed:false,consentToPublish:false,ownerApproved:false});
+  const [busy,setBusy]=useState(false),[error,setError]=useState('');
+  const field=(key:string)=>(value:string)=>setForm(v=>({...v,[key]:value}));
+  const attest=(key:keyof typeof checks)=>(value:boolean)=>setChecks(v=>({...v,[key]:value}));
+  const ready=Object.values(checks).every(Boolean);
+  async function submit(e:FormEvent){
+    e.preventDefault();setError('');setBusy(true);
+    try{
+      const fields={
+        id:form.id.trim(),name:form.name.trim(),role:form.role.trim(),
+        relationship:form.relationship,quote:form.quote.trim(),context:form.context.trim(),
+        language:form.language,consentedAt:form.consentedAt,reviewedAt:form.reviewedAt,
+        ...(form.organization.trim()?{organization:form.organization.trim()}:{}),
+        ...(form.projectSlug?{projectSlug:form.projectSlug}:{}),
+        ...(form.profileUrl.trim()?{profileUrl:form.profileUrl.trim()}:{}),
+        published:true, ...checks
+      };
+      const response=await fetch('/api/studio/proposals',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({kind:'testimonial',fields,expectedHead:head})});
+      const result=await response.json();
+      if(!response.ok)throw new Error(result.error||'Could not submit this recommendation for review');
+      onResult(result.url);
+    }catch(e){setError(e instanceof Error?e.message:'Unexpected error');}
+    finally{setBusy(false);}
+  }
+  return <div className="studio-testimonials">
+    <p className="studio-hint">Only submit a genuine person's exact words after verifying their identity and obtaining written permission outside GitHub. Never upload private messages, phone numbers or consent evidence. The resulting draft pull request still requires a review and successful CI before publication.</p>
+    <p className="studio-hint">Current approved public recommendations: {current.length}. To withdraw a published recommendation, remove its record through a reviewed GitHub pull request immediately.</p>
+    {current.length>0 && <ul className="studio-prs">{current.map(record=><li key={record.id}>{record.name} · {record.relationship}</li>)}</ul>}
+    <form className="studio-form" onSubmit={submit}>
+      <Field label="Unique ID (lowercase letters, numbers and hyphens)" value={form.id} onChange={field('id')} maxLength={80}/>
+      <Field label="Contributor's public name (with permission)" value={form.name} onChange={field('name')} maxLength={90}/>
+      <Field label="Verified professional role" value={form.role} onChange={field('role')} maxLength={110}/>
+      <Field label="Organization (optional, permission required)" value={form.organization} onChange={field('organization')} maxLength={120}/>
+      <Choice label="Actual working relationship" value={form.relationship} options={['collaborator','colleague','mentor','client']} onChange={field('relationship')}/>
+      <Field label="Original quote (40–900 characters)" value={form.quote} onChange={field('quote')} multiline rows={6} maxLength={900}/>
+      <Field label="Public, accurate context (15–260 characters)" value={form.context} onChange={field('context')} multiline rows={3} maxLength={260}/>
+      <Choice label="Related published project (optional)" value={form.projectSlug} options={['',...projects.map(p=>p.slug)]} onChange={field('projectSlug')}/>
+      <Choice label="Original quote language" value={form.language} options={['en','fa','ps']} onChange={field('language')}/>
+      <Field label="Consented GitHub/LinkedIn profile URL (optional)" value={form.profileUrl} onChange={field('profileUrl')} maxLength={350}/>
+      <label className="studio-field"><span>Date of written consent</span><input type="date" required value={form.consentedAt} onChange={e=>field('consentedAt')(e.target.value)}/></label>
+      <label className="studio-field"><span>Date of identity/content review</span><input type="date" required value={form.reviewedAt} onChange={e=>field('reviewedAt')(e.target.value)}/></label>
+      <Checkbox label="I have personally verified this contributor's identity and relationship." checked={checks.identityVerified} onChange={attest('identityVerified')}/>
+      <Checkbox label="I checked the quote and public project context, including privacy risks." checked={checks.evidenceReviewed} onChange={attest('evidenceReviewed')}/>
+      <Checkbox label="I hold explicit written consent to publish this name, role, context and exact quote." checked={checks.consentToPublish} onChange={attest('consentToPublish')}/>
+      <Checkbox label="I am the portfolio owner and approve submitting this recommendation to the public-review workflow." checked={checks.ownerApproved} onChange={attest('ownerApproved')}/>
+      {error&&<p role="alert" className="studio-alert">{error}</p>}
+      <button className="button button-primary" type="submit" disabled={busy||!ready}>{busy?'Submitting…':'Create review pull request →'}</button>
+    </form>
+  </div>;
+}
+
 export function StudioEditor(){
   const [data,setData]=useState<Data|null>(null);const [status,setStatus]=useState('Loading latest content from GitHub…');const [tab,setTab]=useState<Kind>('profile');const [slug,setSlug]=useState('');const [lastProposal,setLastProposal]=useState('');
   async function refresh(){setStatus('Loading latest content…');try{const r=await fetch('/api/studio/content',{cache:'no-store'});const json=await r.json();if(!r.ok)throw new Error(json.error||'Access denied');setData(json);setSlug(json.projects?.[0]?.slug||'');setStatus('');}catch(e){setStatus(e instanceof Error?e.message:'Could not load content');}}
@@ -127,6 +183,7 @@ export function StudioEditor(){
       {lastProposal&&<div className="studio-success" role="status"><strong>Review proposal created.</strong><p>The changes are not live. Open GitHub to inspect, approve and merge after checks pass.</p><a href={lastProposal} target="_blank" rel="noopener noreferrer">Open draft pull request ↗</a></div>}
       {data&&tab==='reviews'&&<div className="studio-prs">{data.prs.length===0?<p>No open Studio pull requests. Create a proposal from the editor to start a review.</p>:data.prs.map(p=><a key={p.number} target="_blank" rel="noopener noreferrer" href={p.url}>#{p.number} — {p.title} <span>{p.draft?'Draft':'Open'}</span> ↗</a>)}<p className="studio-hint">GitHub is the review and audit history. Publishing requires a merge and a successful deployment; this workspace cannot bypass approval checks.</p></div>}
       {data&&tab==='media'&&<MediaForm head={data.head} projects={projects} onResult={setLastProposal}/>}
+      {data&&tab==='testimonial'&&<TestimonialForm head={data.head} projects={projects} current={data.testimonials?.entries||[]} onResult={setLastProposal}/>}
       {data&&tab==='profile'&&<ContentForm key="profile" kind="profile" original={data.profile} head={data.head} onResult={setLastProposal}/>}
       {data&&(['project','case','article'] as Kind[]).includes(tab)&&<>
         <label className="studio-field studio-picker"><span>Select {tab==='article'?'article':'project'}</span><select value={currentSlug} onChange={e=>{setSlug(e.target.value);setLastProposal('');}}>{items.map(v=><option key={v.slug} value={v.slug}>{'title'in v?v.title:v.slug}</option>)}</select></label>

@@ -76,6 +76,16 @@ test("Accessible, responsive recommendation filters and careful RTL display",()=
  assert.equal(JSON.parse(read("content/locales/approval.json")).fa.ownerApproved,false);
  assert.equal(JSON.parse(read("content/locales/approval.json")).ps.ownerApproved,false);
 });
+test("Owner Studio proposes reviewed recommendations without anonymous publishing",()=>{
+ const endpoint=read("app/api/studio/proposals/route.ts");
+ const source=read("lib/github-studio.ts");
+ const editor=read("components/studio-editor.tsx");
+ const contentRoute=read("app/api/studio/content/route.ts");
+ for(const token of ["getStudioSession()","validSameOrigin(req,cfg.origin)","isApprovedTestimonial(fields)","readRepoContent('content/projects.json')","kind==='testimonial'"])assert.ok(endpoint.includes(token),token);
+ assert.ok(source.includes("content/testimonials.json"));
+ assert.ok(contentRoute.includes("testimonials:JSON.parse(testimonials.content)"));
+ for(const token of ["TestimonialForm","written consent","Review","kind:'testimonial'"])assert.ok(editor.includes(token),token);
+});
 test("Source gate is runnable as part of CI and build",()=>{
  assert.match(execFileSync(process.execPath,["scripts/check-testimonials.mjs"],{encoding:"utf8"}),/Testimonials validated/);
  assert.ok(read("package.json").includes("check:testimonials"));

@@ -12,7 +12,7 @@ There are **zero verified public testimonials** in the provided source material.
 
 Collect permission **outside public source control** and retain the consent evidence securely. Confirm the person's identity, their relationship to the owner and the factual context. Never put private email, phone, screenshots of private conversations, medical/student data or unredacted evidence in this GitHub repository.
 
-After consent, create a `content/testimonials.json` record with exactly these fields:
+After consent, use the **owner-only Studio → Recommendations** form to propose a record through a *draft GitHub pull request* if Studio has been configured. It requires attestations for identity verification, reviewed context, written consent and owner approval. Alternatively create a reviewed GitHub pull request editing `content/testimonials.json`. No anonymous publishing endpoint exists. The required record fields are:
 
 ```json
 {
@@ -36,7 +36,7 @@ After consent, create a `content/testimonials.json` record with exactly these fi
 
 **The example is documentation only; it is not a live recommendation.** Optional fields: `organization` (only with permission), `profileUrl` (consented public GitHub/LinkedIn profile), `projectSlug` (must be a published project) and `language` (en/fa/ps). Allowed relationships: `client`, `collaborator`, `colleague`, `mentor`. Do not use a client relationship unless actual client work is evidenced. The consent date cannot be later than the review date. The public UI does not display private audit booleans.
 
-If the contributor revokes permission, remove the record in a reviewed pull request and redeploy promptly. An unapproved record fails `npm run check:testimonials` rather than leaking into the build.
+If the contributor revokes permission, remove the record in a reviewed pull request and redeploy promptly. Public GitHub history can retain previously committed words; disclose that limitation before obtaining permission and do not store private consent evidence in Git history. An unapproved record fails `npm run check:testimonials` rather than leaking into the build.
 
 ## Implemented UI
 
@@ -45,7 +45,7 @@ If the contributor revokes permission, remove the record in a reviewed pull requ
 - Header, footer, About, sitemap, Open Graph and SEO integration.
 - Responsive layout, premium light/dark styles, keyboard focus and reduced-motion controls, untranslated quotes preserved in their original language with `lang` and `dir=auto`.
 - Dari/Pashto translated page structure remains **draft and owner-review gated**; source fingerprint includes testimonial data so a new quote invalidates prior translation review.
-- No new public submission endpoint. Anonymous people cannot post unmoderated endorsements.
+- Owner Studio → Recommendations editorial form: authenticated by the existing owner session, same-origin POST, strict server-side validator, approved project linkage, and draft GitHub PR only. This feature stays disabled while Studio environment/provider setup is incomplete. No public submission endpoint exists; anonymous people cannot post unmoderated endorsements.
 
 ## Verification
 
