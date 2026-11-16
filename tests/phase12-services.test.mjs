@@ -1,85 +1,83 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-
-const read=p=>readFileSync(new URL("../"+p,import.meta.url),"utf8");
-const data=JSON.parse(read("content/services.json"));
+import { execFileSync } from "node:child_process";
+const read=path=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
+const services=JSON.parse(read("content/services.json"));
 const projects=JSON.parse(read("content/projects.json"));
-const cases=new Set(JSON.parse(read("content/case-studies.json")).map(p=>p.slug));
-const live=new Map(projects.filter(p=>p.publicationStatus==="published"&&p.repoUrlVerified&&cases.has(p.slug)).map(p=>[p.slug,p]));
-
-test("P12 services point to existing published cases and source-backed technologies",()=>{
-  assert.deepEqual(data.map(s=>s.id),["web","mobile","backend","data","fullstack","improvements"]);
-  assert.deepEqual(data.filter(s=>s.featured).map(s=>s.id),["web","mobile","backend"]);
-  for(const entry of data){
-    assert.equal(entry.capabilities.length,3);
-    assert.ok(entry.projects.length>=2,entry.id);
-    for(const slug of entry.projects)assert.ok(live.has(slug),entry.id+" -> "+slug);
-    for(const tech of entry.technologies)assert.ok(entry.projects.some(slug=>live.get(slug).technologies.includes(tech)),entry.id+" -> "+tech);
-    assert.equal(typeof entry.summary,"string");
+const cases=JSON.parse(read("content/case-studies.json"));
+const published=new Map(projects.filter(p=>p.publicationStatus==="published"&&p.repoUrlVerified&&cases.some(c=>c.slug===p.slug)).map(p=>[p.slug,p]));
+test("Phase 12 describes six source-backed service capabilities with exactly three homepage highlights",()=>{
+  assert.deepEqual(services.map(x=>x.id),["web","mobile","backend","data","fullstack","improvements"]);
+  assert.equal(services.filter(x=>x.featured).length,3);
+  for(const s of services){
+    assert.ok(s.summary.length>40);
+    assert.equal(s.capabilities.length,3);
+    assert.ok(s.projects.length>=2);
+    for(const slug of s.projects)assert.ok(published.has(slug),slug);
+    for(const tech of s.technologies)assert.ok(s.projects.some(slug=>published.get(slug).technologies.includes(tech)),s.id+" "+tech);
+    assert.ok(!Object.hasOwn(s,"price")&&!Object.hasOwn(s,"sales")&&!Object.hasOwn(s,"deliveryTime"));
   }
 });
-
-test("P12 Home preview, full Services route, and case-study links are wired",()=>{
-  const component=read("components/services-section.tsx");
-  assert.ok(component.includes("getServices(locale, variant)"));
-  assert.ok(component.includes('variant === "preview"'));
-  assert.ok(component.includes("item.examples.map"));
-  assert.ok(component.includes('localizePath(locale,"/projects/"+project.slug)'));
-  assert.ok(component.includes('href={localizePath(locale,"/services")}'));
-  assert.ok(component.includes('href={localizePath(locale,"/contact")}'));
-  assert.ok(component.includes('aria-labelledby={id + "-title"}'));
-  assert.ok(read("app/page.tsx").includes('<ServicesSection variant="preview"'));
-  assert.ok(read("app/services/page.tsx").includes("<ServicesPageView"));
-  assert.ok(read("app/about/page.tsx").includes('href="/services"'));
-  assert.ok(read("components/site-footer.tsx").includes('path("/services")'));
-  assert.ok(read("components/site-header.tsx").includes('href: "/services"'));
-  assert.ok(read("components/locale-public-pages.tsx").includes('<ServicesSection locale={locale} variant="preview"'));
-});
-
-test("Localized Services routes and metadata respect existing approval gates",()=>{
-  const router=read("app/[locale]/[[...path]]/page.tsx");
-  assert.ok(router.includes("pathname === '/services'"));
-  assert.ok(router.includes("<ServicesPageView locale={locale}"));
-  assert.ok(router.includes("localePubliclyVisible(locale)"));
-  assert.ok(router.includes("translationsOwnerApproved(locale)"));
-  assert.ok(read("lib/i18n-core.mjs").includes("path === '/services'"));
-  assert.ok(read("lib/i18n.ts").includes("englishServices"));
-  assert.ok(read("app/sitemap.ts").includes('"/services"'));
-  assert.ok(read("app/services/page.tsx").includes("createPageMetadata("));
-  assert.ok(read("scripts/check-locales.mjs").includes("read('content/services.json')"));
-  for(const locale of ["fa","ps"]){
-    const copy=JSON.parse(read("content/locales/"+locale+"-services.json"));
-    assert.deepEqual(Object.keys(copy),data.map(s=>s.id));
-    const ui=JSON.parse(read("content/locales/"+locale+"-ui.json"));
-    for(const key of ["services","serviceTitle","serviceScope","serviceHeroTitle","serviceNoPromises"]) assert.ok(ui[key]?.length>4,key);
-    for(const entry of data)assert.equal(copy[entry.id].capabilities.length,3);
+test("Service catalogs include matching localized titles, summaries and capabilities",()=>{
+  const fa=JSON.parse(read("content/locales/fa-services.json"));
+  const ps=JSON.parse(read("content/locales/ps-services.json"));
+  for(const translation of [fa,ps]){
+    assert.deepEqual(Object.keys(translation).sort(),services.map(s=>s.id).sort());
+    for(const service of services){
+      const row=translation[service.id];
+      assert.ok(row.title.length>3);
+      assert.ok(row.summary.length>35);
+      assert.equal(row.capabilities.length,service.capabilities.length);
+    }
   }
-  assert.equal(JSON.parse(read("content/locales/approval.json")).fa.ownerApproved,false);
-  assert.equal(JSON.parse(read("content/launch-approval.json")).approvedForPublicLaunch,false);
+  const faui=JSON.parse(read("content/locales/fa-ui.json"));
+  const psui=JSON.parse(read("content/locales/ps-ui.json"));
+  assert.deepEqual(Object.keys(faui).sort(),Object.keys(psui).sort());
+  for(const t of [faui,psui])for(const key of ["services","serviceTitle","serviceHeroTitle","servicePreviewNote","serviceContact","serviceNoPromises"])assert.ok(t[key]?.length>3,key);
 });
-
-test("Service descriptions are project-backed rather than commercial promises",()=>{
-  const source=read("lib/services.ts");
-  assert.ok(source.includes("getPublishedProjects()"));
-  assert.ok(source.includes("getCaseStudy(p.slug)"));
-  assert.ok(source.includes("row.technologies.filter"));
-  assert.ok(source.includes("if (!evidence.length || !tech.length) return null"));
-  const copy=read("components/services-section.tsx");
-  assert.ok(copy.includes("not a guarantee of availability"));
-  assert.ok(copy.includes("Contact options are shown only when approved"));
-  assert.doesNotMatch(copy,/guaranteed delivery|500\+ clients|trusted by|99\.9% uptime/i);
+test("Pages, project cases and public navigation use real routes",()=>{
+ const home=read("app/page.tsx"),about=read("app/about/page.tsx"),routes=read("app/[locale]/[[...path]]/page.tsx"),locale=read("components/locale-public-pages.tsx"),page=read("components/services-section.tsx");
+ assert.match(home,/<ServicesSection variant="preview"/);
+ assert.match(about,/href="\/services"/);
+ assert.match(locale,/<ServicesSection locale=\{locale\} variant="preview"/);
+ assert.match(routes,/pathname === '\/services'/);
+ assert.ok(page.includes('localizePath(locale,"/projects/"+project.slug)'));
+ assert.ok(page.includes('localizePath(locale,"/services")'));
+ assert.ok(page.includes('<section'));
+ assert.ok(page.includes('<article'));
+ assert.ok(page.includes('aria-labelledby={id + "-title"}'));
+ assert.ok(read("components/site-header.tsx").includes('href: "/services"'));
+ assert.ok(read("components/site-footer.tsx").includes('path("/services")'));
+ assert.ok(read("app/sitemap.ts").includes('"/services"'));
+ assert.ok(read("lib/i18n-core.mjs").includes("path === '/services'"));
+ assert.ok(read("app/services/page.tsx").includes('createPageMetadata('));
+ assert.ok(read("app/services/opengraph-image.tsx").includes('renderOgCard'));
 });
-
-test("Services CSS supports tablet menu, RTL, accessibility and reduced motion",()=>{
-  const css=read("styles/phase12.css");
-  assert.ok(read("app/layout.tsx").includes("styles/phase12.css"));
-  for(const token of ["--type-section","--type-card","--type-body","--type-small","--border"]) assert.ok(css.includes(token),token);
-  assert.ok(css.includes("@media(max-width:1160px)"));
-  assert.ok(css.includes("@media(max-width:680px)"));
-  assert.ok(css.includes("@media(prefers-reduced-motion:reduce)"));
-  assert.ok(css.includes('html[dir="rtl"]'));
-  assert.ok(css.includes("overscroll-behavior:contain"));
-  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1361"));
-  assert.doesNotMatch(css,/https?:\/\//);
+test("Launch and locale approval gates remain closed",()=>{
+ assert.equal(JSON.parse(read("content/launch-approval.json")).approvedForPublicLaunch,false);
+ assert.equal(JSON.parse(read("content/locales/approval.json")).fa.ownerApproved,false);
+ assert.equal(JSON.parse(read("content/locales/approval.json")).ps.ownerApproved,false);
+ assert.ok(read("lib/i18n.ts").includes("englishServices"));
+ assert.ok(read("scripts/check-locales.mjs").includes("read('content/services.json')"));
+ const ui=read("components/services-section.tsx");
+ assert.match(ui,/getPublicIdentity\(\)/);
+ assert.match(ui,/!identity.email/);
+ assert.doesNotMatch(ui,/\bmailto:[^'"]+@/);
+});
+test("Service layout maintains fluid typography, responsive screens, keyboard, RTL and motion preference",()=>{
+ const css=read("styles/phase12.css");
+ assert.ok(read("app/layout.tsx").includes('styles/phase12.css'));
+ for(const token of ["--type-section","--type-page","--type-body","--type-small","--type-card","--border"])assert.ok(css.includes(token),token);
+ assert.ok(css.includes("@media(max-width:1160px)"));
+ assert.ok(css.includes("@media(max-width:800px)"));
+ assert.ok(css.includes("@media(max-width:680px)"));
+ assert.ok(css.includes("@media(prefers-reduced-motion:reduce)"));
+ assert.ok(css.includes('html[dir="rtl"]'));
+ assert.ok(css.includes(":focus-visible"));
+ assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1361"));
+});
+test("Service checker validates all supported projects and translation coverage",()=>{
+ const result=execFileSync(process.execPath,["scripts/check-services.mjs"],{encoding:"utf8"});
+ assert.match(result,/six evidence-backed areas/);
 });

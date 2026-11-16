@@ -1,28 +1,25 @@
 # Phase 12 — Services / What I Can Do
 
-**Status:** Implemented in source; GitHub automated verification and live Netlify/device acceptance are separate gates. Follows Phases 9–20 roadmap.
+**Status:** Implemented in source; content is a portfolio demonstration, not evidence of contracted work. CI and hosted acceptance required before calling delivery verified.
 
-## Scope and credibility
+## Scope
 
-Show types of software work represented in current portfolio sources. Do **not** imply agency status, commercial client engagements, fixed prices, guaranteed availability, finished public products, or independently verified project authorship. Phase 05 owner release gates remain closed.
+- A **Services** item in header and footer, linking to a full `/services` page; a compact **What I Can Build** preview section on the Home page and an About page route CTA.
+- Six categories represented by consistent, original inline SVG icons and cards: **Web applications, Mobile applications, Backend APIs, Database design & management, Full-stack product systems, and Application UI & workflow improvements.**
+- Three highlighted capabilities on Home; all six on the new Services route. Each contains a purpose-led summary, three concrete areas of work, technologies found in linked source-reviewed projects, and working, appropriately localized project case study links.
+- Evidence-first data: `content/services.json` references actual published projects rather than invented client contracts. `lib/services.ts` projects safely from published projects, source-reviewed case studies, and per-project technologies. If a case or technology is unpublished, its evidence is not displayed.
+- Modern premium style: six readable balanced cards on desktop, two on tablet, one on mobile; responsive hero illustration, focus styles, light/dark compatibility, reduced-motion behavior, and RTL mirroring.
+- Marketing copy carefully avoids promising price, project delivery time, client results, actual commercial availability or agency/team size. Contact CTA routes to the existing owner-gated contact page. No unapproved personal email or fabricated testimonials.
+- Dedicated SEO metadata/Open Graph resource, legitimate sitemap inclusion only after existing launch approvals, distinct localized preview routes `/fa/services` and `/ps/services` subject to the existing translation publication gates, and a locale source fingerprint including service content.
+- `scripts/check-services.mjs` and regression tests enforce six categories, 3 highlighted preview cards, valid published projects, technology support, translations, and route/a11y design contracts.
 
-## Delivered
+## Verification
 
-- Home preview of 3 areas: web applications, mobile applications and backend APIs, with a CTA to the full Services page.
-- Full `/services` page covers 6 types: web, mobile, backend APIs, database design and management, full-stack systems, and application UI/workflow improvements.
-- Each card offers a summary, 3 scope items, the tech recorded in published case studies, and real linked project evidence. Missing project evidence and unsupported technologies are suppressed by `getServices()`.
-- New Services header and footer link, related About-page callout, project links and contact CTA. **Contact still uses the previous owner-controlled channels**, not a newly fabricated address or enabled form.
-- Dedicated Next.js SEO metadata, Open Graph image and owner-gated sitemap inclusion. Old noindex and translation-review guards remain in effect.
-- Premium, responsive design with original vector icons and conceptual (non-screenshot) artwork. Existing light/dark tokens, readable typography, keyboard/touch links, RTL direction and reduced-motion preferences respected.
-- Draft Dari/Pashto service routes and localized descriptions; source fingerprint includes new Services data for eventual separate owner review.
-- At tablet widths the expanded header uses the existing keyboard-accessible mobile menu, with viewport-constrained scrolling to avoid cutting off lower links.
+Run `npm run check:services`, `npm run check:locales`, `npm test`, and `npm run build` locally. CI verifies the merged branch. After Netlify auto-deploy completes, check:
+- `/` preview section, `/services` detailed page and `/about` Services CTA.
+- Header/footer navigation, project links, keyboard focus and mobile menu at 360/768/1024/1360/1440px.
+- Responsive 1/2/3-column layouts, light/dark colors, contrast and reduced-motion.
+- Localized paths under development locale preview; translations remain owner-pending.
+- No unchecked commercial claims or unapproved contact details.
 
-## Data and validation
-
-`content/services.json` holds the six areas and approved source references. `content/locales/fa-services.json` and `ps-services.json` hold draft localizations. `scripts/check-services.mjs` verifies unique service IDs, published case references, supported technology labels, complete translated strings and exactly three homepage previews. `npm run check:services` is part of `build` and `verify`. `tests/phase12-services.test.mjs` protects route wiring, links, content guards and responsive design.
-
-## Acceptance
-
-Verify `npm run check:services`, `npm run check:locales`, `npm test`, `npm run build`. On a real Netlify deployment test Home → Services → real project case → Contact; try screen widths 320, 360, 768, 1024 and 1440px plus 200% zoom; both themes, keyboard focus, reduced motion and deep-link navigation. Check `/fa/services` and `/ps/services` only in development preview while locale approvals are pending. Unapproved route variants should remain unavailable in production.
-
-No Netlify environment variable changes, global launch approvals, resume/email publication or paid-service claims were made.
+**Not in this phase:** A quote/order funnel, pricing, booking, contracting, client metrics, invoices or actual paid services. These require separate owner-approved commercial requirements and backend integrations. No owner launch flag or indexing setting has changed.
