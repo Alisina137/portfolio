@@ -43,7 +43,7 @@ export function getImpactHighlights(locale:ImpactLocale="en",variant:"preview"|"
      return [{
        slug:ref.slug,title:localizedProject.title,
        technicalLabel:localizedRecords[idx]?.title??matched.title,
-       source:ref.source,repoUrl:project.repoUrl,sourceEvidence:study.sourceEvidence
+       source:key,repoUrl:project.repoUrl,sourceEvidence:study.sourceEvidence
      }];
    });
    if(examples.length!==row.evidence.length)return [];
