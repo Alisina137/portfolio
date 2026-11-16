@@ -1,7 +1,7 @@
 /*
  * Portfolio type-scale v2.
- * This is the LAST imported stylesheet, so fluid semantic sizes win over
- * early-phase per-component px values (including phone-only shrinking).
+ * Imported after legacy site styles so fluid semantic sizes take precedence.
+ * Later scoped feature styles must use the same typography tokens.
  * 12px is reserved for peripheral artwork/microcopy; readable content is 14–16px+.
  */
 :root {

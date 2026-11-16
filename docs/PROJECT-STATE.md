@@ -69,3 +69,7 @@
 ## Typography refinement — 15 Nov 2026
 
 Replaced inconsistent platform-only English font fallbacks with self-hosted **Manrope Variable** and Arabic-script fallback stacks with self-hosted **Vazirmatn Variable**. Updated heading weights and letter spacing to be softer and more legible; public/Studio components share the same tokens. Added `tests/typography.test.mjs` and `docs/TYPOGRAPHY.md`. These changes require `npm install` after pulling. GitHub CI/build results and real-device visual acceptance must be checked separately; this is not a public launch approval.
+
+## Phase 09 — Skills and technologies (16 November 2026)
+
+**IMPLEMENTED IN SOURCE; HOSTED AND DEVICE QA PENDING.** Evidence-linked six-category card grid introduced on Home and About with responsive theming, inline SVGs, accessible links, typography and RTL support. Categories derive from published project records, while GitHub/Netlify are explicitly labeled the current portfolio delivery path. Added navigation anchor and draft Dari/Pashto copy; no automatic owner approval for locales, identity, or public indexing. See docs/PHASE-09.md for scope and acceptance checks.
