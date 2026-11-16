@@ -2,7 +2,7 @@
 .visual-tour{scroll-margin-top:92px;}
 .visual-tour>.case-section-lead{max-width:72ch;}
 .visual-tour-modes,.visual-filter{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0;}
-.visual-tour-modes button,.visual-filter button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;font:700 var(--type-small)/1.5 inherit;padding:10px 15px;min-height:44px;cursor:pointer;}
+.visual-tour-modes button,.visual-filter button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;font-family:inherit;font-size:var(--type-small);font-weight:700;line-height:1.5;padding:10px 15px;min-height:44px;cursor:pointer;}
 .visual-mode--active,.visual-filter button[aria-pressed="true"]{background:var(--accent-soft)!important;border-color:var(--accent)!important;}
 .visual-tour-modes button span{font-variant-numeric:tabular-nums;color:var(--text-muted);margin-inline-start:5px;}
 .visual-tour-card{overflow:hidden;border:1px solid var(--border);border-radius:22px;background:var(--surface);box-shadow:var(--big-shadow);margin-top:20px;}
@@ -50,8 +50,8 @@ video.visual-media{width:min(100%,810px);max-height:460px;background:#000;aspect
 .visual-approved-badge{position:absolute;top:17px;inset-inline-start:18px;border:1px solid rgba(255,255,255,.32);background:rgba(11,20,35,.83);color:#fff;font-size:var(--type-label);padding:6px 9px;border-radius:7px;}
 .visual-stage-caption{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:clamp(17px,2.5vw,25px);border-bottom:1px solid var(--border);}
 .visual-stage-caption strong{font-size:var(--type-card);line-height:1.35;color:var(--text);display:block;}
-.visual-stage-caption p{font-size:var(--type-small);line-height:1.7;color:var(--text-muted);margin:7px 0 0;}
-.visual-open{flex:none;min-height:44px;border:1px solid var(--border);background:var(--surface-raised);color:var(--text);border-radius:9px;padding:10px 13px;font:700 var(--type-small) inherit;cursor:pointer;}
+.visual-stage-caption p{font-size:var(--type-body);line-height:1.7;color:var(--text-muted);margin:7px 0 0;}
+.visual-open{flex:none;min-height:44px;border:1px solid var(--border);background:var(--surface-raised);color:var(--text);border-radius:9px;padding:10px 13px;font-family:inherit;font-size:var(--type-small);font-weight:700;cursor:pointer;}
 .visual-tour-controls{padding:15px clamp(14px,2.5vw,25px);display:flex;align-items:center;gap:11px;justify-content:space-between;}
 .visual-tour-controls>button{border:1px solid var(--border);background:var(--surface-raised);color:var(--text);border-radius:9px;padding:9px 12px;min-height:44px;font:700 var(--type-small) inherit;cursor:pointer;}
 .visual-thumb-list{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px;}

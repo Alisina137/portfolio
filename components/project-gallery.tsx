@@ -108,7 +108,7 @@ export function ProjectGallery({projectTitle,features,items,locale="en"}:Props){
  }
  function modalKeys(event:KeyboardEvent<HTMLDialogElement>){
    if(event.key==="Escape"){event.preventDefault();close();}
-   if(event.key==="ArrowRight"||event.key==="ArrowLeft"){event.preventDefault();const delta=event.key==="ArrowRight"?1:-1;setModalIndex(current=>current===null?null:(current+delta+shown.length)%shown.length);}
+   if((event.key==="ArrowRight"||event.key==="ArrowLeft") && !(event.target instanceof HTMLVideoElement)){event.preventDefault();const delta=event.key==="ArrowRight"?1:-1;setModalIndex(current=>current===null?null:(current+delta+shown.length)%shown.length);}
  }
  const count=t.counter.replace("{current}",String(index+1)).replace("{total}",String(total));
  if(!concepts.length && !items.length)return null;
