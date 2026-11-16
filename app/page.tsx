@@ -9,6 +9,7 @@ import { ServicesSection } from "@/components/services-section";
 import { NowPreview } from "@/components/now-section";
 import { RepositoriesPreview } from "@/components/repositories-section";
 import { ImpactPreview } from "@/components/impact-section";
+import { TestimonialsPreview } from "@/components/testimonials-section";
 import { getFeaturedProjects, siteProfile } from "@/lib/content";
 
 const capabilities = [
@@ -81,20 +82,22 @@ export default function HomePage() {
 
     <ImpactPreview />
 
+    <TestimonialsPreview />
+
     <section className="approach-section section-pad" id="approach">
-      <div className="container"><SectionHeading number="09" kicker="MY APPROACH" title="From problem to product." copy="The most useful technology starts with a clear understanding of the problem." />
+      <div className="container"><SectionHeading number="10" kicker="MY APPROACH" title="From problem to product." copy="The most useful technology starts with a clear understanding of the problem." />
         <div className="method-grid">{method.map((step) => <div className="method-card" key={step.number}><div className="method-top"><span>{step.number}</span><span aria-hidden="true">↗</span></div><h3>{step.title}<span>.</span></h3><p>{step.desc}</p></div>)}</div>
       </div>
     </section>
 
     <section className="about-band section-pad" aria-labelledby="about-preview-title">
-      <div className="container about-band-inner"><div className="about-band-aside"><span className="section-eyebrow"><span>10</span><span className="section-eyebrow-line" /> BEHIND THE BUILDS</span><div className="about-symbol" aria-hidden="true">A<span>S</span><i>✳</i></div></div>
+      <div className="container about-band-inner"><div className="about-band-aside"><span className="section-eyebrow"><span>11</span><span className="section-eyebrow-line" /> BEHIND THE BUILDS</span><div className="about-symbol" aria-hidden="true">A<span>S</span><i>✳</i></div></div>
         <div className="about-band-copy"><h2 id="about-preview-title">Curious by nature.<br/><span>Builder by practice.</span></h2><p>{siteProfile.shortBio}</p><Link href="/about" className="inline-direction">More about me <ArrowRightIcon width="18" height="18" /></Link><div className="about-band-signoff"><span className="signature-bar" /><span>ALISINA SARWARI <i>/</i> SOFTWARE ENGINEER</span></div></div>
       </div>
     </section>
 
     <section className="closing-section section-pad" aria-labelledby="closing-title">
-      <div className="container closing-inner"><span className="section-eyebrow"><span>11</span><span className="section-eyebrow-line" /> KEEP EXPLORING</span>
+      <div className="container closing-inner"><span className="section-eyebrow"><span>12</span><span className="section-eyebrow-line" /> KEEP EXPLORING</span>
         <h2 id="closing-title">Good ideas deserve<br/><em>thoughtful execution.</em></h2>
         <p>Explore the thinking and implementation behind each software project, from early ideas to evolving systems.</p>
         <Link className="button button-primary" href="/contact">Get in touch <ArrowRightIcon /></Link>
