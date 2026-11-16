@@ -81,7 +81,7 @@ test("Full article reads include reading progress, active section navigation and
  const tools=read("components/writing-reader-tools.tsx");
  for(const token of ["WritingReaderTools","WritingShare","getArticleContent(slug)","getRelatedWriting(article)","getPublicProject","generateStaticParams","canIndexPortfolio()"])assert.ok(detail.includes(token),token);
  for(const token of ["role=\"progressbar\"","aria-valuenow={percent}","requestAnimationFrame","aria-current={active===heading.id?","navigator.share","navigator.clipboard","aria-live=\"polite\""])assert.ok(tools.includes(token),token);
- assert.ok(detail.includes("if(!content)notFound()"));
+ assert.ok(detail.includes("if (!content) notFound()"));
  assert.ok(read("app/writing/[slug]/opengraph-image.tsx").includes("getPublicWriting()"));
 });
 test("Home, About, Studio, responsive CSS and publication gate are consistent",()=>{

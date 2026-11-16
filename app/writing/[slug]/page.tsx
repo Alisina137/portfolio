@@ -20,7 +20,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
 }
 export default async function WritingArticlePage({params}:Props){
   const {slug}=await params,content=getArticleContent(slug);
-  if(!content)notFound();
+  if (!content) notFound();
   const {article,headings,blocks,readingMinutes}=content;
   const related=getRelatedWriting(article);
   const projects=article.relatedProjects.map(getPublicProject).filter(p=>p!==undefined);
