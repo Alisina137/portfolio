@@ -2,7 +2,7 @@
 
 A dark-first editorial personal portfolio built using the approved **Product Specification v1.0** and **Software Development Workflow V5**.
 
-**Current milestone:** Phase 05 — content review, release safeguards and deployment handoff. **Release preparation implemented; owner approval and public deployment are blocked/pending.** The development preview deliberately remains `noindex,nofollow` until the P05 launch gates and owner content approval pass.
+**Current milestone:** Phase 20 — professional availability & opportunity fit. All twenty implementation phases have source changes, but owner-reviewed content, genuine contact details, localization signoff, real-device acceptance, and public search-index launch approval remain separate. The existing Netlify-hosted preview is not an approved public launch. The development preview deliberately remains `noindex,nofollow` until the P05 launch gates and owner content approval pass.
 
 ## Routes and content
 
@@ -137,3 +137,7 @@ Verify with `npm test` and `npm run check:locales`. A real Next.js build, render
 ## Netlify GitHub-connected deployment
 
 Netlify is configured for the Next.js App Router in `netlify.toml`: `npm run build` / `.next` / Node 24. **Connecting a personal Netlify account and GitHub repository is an owner action**; this repo alone does not create an internet deployment. Import `Alisina137/portfolio` into Netlify, deploy from `main`, and Netlify will automatically rebuild when changes are merged to `main`. Keep `PORTFOLIO_LAUNCH_APPROVED=false` while the owner review and live acceptance in P05 are outstanding. After receiving Netlify's actual HTTPS URL, configure `NEXT_PUBLIC_SITE_URL` with that origin in Netlify's environment variables and redeploy. Detailed steps and preview QA: [Netlify deployment guide](docs/NETLIFY-DEPLOYMENT.md).
+
+## Phase 20 — professional opportunities / availability (owner reviewed)
+
+The new `/availability` page explains opportunity fit using existing case-study evidence and uses a **neutral, unconfirmed** availability state until a real owner approval is recorded. `content/availability.json` starts with no employment, timing, work-mode or geography claims. An owner can use the optional authenticated Studio Availability tab to propose truthful availability, current preferences and expiration within 90 days; the reviewed PR flow remains mandatory. Contact flows are reused from Phase 19 and Phase 08; no new public submission endpoint, invented scheduling or unapproved email was enabled. Read `docs/PHASE-20.md` and run `npm run check:availability` as part of `npm run verify`.

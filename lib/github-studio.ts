@@ -25,7 +25,7 @@ export async function repoHead(){
   const ref=await gh(root()+'/git/ref/heads/main');return String(ref.object?.sha||'');
 }
 export async function readRepoContent(path:string){
-  const allowed = ['content/profile.json','content/projects.json','content/case-studies.json','content/testimonials.json','content/writing/articles.json'];
+  const allowed = ['content/profile.json','content/projects.json','content/case-studies.json','content/testimonials.json','content/availability.json','content/writing/articles.json'];
   if(!allowed.includes(path) && !/^content\/writing\/[a-z0-9]+(?:-[a-z0-9]+)*\.md$/.test(path)) throw new GitHubStudioError('Invalid file',400);
   const file=await gh(`${root()}/contents/${path}?ref=main`);
   if(file.encoding!=='base64' || typeof file.content!=='string')throw new GitHubStudioError('Unsupported content');
@@ -39,7 +39,7 @@ export async function createEditorialPr(files:FileToWrite[],title:string,expecte
   const commit=await gh(root()+`/git/commits/${head}`);
   const elements=[];
   for(const file of files){
-    if(!/^content\/(?:profile\.json|projects\.json|case-studies\.json|testimonials\.json|writing\/(?:articles\.json|[a-z0-9-]+\.md))$/.test(file.path)
+    if(!/^content\/(?:profile\.json|projects\.json|case-studies\.json|testimonials\.json|availability\.json|writing\/(?:articles\.json|[a-z0-9-]+\.md))$/.test(file.path)
       && !/^public\/media\/[0-9a-f-]{36}\.webp$/.test(file.path)) throw new GitHubStudioError('Unsafe file path',400);
     const blob=await gh(root()+'/git/blobs',{method:'POST',body:JSON.stringify({content:Buffer.isBuffer(file.content)?file.content.toString('base64'):file.content,encoding:Buffer.isBuffer(file.content)?'base64':'utf-8'})});
     elements.push({path:file.path,mode:'100644',type:'blob',sha:blob.sha});

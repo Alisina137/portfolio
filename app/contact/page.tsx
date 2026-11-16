@@ -21,7 +21,7 @@ export default function ContactPage() {
   return <main id="main" tabIndex={-1}>
     <section className="contact-hero section-pad" aria-labelledby="contact-title"><div className="container contact-hero-grid">
       <div><div className="page-eyebrow"><span>03 /</span> LET'S CONNECT</div><h1 id="contact-title">Have a project or<br/><em>opportunity in mind?</em></h1><p className="contact-intro">Engineering roles, practical product ideas, technical collaboration—or a thoughtful question about the work. I'd be glad to hear what you're building.</p>
-        <div className="contact-context"><span className="contact-context-dot" aria-hidden="true" /><span>Based in {identity.location} · Working across web and mobile</span></div>
+        <div className="contact-context"><span className="contact-context-dot" aria-hidden="true" /><span>Based in {identity.location} · Working across web and mobile</span></div><div className="contact-availability-link"><Link href="/availability">Professional availability & opportunity fit <ArrowRightIcon width="17" height="17"/></Link></div>
       </div>
       <div className="contact-orbit" aria-hidden="true"><span className="contact-orbit-large">✳</span><span className="contact-orbit-line" /><span className="contact-orbit-tag">IDEAS → CONVERSATIONS</span></div>
     </div></section>

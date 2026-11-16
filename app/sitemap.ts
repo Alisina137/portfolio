@@ -9,7 +9,7 @@ import { localizePath } from "@/lib/i18n-core.mjs";
 /** Only approved, reachable, case-study routes are included. No draft slugs. */
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!canIndexPortfolio()) return [];
-  const staticPaths = ["/", "/projects", "/services", "/now", "/repositories", "/impact", "/testimonials", "/about", "/contact"];
+  const staticPaths = ["/", "/projects", "/services", "/now", "/repositories", "/impact", "/testimonials", "/availability", "/about", "/contact"];
   const projectPaths = getPublishedProjects().filter(p => p.contentApproval === "owner_approved" && Boolean(getCaseStudy(p.slug)))
     .map(p => `/projects/${p.slug}`);
   const writingPaths = writingIsLive() ? ["/writing", ...getPublicWriting().map(article => `/writing/${article.slug}`)] : [];

@@ -1,0 +1,58 @@
+/* Phase 20 — professional availability, editorial evidence and owner review. */
+.availability-preview{background:radial-gradient(ellipse at 13% 8%,color-mix(in srgb,var(--premium-sky) 12%,transparent),transparent 58%),var(--surface);border-block:1px solid var(--border)}
+.availability-preview-grid{display:grid;grid-template-columns:1.13fr .87fr;gap:clamp(28px,6vw,100px);align-items:center}
+.availability-preview-copy h2{font:760 var(--type-section)/1.18 var(--font-display);letter-spacing:-.045em;max-width:18ch;margin:22px 0 16px}
+.availability-preview-copy p{max-width:59ch;font:500 var(--type-body)/1.8 var(--font-text);color:var(--text-muted);margin:0 0 25px}
+.availability-preview-card{min-width:0;position:relative;overflow:hidden;padding:clamp(26px,4vw,48px);min-height:250px;border:1px solid color-mix(in srgb,var(--premium-sky) 24%,var(--border));border-radius:27px;display:flex;align-items:start;justify-content:center;flex-direction:column;background:radial-gradient(circle at 95% 8%,color-mix(in srgb,var(--accent) 19%,transparent),transparent 60%),var(--bg)}
+.availability-preview-watermark{position:absolute;font:800 clamp(12rem,20vw,22rem)/1 var(--font-display);inset-inline-end:-20px;top:-40px;opacity:.07;color:var(--accent);pointer-events:none}
+.availability-preview-card strong{position:relative;display:block;font:750 var(--type-card)/1.25 var(--font-display);letter-spacing:-.022em;margin:17px 0 13px;max-width:18ch}
+.availability-preview-card p{position:relative;color:var(--text-muted);line-height:1.75;font-size:var(--type-body);margin:0;max-width:50ch}
+.availability-status-eyebrow{display:block;font:750 var(--type-label)/1.4 var(--font-text);letter-spacing:.1em;color:var(--accent)}
+.availability-hero{background:radial-gradient(ellipse at 85% 3%,color-mix(in srgb,var(--premium-violet) 16%,transparent),transparent 47%),var(--bg)}
+.availability-hero-grid{display:grid;grid-template-columns:1fr .95fr;gap:clamp(28px,6vw,90px);align-items:center}
+.availability-hero h1{font:770 var(--type-page)/1.07 var(--font-display);letter-spacing:-.053em;max-width:14ch;margin:25px 0}
+.availability-hero p{font-size:var(--type-body);line-height:1.85;color:var(--text-muted);max-width:64ch;margin:0 0 28px}
+.availability-hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(300px,38vw,510px);border-radius:32px;border:1px solid var(--border);overflow:hidden;background:radial-gradient(circle at 68% 30%,color-mix(in srgb,var(--premium-sky) 17%,transparent),transparent 46%),linear-gradient(140deg,color-mix(in srgb,var(--premium-violet) 12%,var(--surface)),var(--surface))}
+.availability-art-star{font:800 clamp(10rem,22vw,19rem)/1 var(--font-display);position:absolute;inset-inline-end:-3%;top:0;color:var(--accent);opacity:.11}
+.availability-art-line{position:absolute;inset:20px;border:1px solid color-mix(in srgb,var(--accent) 19%,var(--border));border-radius:21px}
+.availability-hero-art strong{font:800 clamp(2.7rem,5vw,5.6rem)/1.15 var(--font-display);letter-spacing:-.07em;position:relative;color:var(--text);text-align:center}
+.availability-hero-art strong span{font-weight:400;color:var(--accent)}
+.availability-hero-art small{position:absolute;bottom:31px;inset-inline-start:35px;font:750 var(--type-label)/1.2 var(--font-text);letter-spacing:.15em;color:var(--text-muted)}
+.availability-detail{background:var(--surface);border-block:1px solid var(--border)}
+.availability-status{padding:clamp(22px,4vw,54px);border:1px solid var(--border);border-radius:26px;background:linear-gradient(135deg,color-mix(in srgb,var(--premium-sky) 8%,var(--bg)),var(--bg));box-shadow:0 12px 40px rgba(4,15,31,.045)}
+.availability-status--open{border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+.availability-status-line{display:flex;align-items:center;gap:12px}
+.availability-state-dot{width:11px;height:11px;border-radius:100%;background:var(--text-muted);box-shadow:0 0 0 6px color-mix(in srgb,var(--text-muted) 15%,transparent)}
+.availability-status--open .availability-state-dot{background:#20bb8d;box-shadow:0 0 0 6px rgba(32,187,141,.12)}
+.availability-status--selective .availability-state-dot{background:#e0a331;box-shadow:0 0 0 6px rgba(224,163,49,.14)}
+.availability-status h2{font:760 var(--type-section)/1.21 var(--font-display);margin:23px 0 14px;letter-spacing:-.04em;max-width:27ch}
+.availability-status>p{font:500 var(--type-body)/1.8 var(--font-text);color:var(--text-muted);max-width:77ch;margin:0}
+.availability-dates{display:flex;gap:14px 27px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:19px;margin-top:24px;color:var(--text-muted);font-size:var(--type-small)}
+.availability-dates time{color:var(--text);font-weight:750}
+.availability-status .availability-note{color:var(--text);margin-top:15px;font-weight:650}
+.availability-preferences{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:16px}
+.availability-preference{border-radius:18px;border:1px solid var(--border);padding:clamp(19px,2.5vw,28px);background:var(--bg)}
+.availability-preference h3{font:750 var(--type-body)/1.4 var(--font-display);margin:0 0 16px}
+.availability-tag-list{display:flex;gap:8px;flex-wrap:wrap}
+.availability-tag-list span{border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:var(--type-small);padding:8px 14px;font-weight:620;line-height:1.35}
+.availability-proof{background:var(--bg)}
+.availability-heading>div{display:grid;grid-template-columns:1fr .95fr;align-items:end;gap:clamp(18px,4vw,80px);margin:21px 0 30px}
+.availability-heading h2{font:760 var(--type-section)/1.18 var(--font-display);letter-spacing:-.044em;margin:0;max-width:21ch}
+.availability-heading p{margin:0;font:500 var(--type-body)/1.85 var(--font-text);color:var(--text-muted);max-width:60ch}
+.availability-proof-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.availability-proof-card{display:flex;min-width:0;flex-direction:column;gap:13px;padding:clamp(20px,2.9vw,32px);border:1px solid var(--border);border-radius:21px;background:linear-gradient(145deg,color-mix(in srgb,var(--surface-raised) 28%,var(--surface)),var(--surface))}
+.availability-proof-top{display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-size:var(--type-small);font-weight:750}
+.availability-proof-card h3{font:750 var(--type-card)/1.27 var(--font-display);letter-spacing:-.027em;margin:15px 0 0}
+.availability-proof-card p{font:500 var(--type-body)/1.75 var(--font-text);color:var(--text-muted);margin:0 0 12px;flex:1}
+.availability-proof-card a{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:var(--type-small);color:var(--accent);font-weight:750;text-decoration:underline;text-underline-offset:4px}
+.availability-close{text-align:center;background:radial-gradient(ellipse at 50% 100%,color-mix(in srgb,var(--premium-sky) 10%,transparent),transparent 60%),var(--surface);border-top:1px solid var(--border)}
+.availability-close-inner>.section-eyebrow{justify-content:center}
+.availability-close h2{font:760 var(--type-section)/1.18 var(--font-display);letter-spacing:-.044em;margin:20px auto 14px;max-width:24ch}
+.availability-close p{font:500 var(--type-body)/1.85 var(--font-text);color:var(--text-muted);max-width:66ch;margin:0 auto 27px}
+.availability-actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+.availability-close .availability-disclaimer{font-size:var(--type-small);margin-top:23px;margin-bottom:0}
+.availability-preview :focus-visible,.availability-hero :focus-visible,.availability-proof :focus-visible,.availability-close :focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+@media(max-width:1000px){.availability-preview-grid,.availability-hero-grid,.availability-heading>div{grid-template-columns:1fr}.availability-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.availability-hero-art{min-height:280px}}
+@media(max-width:720px){.availability-proof-grid,.availability-preferences{grid-template-columns:1fr}.availability-hero-art{min-height:240px}.availability-preview-card{min-height:190px}.availability-actions .button{width:100%}}
+@media(max-width:520px){.availability-hero h1{font-size:var(--type-page)}.availability-proof-card{padding:20px}.availability-status{padding:22px}.availability-close .button{justify-content:center}}
+@media(prefers-reduced-motion:reduce){.availability-hero-art *{animation:none!important;transition:none!important}}

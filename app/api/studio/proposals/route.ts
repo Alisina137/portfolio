@@ -5,9 +5,10 @@ import { studioConfig,validSameOrigin,validateStudioChange } from '@/lib/phase08
 import { readLimitedJson } from '@/lib/request-json';
 import { validateWritingManifest,parseArticle } from '@/lib/writing-core.mjs';
 import { isApprovedTestimonial } from '@/lib/testimonials-core.mjs';
+import { validateAvailabilityRecord, isPublicAvailability } from '@/lib/availability-core.mjs';
 
 export const runtime='nodejs';
-const paths={profile:'content/profile.json',project:'content/projects.json',case:'content/case-studies.json',article:'content/writing/articles.json',testimonial:'content/testimonials.json'};
+const paths={profile:'content/profile.json',project:'content/projects.json',case:'content/case-studies.json',article:'content/writing/articles.json',testimonial:'content/testimonials.json',availability:'content/availability.json'};
 export async function POST(req:NextRequest){
   const cfg=studioConfig();if(!cfg.enabled)return new Response('Not found',{status:404});
   if(!await getStudioSession())return Response.json({error:'Sign in required'},{status:401});
@@ -19,12 +20,17 @@ export async function POST(req:NextRequest){
     if(!Object.hasOwn(paths,kind) || typeof expectedHead!=='string'||!/^[a-f0-9]{40}$/.test(expectedHead)||!fields||typeof fields!=='object')return Response.json({error:'Invalid change request'},{status:400});
     const path=paths[kind as keyof typeof paths];
     const source=await readRepoContent(path);const parsed=JSON.parse(source.content);
-    const original=kind==='profile'||kind==='testimonial'?parsed:(Array.isArray(parsed)?parsed.find((v:any)=>v.slug===slug):undefined);
+    const original=kind==='profile'||kind==='testimonial'||kind==='availability'?parsed:(Array.isArray(parsed)?parsed.find((v:any)=>v.slug===slug):undefined);
     if(!original)return Response.json({error:'Content record not found'},{status:404});
-    const change=kind==='testimonial'?null:validateStudioChange({kind,slug,fields},original);
-    if(kind!=='testimonial' && !change)return Response.json({error:'Invalid content values'},{status:422});
+    const change=kind==='testimonial'||kind==='availability'?null:validateStudioChange({kind,slug,fields},original);
+    if(kind!=='testimonial' && kind!=='availability' && !change)return Response.json({error:'Invalid content values'},{status:422});
     const files:{path:string;content:string}[]=[];
-    if(kind==='testimonial'){
+    if(kind==='availability'){
+      // One single owner-authored, time-limited public status. Even Studio creates only a draft review PR.
+      if(!validateAvailabilityRecord(fields) || (fields.ownerApproval==='owner_approved' && !isPublicAvailability(fields)))
+        return Response.json({error:'Availability requires valid status, owner approval, dates and current truthful work preferences'},{status:422});
+      files.push({path,content:JSON.stringify(fields,null,2)+'\n'});
+    }else if(kind==='testimonial'){
       // Owner-authenticated, source-controlled PR only; no anonymous testimonial endpoint.
       const permitted=new Set(['id','name','role','organization','relationship','quote','context','projectSlug','profileUrl','language','published','ownerApproved','identityVerified','evidenceReviewed','consentToPublish','consentedAt','reviewedAt']);
       if(!Array.isArray(parsed.entries) || Object.keys(fields).some(key=>!permitted.has(key)) || !isApprovedTestimonial(fields))
@@ -53,7 +59,7 @@ export async function POST(req:NextRequest){
       const next=kind==='profile'?change:parsed.map((v:any)=>v.slug===slug?change:v);
       files.push({path,content:JSON.stringify(next,null,2)+'\n'});
     }
-    const name=kind==='profile'?'profile':kind==='testimonial'?`recommendation ${fields.id}`:`${kind} ${slug}`;
+    const name=kind==='profile'?'profile':kind==='availability'?'availability preferences':kind==='testimonial'?`recommendation ${fields.id}`:`${kind} ${slug}`;
     const result=await createEditorialPr(files,`review ${name}`,expectedHead);
     return Response.json({ok:true,...result},{status:201,headers:{'Cache-Control':'no-store'}});
   }catch(e){

@@ -10,7 +10,7 @@ if (!origin || (mode === 'launch' && !origin.startsWith('https://'))) {
   console.error('Supply an actual origin via --url=https://your-domain.example or PORTFOLIO_DEPLOYED_URL. Launch checks require HTTPS.');
   process.exit(2);
 }
-const paths = ['/', '/projects', '/about', '/contact', '/projects/maktablink'];
+const paths = ['/', '/projects', '/about', '/contact', '/availability', '/projects/maktablink'];
 const requirements = [];
 const errors = [];
 const check = (name, passed) => { requirements.push(name); if (!passed) errors.push(name); };

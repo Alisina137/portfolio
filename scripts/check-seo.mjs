@@ -9,9 +9,9 @@ const projects = JSON.parse(read('content/projects.json'));
 const cases = JSON.parse(read('content/case-studies.json'));
 const profile = JSON.parse(read('content/profile.json'));
 const errors = [];
-const required = ['app/robots.ts', 'app/sitemap.ts', 'app/not-found.tsx', 'app/error.tsx', 'app/opengraph-image.tsx', 'app/about/opengraph-image.tsx', 'app/contact/opengraph-image.tsx', 'app/projects/opengraph-image.tsx', 'app/services/opengraph-image.tsx', 'app/repositories/opengraph-image.tsx', 'app/impact/opengraph-image.tsx', 'app/now/opengraph-image.tsx', 'app/projects/[slug]/opengraph-image.tsx'];
+const required = ['app/robots.ts', 'app/sitemap.ts', 'app/not-found.tsx', 'app/error.tsx', 'app/opengraph-image.tsx', 'app/about/opengraph-image.tsx', 'app/contact/opengraph-image.tsx', 'app/projects/opengraph-image.tsx', 'app/services/opengraph-image.tsx', 'app/repositories/opengraph-image.tsx', 'app/impact/opengraph-image.tsx', 'app/now/opengraph-image.tsx', 'app/availability/opengraph-image.tsx', 'app/projects/[slug]/opengraph-image.tsx'];
 for (const file of required) if (!fs.existsSync(path.join(root, file))) errors.push(`Missing ${file}`);
-for (const file of ['app/layout.tsx', 'app/about/page.tsx', 'app/contact/page.tsx', 'app/projects/page.tsx', 'app/services/page.tsx', 'app/repositories/page.tsx', 'app/impact/page.tsx', 'app/now/page.tsx', 'app/projects/[slug]/page.tsx']) {
+for (const file of ['app/layout.tsx', 'app/about/page.tsx', 'app/contact/page.tsx', 'app/projects/page.tsx', 'app/services/page.tsx', 'app/repositories/page.tsx', 'app/impact/page.tsx', 'app/now/page.tsx', 'app/availability/page.tsx', 'app/projects/[slug]/page.tsx']) {
   if (!read(file).includes('createPageMetadata(')) errors.push(`Page metadata missing: ${file}`);
 }
 if (!read('app/sitemap.ts').includes('writingIsLive()') || !read('app/layout.tsx').includes('writingIsLive()')) errors.push('Writing routes and navigation must share the owner approval guard.');

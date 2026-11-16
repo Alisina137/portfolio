@@ -10,6 +10,7 @@ import englishNow from '@/content/now.json';
 import englishRepositories from '@/content/repositories.json';
 import englishImpact from '@/content/impact.json';
 import englishTestimonials from '@/content/testimonials.json';
+import englishAvailability from '@/content/availability.json';
 import writing from '@/content/writing/articles.json';
 import faUi from '@/content/locales/fa-ui.json';
 import psUi from '@/content/locales/ps-ui.json';
@@ -41,7 +42,7 @@ export function getTranslatedCase(locale: 'fa' | 'ps', study: CaseStudy): CaseSt
   return { ...study, ...record, slug: study.slug, media: [] };
 }
 export function localeContentFingerprint() {
-  return createHash('sha256').update(JSON.stringify([englishProfile, englishProjects, englishCases, writing, englishExperience, englishQualifications, englishServices, englishNow, englishRepositories, englishImpact, englishTestimonials])).digest('hex');
+  return createHash('sha256').update(JSON.stringify([englishProfile, englishProjects, englishCases, writing, englishExperience, englishQualifications, englishServices, englishNow, englishRepositories, englishImpact, englishTestimonials, englishAvailability])).digest('hex');
 }
 export function translationsOwnerApproved(locale: 'fa' | 'ps') {
   return localeApproved(locale, approval, localeContentFingerprint(), writingIsLive(), false);

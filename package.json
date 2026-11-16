@@ -6,14 +6,14 @@
   "description": "Alisina Sarwari — engineering and product portfolio",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
-    "build": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:now && npm run check:repositories && npm run check:impact && npm run check:testimonials && npm run check:inquiry && npm run check:writing && npm run check:locales && next build",
+    "build": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:now && npm run check:repositories && npm run check:impact && npm run check:testimonials && npm run check:inquiry && npm run check:availability && npm run check:writing && npm run check:locales && next build",
     "start": "next start --hostname 0.0.0.0",
     "check:content": "node scripts/check-content.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "smoke:http": "node scripts/smoke-http.mjs",
     "check:release": "node scripts/check-launch.mjs --strict && node scripts/check-content.mjs --release",
     "test": "node scripts/render-preview.mjs && node scripts/render-catalog-preview.mjs && node scripts/render-identity-preview.mjs && node --test tests/*.test.mjs",
-    "verify": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:now && npm run check:repositories && npm run check:impact && npm run check:testimonials && npm run check:inquiry && npm run check:seo && npm run check:writing && npm run check:locales && npm run check:launch && npm run test && npm run build",
+    "verify": "npm run check:content && npm run check:credentials && npm run check:services && npm run check:now && npm run check:repositories && npm run check:impact && npm run check:testimonials && npm run check:inquiry && npm run check:availability && npm run check:seo && npm run check:writing && npm run check:locales && npm run check:launch && npm run test && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
     "check:launch:strict": "node scripts/check-launch.mjs --strict",
     "check:links": "node scripts/verify-public-links.mjs",
@@ -28,7 +28,8 @@
     "check:repositories": "node scripts/check-repositories.mjs",
     "check:impact": "node scripts/check-impact.mjs",
     "check:testimonials": "node scripts/check-testimonials.mjs",
-    "check:inquiry": "node scripts/check-inquiry.mjs"
+    "check:inquiry": "node scripts/check-inquiry.mjs",
+    "check:availability": "node scripts/check-availability.mjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "5.3.0",
