@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createPageMetadata } from "@/lib/seo";
 import { getArticleReadingMinutes, getPublicWriting, writingIsLive } from "@/lib/writing";
-import { listWritingCatalog, writingCatalogHref, type WritingQuery } from "@/lib/writing-catalog.mjs";
+import { listWritingCatalog, writingCatalogHref } from "@/lib/writing-catalog.mjs";
 import { ArrowRightIcon } from "@/components/icons";
 
 type Search = Record<"q" | "category" | "tag" | "sort" | "page", string | string[] | undefined>;
@@ -19,7 +19,7 @@ export function generateMetadata(): Metadata {
   });
 }
 export default async function WritingPage({searchParams}:Props){
-  if(!writingIsLive())notFound();
+  if (!writingIsLive()) notFound();
   const articles=getPublicWriting();
   const search=await searchParams;
   const listing=listWritingCatalog(articles,Object.fromEntries(Object.entries(search).map(([key,value])=>[key,first(value)])));

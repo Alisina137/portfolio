@@ -24,7 +24,7 @@ test("Phase 18 keeps both originals unapproved, unpublished and absent from publ
   assert.equal(article.publishedAt,null);
   assert.equal(article.updatedAt,null);
  }
- assert.ok(read("app/writing/page.tsx").includes("if(!writingIsLive())notFound()"));
+ assert.ok(read("app/writing/page.tsx").includes("if (!writingIsLive()) notFound()"));
  assert.ok(read("components/writing-preview.tsx").includes("if(articles.length<2)return null"));
 });
 test("Writing directory search examines titles, excerpt, category and tags; case- and whitespace-folded",()=>{
