@@ -56,7 +56,7 @@
 .now-work-end>a:hover,.now-focus-evidence a:hover{text-decoration:underline;text-underline-offset:4px;}
 .now-empty{border:1px dashed var(--border);border-radius:17px;text-align:center;padding:35px;background:var(--surface);}
 .now-empty p{margin:0 0 14px;color:var(--text-muted);font-size:var(--type-body);}
-.now-empty button{border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);color:var(--text);padding:10px 15px;font:700 var(--type-small) inherit;cursor:pointer;}
+.now-empty button{border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);color:var(--text);padding:10px 15px;font-size:var(--type-small);font-weight:700;font-family:inherit;cursor:pointer;}
 .now-explorer-disclaimer{font-size:var(--type-small);color:var(--text-muted);line-height:1.75;margin:23px 0 0;max-width:88ch;}
 .now-focus{border-block:1px solid var(--border);background:radial-gradient(ellipse at 90% 4%,color-mix(in srgb,var(--premium-violet) 8%,transparent),transparent 48%),var(--bg);}
 .now-focus-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;}

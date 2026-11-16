@@ -80,6 +80,6 @@ test("Services CSS supports tablet menu, RTL, accessibility and reduced motion",
   assert.ok(css.includes("@media(prefers-reduced-motion:reduce)"));
   assert.ok(css.includes('html[dir="rtl"]'));
   assert.ok(css.includes("overscroll-behavior:contain"));
-  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1361"));
+  assert.ok(read("components/site-header.tsx").includes("window.innerWidth >= 1501"));
   assert.doesNotMatch(css,/https?:\/\//);
 });
